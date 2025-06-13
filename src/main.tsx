@@ -1,0 +1,57 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import React from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router'
+import InstPreparePage from '../pages/instructor/prepare/page.js'
+import InstInClass from '../pages/instructor/in-class/page.js'
+import InstAtTheEnd from '../pages/instructor/at-the-end/page.js'
+import StdHomework from '../pages/student/homework/page.js'
+import StdProgressPage from '../pages/student/progress/page.js'
+import StdReviewCheckPage from '../pages/student/review-check/page.js'
+import StudentLayout from './layouts/student/StudentLayout.js'
+
+const router = createBrowserRouter([
+  
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/prepare",
+    element: <InstPreparePage />
+  },
+  {
+    path: "/in-class",
+    element: <InstInClass />
+  },
+  {
+    path: "/at-the-end",
+    element: <InstAtTheEnd />
+  },
+  {
+    path: "/student",
+    element: <StudentLayout />
+  },
+  {
+    path: "/progress",
+    element: <StdProgressPage />
+  },
+  {
+    path: "/review-check",
+    element: <StdReviewCheckPage />
+  },
+  // {
+  //   path: "/prepare",
+  //   element: <PrepareHomePage />,
+  //   children: [{
+  //     path: "progress",
+  //     element: <Progress />
+  //   }]
+  // }
+]);
+
+createRoot(document.getElementById('root')!).render(
+  <RouterProvider router={router} />
+)
