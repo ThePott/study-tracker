@@ -13,45 +13,32 @@ import StdReviewCheckPage from '../pages/student/review-check/page.js'
 import StudentLayout from './layouts/student/StudentLayout.js'
 
 const router = createBrowserRouter([
-  
   {
-    path: "/",
-    element: <App />,
+    // path: "/student",
+    element: <StudentLayout />,
+    children: [
+      {
+        path: "/",
+        element: <App />,
+      },
+      {
+        path: "/homework",
+        element: <StdHomework />
+      },
+      {
+        path: "/progress",
+        element: <StdProgressPage />
+      },
+      {
+        path: "/review-check",
+        element: <StdReviewCheckPage />
+      }
+    ]
   },
-  {
-    path: "/prepare",
-    element: <InstPreparePage />
-  },
-  {
-    path: "/in-class",
-    element: <InstInClass />
-  },
-  {
-    path: "/at-the-end",
-    element: <InstAtTheEnd />
-  },
-  {
-    path: "/student",
-    element: <StudentLayout />
-  },
-  {
-    path: "/progress",
-    element: <StdProgressPage />
-  },
-  {
-    path: "/review-check",
-    element: <StdReviewCheckPage />
-  },
-  // {
-  //   path: "/prepare",
-  //   element: <PrepareHomePage />,
-  //   children: [{
-  //     path: "progress",
-  //     element: <Progress />
-  //   }]
-  // }
 ]);
 
 createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
 )
