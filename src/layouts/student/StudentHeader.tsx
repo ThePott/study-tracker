@@ -35,12 +35,12 @@ const RoundLink = (menu: Menu, currentEndpoint: string) => {
   const linkStyle = `${color} w-[100px] p-3 flex justify-center items-center rounded-t-[12px] z-10`
 
   return (
-    <div className='flex'>
+    <div key={`${menu.endpoint}-outer`} className='flex'>
       <div key={`${menu.endpoint}-in-left`} className={`${leftStyle}`}></div>
       <Link key={menu.endpoint} to={`/student/${menu.endpoint}`} className={linkStyle}>
         {menu.label}
       </Link>
-      <div className={`${rightStyle}`}></div>
+      <div key={`${menu.endpoint}-in-right`} className={`${rightStyle}`}></div>
     </div>
   )
 }
