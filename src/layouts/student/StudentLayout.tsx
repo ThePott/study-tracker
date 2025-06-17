@@ -5,7 +5,7 @@ import StudentHeader from './StudentHeader'
 const StudentLayout = () => {
   return (
     <div className='w-full h-full bg-black flex justify-center items-center'>
-      <div className='w-2xl h-full bg-blue-300 sm:h-[800px] flex'>
+      <div className='w-2xl h-full bg-blue-300 sm:h-[800px]'>
         
         <StudentHeader />
         <Outlet context={Children}/>

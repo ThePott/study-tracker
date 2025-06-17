@@ -1,7 +1,8 @@
+import { common } from '@mui/material/colors';
 import React from 'react'
 import { Link } from 'react-router';
+import { useLocation } from 'react-router'
 
-// const menuArray = ["요약", "진도표", "오답 체크"] // <-- 나중에 이걸로 갈아끼워야 함
 class Menu {
   endpoint: string;
   label: string;
@@ -13,25 +14,45 @@ class Menu {
 }
 
 const menuArray = [
-  new Menu("homework", "숙제"),
-  new Menu("progress", "진도"),
-  new Menu("review-check", "오답"),
+  new Menu("summary", "요약"),
+  new Menu("progress", "진도표"),
+  new Menu("review-check", "오답 체크"),
 ]
 
-const RoundLink = (menu: Menu) => {
+const RoundLink = (menu: Menu, currentEndpoint: string) => {
+  const isSelected = menu.endpoint === currentEndpoint
+
+  const commonXStyle = "w-4 bg-black"
+  const leftStyle = `${commonXStyle} ${isSelected ? "rounded-br-[12px]" : ""}`
+  const rightStyle = `${commonXStyle} ${isSelected ? "rounded-bl-[12px]" : ""}`
+
+  const color = isSelected ? "bg-white" : "bg-amber-600"
+  const linkStyle = `py-3 flex justify-center items-center ${color} rounded-t-[12px]`
+
   return (
-    <Link key={menu.endpoint} to={`/${menu.endpoint}`} className='w-12 h-12 bg-amber-600 flex justify-center items-center rounded-full'>
-      {menu.label}
-    </Link>
+    <div className='flex'>
+      <div key={`${menu.endpoint}-out-left`} className='bg-white'>
+        <div key={`${menu.endpoint}-in-left`} className={`${leftStyle}`}></div>
+      </div>
+      <Link key={menu.endpoint} to={`/student/${menu.endpoint}`} className={linkStyle}>
+        {menu.label}
+      </Link>
+      <div className={`${rightStyle}`}></div>
+    </div>
   )
 }
 
 const StudentHeader = () => {
+  const location = useLocation()
+  const currentEndpoint = location.pathname.split("/").at(-1)
+
   return (
-    <div className='h-full bg-amber-700 p-3 flex flex-col items-center gap-3 w-18'>
-      {menuArray.map((menu) => RoundLink(menu))}
+    <div className='w-full bg-amber-700 px-3 pt-3 flex items-center'>
+      {menuArray.map((menu) => RoundLink(menu, currentEndpoint ?? ""))}
     </div>
   )
 }
+
+
 
 export default StudentHeader
