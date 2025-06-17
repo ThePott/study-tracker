@@ -19,21 +19,24 @@ const menuArray = [
   new Menu("review-check", "오답 체크"),
 ]
 
+const activeTabColor = "bg-bg0"
+const inactiveTabColor = "bg-black"
+
 const RoundLink = (menu: Menu, currentEndpoint: string) => {
   const isSelected = menu.endpoint === currentEndpoint
 
-  const commonXStyle = "w-4 bg-black"
+  // side block style
+  const commonXStyle = `w-4 z-10 ${inactiveTabColor}`
   const leftStyle = `${commonXStyle} ${isSelected ? "rounded-br-[12px]" : ""}`
   const rightStyle = `${commonXStyle} ${isSelected ? "rounded-bl-[12px]" : ""}`
 
-  const color = isSelected ? "bg-white" : "bg-amber-600"
-  const linkStyle = `py-3 flex justify-center items-center ${color} rounded-t-[12px]`
+  // link style
+  const color = isSelected ? activeTabColor : inactiveTabColor
+  const linkStyle = `${color} w-[100px] p-3 flex justify-center items-center rounded-t-[12px] z-10`
 
   return (
     <div className='flex'>
-      <div key={`${menu.endpoint}-out-left`} className='bg-white'>
-        <div key={`${menu.endpoint}-in-left`} className={`${leftStyle}`}></div>
-      </div>
+      <div key={`${menu.endpoint}-in-left`} className={`${leftStyle}`}></div>
       <Link key={menu.endpoint} to={`/student/${menu.endpoint}`} className={linkStyle}>
         {menu.label}
       </Link>
@@ -47,8 +50,13 @@ const StudentHeader = () => {
   const currentEndpoint = location.pathname.split("/").at(-1)
 
   return (
-    <div className='w-full bg-amber-700 px-3 pt-3 flex items-center'>
+    <div className='w-full h-[60px] pt-3 bg-amber-700 flex items-center relative sm:rounded-t-[24px]'>
+      <div className={`w-full h-1/2 absolute top-0 ${inactiveTabColor} sm:rounded-t-[24px]`}></div>
+      <div className={`w-full h-1/2 absolute bottom-0 ${activeTabColor}`}></div>
+
+      <div className={`w-[16px] h-full z-10 ${inactiveTabColor} sm:rounded-tl-[24px]`}></div>
       {menuArray.map((menu) => RoundLink(menu, currentEndpoint ?? ""))}
+      <div className={`h-full z-10 grow ${inactiveTabColor} sm:rounded-tr-[24px]`}></div>
     </div>
   )
 }

@@ -5,11 +5,11 @@ import StudentHeader from './StudentHeader'
 const StudentLayout = () => {
   return (
     <div className='w-full h-full bg-black flex justify-center items-center'>
-      <div className='w-2xl h-full bg-blue-300 sm:h-[800px]'>
-        
+      <div className='w-2xl bg-bg0 sm:h-[800px] sm:rounded-[24px]'>
         <StudentHeader />
-        <Outlet context={Children}/>
-      
+        <main className='p-[12px]'>
+          <Outlet context={Children} />
+        </main>
       </div>
     </div>
   )
