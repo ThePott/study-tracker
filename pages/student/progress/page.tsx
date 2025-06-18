@@ -1,44 +1,62 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { ProgressData } from '../_interfaces/student-interfaces'
+import ProgressInBook from './ProgressInBook'
 
 // Custom hook for API calls
 const useStudentProgress = (studentId: string) => {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [dataArray, setDataArray] = useState<ProgressData[] | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState(null)
-  
+
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataArray = async () => {
       try {
         setLoading(true)
         const url = `http://localhost:3030/student/${studentId}/progress`
         const response = await axios.get(url)
-        setData(response.data)
+        setDataArray(response.data)
       } catch (err) {
         setError(err.message)
       } finally {
         setLoading(false)
       }
     }
-    
-    fetchData()
+
+    fetchDataArray()
   }, [studentId])
-  
-  return { data, loading, error }
+
+  return { dataArray, loading, error }
 }
 
 // Component using the custom hook
 const StdProgressPage = () => {
   const studentId = "68494394d9f33f23de4513c5"
-  const { data, loading, error } = useStudentProgress(studentId)
-  
+  const { dataArray, loading, error } = useStudentProgress(studentId)
+  if (!dataArray) { return null }
+
+  const bookIdArray: string[] = []
+  const categorizedObject = {}
+
+  for (const data of dataArray) {
+    const { bookId } = data
+
+    if (!bookIdArray.includes(bookId)) {
+      bookIdArray.push(bookId)
+      categorizedObject[bookId] = []
+    }
+
+    categorizedObject[bookId].push(data)
+  }
+
+  const entryArray: [string, ProgressData[]][] = Object.entries(categorizedObject)
+
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
-  
+
   return (
-    <div>
-      <h1>Student Progress Page</h1>
-      {data && <div>{JSON.stringify(data, null, 2)}</div>}
+    <div className='flex bg-purple-300'>
+      {entryArray.map((entry) => <ProgressInBook bookId={entry[0]} dataArray={entry[1]} />)}
     </div>
   )
 }
