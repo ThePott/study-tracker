@@ -56,7 +56,7 @@ const StdProgressPage = () => {
 
   return (
     <div className='flex bg-purple-300'>
-      {entryArray.map((entry) => <ProgressInBook bookId={entry[0]} dataArray={entry[1]} />)}
+      {entryArray.map((entry) => <ProgressInBook key={JSON.stringify(entry)} bookId={entry[0]} dataArray={entry[1]} />)}
     </div>
   )
 }

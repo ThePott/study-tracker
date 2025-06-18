@@ -23,11 +23,13 @@ interface BookData {
 }
 
 // ---- progress collection ----
+const possibleCompletedArray = ["NOT_STARTED", "IN_PROGRESS", "COMPLETED"] as const;
+type CompletedStatus = typeof possibleCompletedArray[number]; // "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED"
 interface ProgressData {
   _id: string;
   groupId: string;
   bookId: string;
-  completed: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED"; // adjust based on possible values
+  completed: CompletedStatus; // adjust based on possible values
   doNeedToAsk: boolean;
   stepId: string;
   studentId: string;
@@ -36,4 +38,4 @@ interface ProgressData {
 }
 
 
-export { ProgressData, BookData, Topic, Step, QuestionGroup }
+export { ProgressData, BookData, Topic, Step, QuestionGroup, possibleCompletedArray, CompletedStatus }
