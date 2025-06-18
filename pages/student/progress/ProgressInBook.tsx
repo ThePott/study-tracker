@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BookData, CompletedStatus, ProgressData, QuestionGroup, Topic } from '../_interfaces/student-interfaces'
 import axios from 'axios'
-import { useOneBook } from './apiHooks'
+import { useOneBook, useUpdateProgressCompleted } from './apiHooks'
 
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -10,6 +10,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { possibleCompletedArray } from '../_interfaces/student-interfaces';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 // 여기서 북 데이터로 박스들을 만든 다음에 data(progress)를 이용해서 현재 state를 표시해야 함
@@ -27,20 +28,31 @@ const ProgressInBook = ({ bookId, dataArray }: { bookId: string, dataArray: Prog
         if (!progress) { return <div>---- Unhnadled Error: No matching progress found ----</div> }
 
         const [completed, setCompleted] = useState<CompletedStatus>(progress.completed)
-
-        const clickThenUpdateCompleted = () => {
+        // let outerIsLoading = false
+        const setCompletedToNext = () => {
             const currentIndex = possibleCompletedArray.indexOf(completed)
             const nextIndex = (currentIndex + 1) % possibleCompletedArray.length
             const nextCompleted = possibleCompletedArray[nextIndex]
 
             setCompleted(nextCompleted)
+            return nextCompleted
+        }
+
+        const { updateProgressCompleted, isLoading, error } = useUpdateProgressCompleted(progress._id)
+
+
+        const clickThenUpdateCompleted = () => {
+            const nextCompleted = setCompletedToNext()
+            updateProgressCompleted(nextCompleted)
         }
 
         return (
             <div
-                className='bg-blue-400 p-3 flex justify-end'
+                className='bg-blue-400 p-3 flex justify-end items-center gap-3'
                 onClick={clickThenUpdateCompleted}
             >
+                {isLoading && <CircularProgress size={16} />}
+                {error && <p>error</p>}
                 <p>{questionGroup.group}</p>
                 {progress && <p>{completed}</p>}
             </div>
