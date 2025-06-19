@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { ProgressData } from '../_interfaces/student-interfaces'
+import { ProgressData } from '../../_interfaces/interfaces'
 import ProgressInBook from './ProgressInBook'
 
 // Custom hook for API calls

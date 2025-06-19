@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BookData, CompletedStatus, ProgressData, QuestionGroup, Topic } from '../_interfaces/student-interfaces'
+import { BookData, CompletedStatus, ProgressData, QuestionGroup, Topic } from '../../_interfaces/interfaces'
 import axios from 'axios'
 import { useOneBook, useUpdateProgressCompleted } from './apiHooks'
 
@@ -9,7 +9,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { possibleCompletedArray } from '../_interfaces/student-interfaces';
+import { possibleCompletedArray } from '../../_interfaces/interfaces';
 import CircularProgress from '@mui/material/CircularProgress';
 
 

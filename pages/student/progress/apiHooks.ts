@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { BookData, CompletedStatus } from "../_interfaces/student-interfaces"
+import { BookData, CompletedStatus } from "../../_interfaces/interfaces"
 
 // Custom hook for API calls
 const useOneBook = (bookId: string) => {
