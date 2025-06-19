@@ -55,7 +55,7 @@ const StdProgressPage = () => {
   if (error) return <div>Error: {error}</div>
 
   return (
-    <div className='flex bg-purple-300'>
+    <div className='flex'>
       {entryArray.map((entry) => <ProgressInBook key={JSON.stringify(entry)} bookId={entry[0]} dataArray={entry[1]} />)}
     </div>
   )

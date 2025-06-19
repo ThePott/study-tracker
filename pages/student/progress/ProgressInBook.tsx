@@ -79,7 +79,6 @@ const ProgressInBook = ({ bookId, dataArray }: { bookId: string, dataArray: Prog
 
     return (
         <div className='flex flex-col gap-3 w-full'>
-            <div className='w-full h-[100px] bg-green-400'>yeah</div>
             <Accordion className='w-full'>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
