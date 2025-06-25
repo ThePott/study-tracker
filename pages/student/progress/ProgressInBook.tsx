@@ -79,7 +79,8 @@ const ProgressInBook = ({ bookId, dataArray }: { bookId: string, dataArray: Prog
 
     return (
         <div className='flex flex-col gap-3 w-full'>
-            <Accordion className='w-full'>
+            {/* {book.topicArray.map((topic) => <TopicStepBox key={topic.topicId} topic={topic} />)} */}
+             <Accordion className='w-full'>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1-content"
@@ -90,7 +91,7 @@ const ProgressInBook = ({ bookId, dataArray }: { bookId: string, dataArray: Prog
                 <AccordionDetails>
                     {book.topicArray.map((topic) => <TopicStepBox key={topic.topicId} topic={topic} />)}
                 </AccordionDetails>
-            </Accordion>
+            </Accordion> 
         </div>
     )
 }
