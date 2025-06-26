@@ -13,7 +13,6 @@ interface CheckboxProps {
 }
 
 
-
 const useSortedRecent = (recentArray: number[]) => {
     return useMemo(
         () => { return [...recentArray].sort((a, b) => a - b) }, 
@@ -22,12 +21,13 @@ const useSortedRecent = (recentArray: number[]) => {
 }
 
 const useCheckInBetween = (index: number, sortedRecent: number[]) => {
-    return useCallback(
+    return useMemo(
         () => {
-            if (sortedRecent.length < 2) return false
+            if (sortedRecent.length < 2) { return false }
+
             return sortedRecent[0] < index && index < sortedRecent[useSortedRecent.length - 1]
         }, 
-        [useSortedRecent]
+        [sortedRecent]
     )
 }
 
@@ -55,6 +55,7 @@ const useCheckIndexThenUpdateRecentArray = ({ setRecentArray }: HandleClickParam
     }, [])
 }
 
+
 const Checkbox = React.memo((
     { index, reviewCheckData, recentArray, setRecentArray }: CheckboxProps
 ) => {
@@ -63,7 +64,7 @@ const Checkbox = React.memo((
         const isBetween = useCheckInBetween(index, sortedRecent)
 
         const color = isSelected ? "bg-red-500" : 
-            isBetween() ? "bg-blue-500" : "bg-zinc-200"
+            isBetween ? "bg-blue-500" : "bg-zinc-200"
 
         const handleClick = useCheckIndexThenUpdateRecentArray({setRecentArray})
 
