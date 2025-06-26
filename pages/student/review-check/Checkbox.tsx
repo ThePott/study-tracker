@@ -2,83 +2,82 @@ import React, { useMemo, useCallback, MouseEventHandler } from "react"
 import { ReviewCheckData } from "../../_interfaces/interfaces"
 
 interface HandleClickParams {
-    setRecentArray:  React.Dispatch<React.SetStateAction<number[]>>,
+    setRecentRawArray: React.Dispatch<React.SetStateAction<number[]>>,
 }
 
+/**
+ * index는 이런 의미다
+ * reviewCheckData는 이런 의미다
+ */
 interface CheckboxProps {
     index: number;
     reviewCheckData: ReviewCheckData;
-    recentArray: number[];
-    setRecentArray: React.Dispatch<React.SetStateAction<number[]>>;
+    recentRawArray: number[];
+    setRecentRawArray: React.Dispatch<React.SetStateAction<number[]>>;
+    recentSortedArray: number[];
 }
 
-
-const useSortedRecent = (recentArray: number[]) => {
-    return useMemo(
-        () => { return [...recentArray].sort((a, b) => a - b) }, 
-        [recentArray]
-    )
-}
-
-const useCheckInBetween = (index: number, sortedRecent: number[]) => {
+const useCheckInBetween = (index: number, recentSortedArray: number[]) => {
     return useMemo(
         () => {
-            if (sortedRecent.length < 2) { return false }
+            if (recentSortedArray.length < 2) { return false }
 
-            return sortedRecent[0] < index && index < sortedRecent[sortedRecent.length - 1]
-        }, 
-        [sortedRecent]
+            return recentSortedArray[0] < index && index < recentSortedArray[recentSortedArray.length - 1]
+        },
+        [recentSortedArray]
     )
 }
 
-const updateRecentArray = (
-    index: number, 
-    setRecentArray: React.Dispatch<React.SetStateAction<number[]>>
+const updateRawRecentArray = (
+    index: number,
+    setRecentRawArray: React.Dispatch<React.SetStateAction<number[]>>
 ) => {
-    setRecentArray(prev => {
+    setRecentRawArray(prev => {
         const newArray = [...prev]
         if (newArray.length === 2) {
             newArray.shift()
         }
         newArray.push(index)
+
         return newArray
     })
 }
 
-const useCheckIndexThenUpdateRecentArray = ({ setRecentArray }: HandleClickParams ) => {
+const useCheckIndexThenUpdateRecentArray = ({ setRecentRawArray }: HandleClickParams) => {
     return useCallback<MouseEventHandler<HTMLDivElement>>((event) => {
         const optionalIndex = event.currentTarget.dataset.index
-        if (!optionalIndex) return
+        if (!optionalIndex) { return }
 
         const index = parseInt(optionalIndex)
-        updateRecentArray(index, setRecentArray)
+        updateRawRecentArray(index, setRecentRawArray)
     }, [])
 }
 
+const Checkbox = React.memo(({
+    index,
+    reviewCheckData,
+    recentRawArray,
+    setRecentRawArray,
+    recentSortedArray
+}: CheckboxProps) => {
+    const isSelected = recentRawArray.includes(index)
+    const isBetween = useCheckInBetween(index, recentSortedArray)
 
-const Checkbox = React.memo((
-    { index, reviewCheckData, recentArray, setRecentArray }: CheckboxProps
-) => {
-        const isSelected = recentArray.includes(index)
-        const sortedRecent = useSortedRecent(recentArray)
-        const isBetween = useCheckInBetween(index, sortedRecent)
+    const color = isSelected ? "bg-red-500" :
+        isBetween ? "bg-blue-500" : "bg-zinc-200"
 
-        const color = isSelected ? "bg-red-500" : 
-            isBetween ? "bg-blue-500" : "bg-zinc-200"
+    const handleClick = useCheckIndexThenUpdateRecentArray({ setRecentRawArray })
 
-        const handleClick = useCheckIndexThenUpdateRecentArray({setRecentArray})
-
-        return (
-            <div 
-                className={`w-[60px] h-[60px] ${color}`} 
-                onClick={handleClick}
-                data-index={index}
-            >
-                {reviewCheckData.questionNumber}
-            </div>
-        )
-    }
-)
+    return (
+        <div
+            className={`w-[60px] h-[60px] ${color}`}
+            onClick={handleClick}
+            data-index={index}
+        >
+            {reviewCheckData.questionNumber}
+        </div>
+    )
+})
 
 export default Checkbox
 

@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState, useMemo, useCallback } from 'react'
+import React, { MouseEventHandler, useState, useMemo, useCallback, useEffect } from 'react'
 import { useReviewCheckMany } from './apiHooks'
 import { ReviewCheckData } from '../../_interfaces/interfaces'
 
@@ -8,13 +8,29 @@ import Checkbox from "./Checkbox"
 // 훅으로 구분 // 데이터 핸들링 로직은 후크로 뺀다
 
 
+const useRecentSorted = (
+    recentRawArray: number[],
+    setRecentSortedArray: React.Dispatch<React.SetStateAction<number[]>>,
+) => {
+    return useEffect(
+        () => { 
+            const copiedArray = [...recentRawArray].sort((a, b) => a - b)
+            setRecentSortedArray(copiedArray)
+        },
+        [recentRawArray]
+    )
+}
+
 const StdReviewCheckPage = () => {
     const studentId = "68494394d9f33f23de4513c5"
     const { reviewCheckArray, isLoading, error } = useReviewCheckMany(studentId)
-    const [recentArray, setRecentArray] = useState<number[]>([])
 
+    // set recent raw: 이건 체크박스에서만
+    // set recent sorted: 이건 페이지에서만
+    const [recentRawArray, setRecentRawArray] = useState<number[]>([])
+    const [recentSortedArray, setRecentSortedArray] = useState<number[]>([])
 
-
+    useRecentSorted(recentRawArray, setRecentSortedArray)
 
     if (!reviewCheckArray) return null
     if (isLoading) return <div>Loading...</div>
@@ -27,8 +43,11 @@ const StdReviewCheckPage = () => {
                     key={reviewCheckData._id} 
                     reviewCheckData={reviewCheckData} 
                     index={index} 
-                    recentArray={recentArray}
-                    setRecentArray={setRecentArray}
+
+                    recentRawArray={recentRawArray}
+                    setRecentRawArray={setRecentRawArray}
+
+                    recentSortedArray={recentSortedArray}
                 />
             ))}
         </div>
