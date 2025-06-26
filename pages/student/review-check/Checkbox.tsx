@@ -25,7 +25,7 @@ const useCheckInBetween = (index: number, sortedRecent: number[]) => {
         () => {
             if (sortedRecent.length < 2) { return false }
 
-            return sortedRecent[0] < index && index < sortedRecent[useSortedRecent.length - 1]
+            return sortedRecent[0] < index && index < sortedRecent[sortedRecent.length - 1]
         }, 
         [sortedRecent]
     )
