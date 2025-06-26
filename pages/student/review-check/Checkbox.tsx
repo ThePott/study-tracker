@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback, MouseEventHandler } from "react"
 import { ReviewCheckData } from "../../_interfaces/interfaces"
+import { checkboxStatusArray } from "./interface"
 
 interface HandleClickParams {
     setRecentRawArray: React.Dispatch<React.SetStateAction<number[]>>,
@@ -12,21 +13,22 @@ interface HandleClickParams {
 interface CheckboxProps {
     index: number;
     reviewCheckData: ReviewCheckData;
-    recentRawArray: number[];
+    status: typeof checkboxStatusArray[number];
     setRecentRawArray: React.Dispatch<React.SetStateAction<number[]>>;
-    recentSortedArray: number[];
+    // recentRawArray: number[];
+    // recentSortedArray: number[];
 }
 
-const useCheckInBetween = (index: number, recentSortedArray: number[]) => {
-    return useMemo(
-        () => {
-            if (recentSortedArray.length < 2) { return false }
+// const useCheckInBetween = (index: number, recentSortedArray: number[]) => {
+//     return useMemo(
+//         () => {
+//             if (recentSortedArray.length < 2) { return false }
 
-            return recentSortedArray[0] < index && index < recentSortedArray[recentSortedArray.length - 1]
-        },
-        [recentSortedArray]
-    )
-}
+//             return recentSortedArray[0] < index && index < recentSortedArray[recentSortedArray.length - 1]
+//         },
+//         [recentSortedArray]
+//     )
+// }
 
 const updateRawRecentArray = (
     index: number,
@@ -56,15 +58,14 @@ const useCheckIndexThenUpdateRecentArray = ({ setRecentRawArray }: HandleClickPa
 const Checkbox = React.memo(({
     index,
     reviewCheckData,
-    recentRawArray,
-    setRecentRawArray,
-    recentSortedArray
+    status,
+    setRecentRawArray
 }: CheckboxProps) => {
-    const isSelected = recentRawArray.includes(index)
-    const isBetween = useCheckInBetween(index, recentSortedArray)
+    // const isSelected = recentRawArray.includes(index)
+    // const isBetween = useCheckInBetween(index, recentSortedArray)
 
-    const color = isSelected ? "bg-red-500" :
-        isBetween ? "bg-blue-500" : "bg-zinc-200"
+    const color = status === "CORRECT" ? "bg-blue-500" :
+        status === "WRONG" ? "bg-blue-500" : "bg-zinc-200"
 
     const handleClick = useCheckIndexThenUpdateRecentArray({ setRecentRawArray })
 
