@@ -1,7 +1,6 @@
 import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
-import { ReviewCheckData } from '../../_interfaces/interfaces'
-import { checkboxStatusArray, HandleClickParams } from './interface'
+import { CheckboxStatus, HandleClickParams, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 
 /** SUB FUNCTION of useReviewCheckApi */
 const getReviewCheckArray = async (
@@ -48,7 +47,6 @@ const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
         () => {
             if (!reviewCheckArray) { return [] }
 
-            // const initialStatusArray = Array(reviewCheckArray.length).fill(null) as (typeof checkboxStatusArray[number] | null)[]
             const initialStatusArray = reviewCheckArray.map((reviewCheck) => reviewCheck.status)
 
             if (recentTwoIndexes.length === 0) { return initialStatusArray }
@@ -108,7 +106,7 @@ const useCheckboxClickHandler = ({ setRecentTwoIndexes }: HandleClickParams) => 
 
 const useEditedIndexTracker = (
     index: number,
-    status: typeof checkboxStatusArray[number],
+    status: CheckboxStatus,
     reviewCheckData: ReviewCheckData,
     setEditedCheckboxIndexArray: React.Dispatch<React.SetStateAction<number[]>>,
 ) => {

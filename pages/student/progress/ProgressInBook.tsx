@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { BookData, CompletedStatus, ProgressData, QuestionGroup, Topic } from '../../_interfaces/interfaces'
-import axios from 'axios'
-import { useOneBook, useUpdateProgressCompleted } from './apiHooks'
+import { QuestionGroup, Topic } from "@/interfaces/bookInterfaces"
+import { completedStatusArray, CompletedStatus, ProgressData } from "@/interfaces/progressInterfaces"
+import { useState } from 'react'
 
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
+import { useOneBook, useUpdateProgressCompleted } from './hooks'
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-import { possibleCompletedArray } from '../../_interfaces/interfaces';
-import CircularProgress from '@mui/material/CircularProgress';
-
-
-// 여기서 북 데이터로 박스들을 만든 다음에 data(progress)를 이용해서 현재 state를 표시해야 함
-// 1. 북 데이터를 박스로 표시한다.
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import CircularProgress from '@mui/material/CircularProgress'
 
 
 const ProgressInBook = ({ bookId, dataArray }: { bookId: string, dataArray: ProgressData[] }) => {
@@ -28,11 +22,10 @@ const ProgressInBook = ({ bookId, dataArray }: { bookId: string, dataArray: Prog
         if (!progress) { return <div>---- Unhnadled Error: No matching progress found ----</div> }
 
         const [completed, setCompleted] = useState<CompletedStatus>(progress.completed)
-        // let outerIsLoading = false
         const setCompletedToNext = () => {
-            const currentIndex = possibleCompletedArray.indexOf(completed)
-            const nextIndex = (currentIndex + 1) % possibleCompletedArray.length
-            const nextCompleted = possibleCompletedArray[nextIndex]
+            const currentIndex = completedStatusArray.indexOf(completed)
+            const nextIndex = (currentIndex + 1) % completedStatusArray.length
+            const nextCompleted = completedStatusArray[nextIndex]
 
             setCompleted(nextCompleted)
             return nextCompleted
@@ -60,7 +53,6 @@ const ProgressInBook = ({ bookId, dataArray }: { bookId: string, dataArray: Prog
     }
 
     const TopicStepBox = ({ topic }: { topic: Topic }) => {
-        // const stepArray = topic.stepArray
         if (topic.stepArray.length === 0) { return null }
 
         return (
@@ -79,7 +71,6 @@ const ProgressInBook = ({ bookId, dataArray }: { bookId: string, dataArray: Prog
 
     return (
         <div className='flex flex-col gap-3 w-full'>
-            {/* {book.topicArray.map((topic) => <TopicStepBox key={topic.topicId} topic={topic} />)} */}
              <Accordion className='w-full'>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { ProgressData } from '@/interfaces/progressInterfaces'
 import axios from 'axios'
-import { ProgressData } from '../../_interfaces/interfaces'
+import { useEffect, useState } from 'react'
 import ProgressInBook from './ProgressInBook'
 
 // Custom hook for API calls

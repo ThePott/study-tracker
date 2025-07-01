@@ -1,8 +1,10 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { BookData, CompletedStatus } from "../../_interfaces/interfaces"
+import { BookData } from "@/interfaces/bookInterfaces"
+import { CompletedStatus } from "@/interfaces/progressInterfaces"
 
 // Custom hook for API calls
+/** API  */
 const useOneBook = (bookId: string) => {
     const [book, setBook] = useState<BookData | null>(null)
     const [loading, setLoading] = useState<boolean>(true)

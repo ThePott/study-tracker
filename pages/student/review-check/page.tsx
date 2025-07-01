@@ -14,13 +14,17 @@ const StdReviewCheckPage = () => {
     if (isLoading) return <div>Loading...</div>
     if (error) return <div>Error: {error}</div>
 
-    const handleClick = () => {
+    const checkManually = () => {
         console.log("---- edited array:", editedCheckboxIndexArray)
+    }
+
+    const postEditedIdStatusDict = () => {
+        
     }
 
     return (
         <div className='flex flex-wrap gap-3'>
-            <Button onClick={handleClick}>변한 체크박스 아이디 출력</Button>
+            <Button onClick={checkManually}>변한 체크박스 아이디 출력</Button>
             {reviewCheckArray.map((reviewCheckData, index) => (
                 <Checkbox
                     key={reviewCheckData._id}

@@ -1,6 +1,6 @@
 import React from "react"
 import { useCheckboxClickHandler, useEditedIndexTracker } from "./hooks"
-import { CheckboxProps } from "./interface"
+import { CheckboxProps } from "@/interfaces/reviewCheckInterfaces"
 
 
 const Checkbox = React.memo(({
