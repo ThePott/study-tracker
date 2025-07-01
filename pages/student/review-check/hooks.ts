@@ -7,19 +7,21 @@ import { checkboxStatusArray, HandleClickParams } from './interface'
 const getReviewCheckArray = async (
     setReviewCheckArray: React.Dispatch<React.SetStateAction<ReviewCheckData[] | null>>,
     setError: React.Dispatch<React.SetStateAction<null>>,
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    studentId: string
 ) => {
     try {
         const url = `http://localhost:3030/review-check/${studentId}`
         const response = await axios.get(url)
         setReviewCheckArray(response.data)
-    } catch (err) {
-        setError(err.message)
+    } catch (error) {
+        console.error("---- ERROR", error)
+        setError(error.message)
     } finally {
         setIsLoading(false)
     }
 }
-/** Call api */
+/** API */
 const useReviewCheckApi = (studentId: string) => {
     const [reviewCheckArray, setReviewCheckArray] = useState<ReviewCheckData[] | null>(null)
     const [error, setError] = useState(null)
@@ -27,7 +29,7 @@ const useReviewCheckApi = (studentId: string) => {
 
     useEffect(
         () => {
-            getReviewCheckArray(setReviewCheckArray, setError, setIsLoading)
+            getReviewCheckArray(setReviewCheckArray, setError, setIsLoading, studentId)
         },
         [studentId]
     )
@@ -35,7 +37,10 @@ const useReviewCheckApi = (studentId: string) => {
     return { reviewCheckArray, isLoading, error }
 }
 
-/** 오리지널 스테이터스 가지고 온 다음 그걸 기준으로 스플라이스 한 걸 상태 변환 함수에 넣어야 함 */
+/** 
+ * setRecentTwoIndexes 생성, 반환
+ * 여기서 status array 업데이트 함
+ */
 const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
     const [recentTwoIndexes, setRecentTwoIndexes] = useState<number[]>([])
 
@@ -43,7 +48,8 @@ const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
         () => {
             if (!reviewCheckArray) { return [] }
 
-            const initialStatusArray = Array(reviewCheckArray.length).fill("NOT_SOLVED") as (typeof checkboxStatusArray[number])[]
+            // const initialStatusArray = Array(reviewCheckArray.length).fill(null) as (typeof checkboxStatusArray[number] | null)[]
+            const initialStatusArray = reviewCheckArray.map((reviewCheck) => reviewCheck.status)
 
             if (recentTwoIndexes.length === 0) { return initialStatusArray }
 
@@ -66,8 +72,8 @@ const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
     }
 }
 
-/** SUB FUNCTION of useRecentIndexClickHandler */
-const updateRawRecentArray = (
+/** SUB FUNCTION of useCheckboxClickHandler */
+const updateRecentTwoIndexes = (
     index: number,
     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
 ) => {
@@ -82,17 +88,49 @@ const updateRawRecentArray = (
     })
 }
 
-const useRecentIndexClickHandler = ({ setRecentTwoIndexes }: HandleClickParams) => {
+/**  
+ * update recent two index가 메인 기능
+ * 
+ * 부모에게서 파라미터를 받아야 해서 콜백으로 감싸는 함수
+*/
+const useCheckboxClickHandler = ({ setRecentTwoIndexes }: HandleClickParams) => {
     return useCallback<MouseEventHandler<HTMLDivElement>>(
         (event) => {
             const optionalIndex = event.currentTarget.dataset.index
             if (!optionalIndex) { return }
 
             const index = Number(optionalIndex)
-            updateRawRecentArray(index, setRecentTwoIndexes)
+            updateRecentTwoIndexes(index, setRecentTwoIndexes)
         },
         []
     )
 }
 
-export { useReviewCheckApi, useCheckboxStatus, useRecentIndexClickHandler }
+const useEditedIndexTracker = (
+    index: number,
+    status: typeof checkboxStatusArray[number],
+    reviewCheckData: ReviewCheckData,
+    setEditedCheckboxIndexArray: React.Dispatch<React.SetStateAction<number[]>>,
+) => {
+    useEffect(
+        () => {
+            setEditedCheckboxIndexArray(prevArray => {
+                const indexInEditedArray = prevArray.findIndex((checkboxIndex) => checkboxIndex === index)
+                const copiedArray = [...prevArray]
+
+                if (indexInEditedArray !== -1) {
+                    copiedArray.splice(indexInEditedArray, 1)
+                }
+
+                if (status !== reviewCheckData.status) {
+                    copiedArray.push(index)
+                }
+
+                return copiedArray  // Return the new state
+            })
+        },
+        [status]
+    )
+}
+
+export { useReviewCheckApi, useCheckboxStatus, useCheckboxClickHandler, useEditedIndexTracker }

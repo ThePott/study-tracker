@@ -1,6 +1,6 @@
 import { ReviewCheckData } from "../../_interfaces/interfaces"
 
-const checkboxStatusArray = ["DONE", "PASS", "WRONG", "CORRECT", "NOT_SOLVED"] as const;
+const checkboxStatusArray = ["DONE", "PASS", "WRONG", "CORRECT", "NOT_YET"] as const;
 
 interface HandleClickParams {
     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>,
@@ -15,6 +15,7 @@ interface CheckboxProps {
     reviewCheckData: ReviewCheckData;
     status: typeof checkboxStatusArray[number];
     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>;
+    setEditedCheckboxIndexArray: React.Dispatch<React.SetStateAction<number[]>>
 }
 
 export { checkboxStatusArray, HandleClickParams, CheckboxProps }

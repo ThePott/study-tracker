@@ -1,5 +1,5 @@
 import React from "react"
-import { useRecentIndexClickHandler } from "./apiHooks"
+import { useCheckboxClickHandler, useEditedIndexTracker } from "./hooks"
 import { CheckboxProps } from "./interface"
 
 
@@ -7,13 +7,16 @@ const Checkbox = React.memo(({
     index,
     reviewCheckData,
     status,
-    setRecentTwoIndexes
+    setRecentTwoIndexes,
+    setEditedCheckboxIndexArray
 }: CheckboxProps) => {
-    
+
     const color = status === "CORRECT" ? "bg-blue-500" :
         status === "WRONG" ? "bg-blue-500" : "bg-zinc-200"
 
-    const handleClick = useRecentIndexClickHandler({ setRecentTwoIndexes })
+    const handleClick = useCheckboxClickHandler({ setRecentTwoIndexes })
+
+    useEditedIndexTracker(index, status, reviewCheckData, setEditedCheckboxIndexArray)
 
     return (
         <div
