@@ -1,73 +1,19 @@
-import React, { useMemo, useCallback, MouseEventHandler } from "react"
-import { ReviewCheckData } from "../../_interfaces/interfaces"
-import { checkboxStatusArray } from "./interface"
+import React from "react"
+import { useRecentIndexClickHandler } from "./apiHooks"
+import { CheckboxProps } from "./interface"
 
-interface HandleClickParams {
-    setRecentRawArray: React.Dispatch<React.SetStateAction<number[]>>,
-}
-
-/**
- * index는 이런 의미다
- * reviewCheckData는 이런 의미다
- */
-interface CheckboxProps {
-    index: number;
-    reviewCheckData: ReviewCheckData;
-    status: typeof checkboxStatusArray[number];
-    setRecentRawArray: React.Dispatch<React.SetStateAction<number[]>>;
-    // recentRawArray: number[];
-    // recentSortedArray: number[];
-}
-
-// const useCheckInBetween = (index: number, recentSortedArray: number[]) => {
-//     return useMemo(
-//         () => {
-//             if (recentSortedArray.length < 2) { return false }
-
-//             return recentSortedArray[0] < index && index < recentSortedArray[recentSortedArray.length - 1]
-//         },
-//         [recentSortedArray]
-//     )
-// }
-
-const updateRawRecentArray = (
-    index: number,
-    setRecentRawArray: React.Dispatch<React.SetStateAction<number[]>>
-) => {
-    setRecentRawArray(prev => {
-        const newArray = [...prev]
-        if (newArray.length === 2) {
-            newArray.shift()
-        }
-        newArray.push(index)
-
-        return newArray
-    })
-}
-
-const useCheckIndexThenUpdateRecentArray = ({ setRecentRawArray }: HandleClickParams) => {
-    return useCallback<MouseEventHandler<HTMLDivElement>>((event) => {
-        const optionalIndex = event.currentTarget.dataset.index
-        if (!optionalIndex) { return }
-
-        const index = parseInt(optionalIndex)
-        updateRawRecentArray(index, setRecentRawArray)
-    }, [])
-}
 
 const Checkbox = React.memo(({
     index,
     reviewCheckData,
     status,
-    setRecentRawArray
+    setRecentTwoIndexes
 }: CheckboxProps) => {
-    // const isSelected = recentRawArray.includes(index)
-    // const isBetween = useCheckInBetween(index, recentSortedArray)
-
+    
     const color = status === "CORRECT" ? "bg-blue-500" :
         status === "WRONG" ? "bg-blue-500" : "bg-zinc-200"
 
-    const handleClick = useCheckIndexThenUpdateRecentArray({ setRecentRawArray })
+    const handleClick = useRecentIndexClickHandler({ setRecentTwoIndexes })
 
     return (
         <div
