@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
-import { CheckboxStatus, HandleClickParams, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
+import { CheckboxStatus, EditedIdStatusDict, HandleClickParams, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 
 /** SUB FUNCTION of useReviewCheckApi */
 const getReviewCheckArray = async (
@@ -104,27 +104,33 @@ const useCheckboxClickHandler = ({ setRecentTwoIndexes }: HandleClickParams) => 
     )
 }
 
+/** 
+ * status update -> color change -> this runs
+ * 
+ * 내 status 바뀌면 그걸 부모한테 전달함
+ */
 const useEditedIndexTracker = (
-    index: number,
+    // index: number,
+    reviewCheckId: string,
     status: CheckboxStatus,
     reviewCheckData: ReviewCheckData,
-    setEditedCheckboxIndexArray: React.Dispatch<React.SetStateAction<number[]>>,
+    setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>,
 ) => {
     useEffect(
         () => {
-            setEditedCheckboxIndexArray(prevArray => {
-                const indexInEditedArray = prevArray.findIndex((checkboxIndex) => checkboxIndex === index)
-                const copiedArray = [...prevArray]
+            setEditedIdStatusDictArray(prevDictArray => {
+                const indexInPrevArray = prevDictArray.findIndex((dict) => dict.reviewCheckId === reviewCheckId)
+                const copiedArray = [...prevDictArray]
 
-                if (indexInEditedArray !== -1) {
-                    copiedArray.splice(indexInEditedArray, 1)
+                if (indexInPrevArray !== -1) {
+                    copiedArray.splice(indexInPrevArray, 1)
                 }
 
                 if (status !== reviewCheckData.status) {
-                    copiedArray.push(index)
+                    copiedArray.push({ reviewCheckId, status })
                 }
 
-                return copiedArray  // Return the new state
+                return copiedArray 
             })
         },
         [status]

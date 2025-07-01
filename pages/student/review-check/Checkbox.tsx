@@ -8,7 +8,7 @@ const Checkbox = React.memo(({
     reviewCheckData,
     status,
     setRecentTwoIndexes,
-    setEditedCheckboxIndexArray
+    setEditedIdStatusDictArray
 }: CheckboxProps) => {
 
     const color = status === "CORRECT" ? "bg-blue-500" :
@@ -16,7 +16,7 @@ const Checkbox = React.memo(({
 
     const handleClick = useCheckboxClickHandler({ setRecentTwoIndexes })
 
-    useEditedIndexTracker(index, status, reviewCheckData, setEditedCheckboxIndexArray)
+    useEditedIndexTracker(reviewCheckData._id, status, reviewCheckData, setEditedIdStatusDictArray)
 
     return (
         <div

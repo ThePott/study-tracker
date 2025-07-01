@@ -8,14 +8,14 @@
 ## 성능 개선
 - 성능 개선 된 건지 확인
 - 내가 이해한 거 바탕으로 코드 다시 보기
-## 서버에 보내기
-- 수정 결과 console에 출력하기(완)
 ## 코드 개선
 - interface 한 곳에 몰아 넣기
+## 서버에 보내기
+- 수정 결과 console에 출력하기(완)
+- editedCheckboxIdArray -> editedIdStatusDictArray
 
 # ==== 지금 할 것 ====
 ## 서버에 보내기
-- editedCheckboxIdArray -> editedIdStatusDictArray
 - 버튼 눌러서 서버에 보내기
 
 # ==== 나중에 할 것 ====
