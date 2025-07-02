@@ -1,5 +1,5 @@
 import React from "react"
-import { useCheckboxClickHandler, useEditedIndexTracker } from "./hooks"
+import { useCheckboxClickHandler, useEditedIndexTracker } from "../hooks"
 import { CheckboxProps } from "@/interfaces/reviewCheckInterfaces"
 
 

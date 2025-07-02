@@ -1,9 +1,8 @@
-import { Button } from '@mui/material';
-import { useCheckboxStatus, useReviewCheckApi, useReviewCheckApiPatch } from './hooks';
-import Checkbox from "./Checkbox";
-import { useCallback, useState } from 'react';
 import { EditedIdStatusDict } from '@/interfaces/reviewCheckInterfaces';
-import Header from './Header';
+import { useState } from 'react';
+import BookSection from './components/BookSection';
+import CheckboxSection from './components/CheckboxSection';
+import { useCheckboxStatus, useReviewCheckApi, useReviewCheckApiPatch } from './hooks';
 
 
 const studentId = "68494394d9f33f23de4513c5"
@@ -11,37 +10,32 @@ const studentId = "68494394d9f33f23de4513c5"
 const StdReviewCheckPage = () => {
     const [editedIdStatusDictArray, setEditedIdStatusDictArray] = useState<EditedIdStatusDict[]>([])
     const [isMultiSelecting, setIsMultiSelecting] = useState<boolean>(false)
+    const [selectedBookTitle, setSelectedBookTitle] = useState<string | null>(null)
 
     const { reviewCheckArray, isLoading, error } = useReviewCheckApi(studentId)
     const { setRecentTwoIndexes, statusArray } = useCheckboxStatus(reviewCheckArray)
     const { patchReviewCheck, errorPatch } = useReviewCheckApiPatch()
 
-    if (!reviewCheckArray) return null
-    if (isLoading) return <div>Loading...</div>
-    if (error) return <div>Error: {error}</div>
 
-    return (
-        <div className='flex flex-wrap gap-3'>
-            <Header
-                studentId={studentId}
-                editedIdStatusDictArray={editedIdStatusDictArray}
-                patchReviewCheck={patchReviewCheck}
-                errorPatch={errorPatch} 
-                isMultiSelecting={isMultiSelecting}
-                setIsMultiSelecting={setIsMultiSelecting}/>
 
-            {reviewCheckArray.map((reviewCheckData, index) => (
-                <Checkbox
-                    key={reviewCheckData._id}
-                    reviewCheckData={reviewCheckData}
-                    index={index}
-                    status={statusArray[index]}
-                    setRecentTwoIndexes={setRecentTwoIndexes}
-                    setEditedIdStatusDictArray={setEditedIdStatusDictArray}
-                />
-            ))}
-        </div>
-    )
+    if (!reviewCheckArray) { return null }
+    if (isLoading) { return <div>Loading...</div> }
+    if (error) { return <div>Error: {error}</div> }
+
+    if (!selectedBookTitle) { return <BookSection setSelectedBookTitle={setSelectedBookTitle} /> }
+
+    return <CheckboxSection
+        editedIdStatusDictArray={editedIdStatusDictArray}
+        errorPatch={errorPatch}
+        isMultiSelecting={isMultiSelecting}
+        patchReviewCheck={patchReviewCheck}
+        reviewCheckArray={reviewCheckArray}
+        setEditedIdStatusDictArray={setEditedIdStatusDictArray}
+        setIsMultiSelecting={setIsMultiSelecting}
+        setRecentTwoIndexes={setRecentTwoIndexes}
+        statusArray={statusArray}
+        studentId={studentId}
+    />
 }
 
 export default StdReviewCheckPage

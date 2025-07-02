@@ -55,11 +55,25 @@ interface ReviewCheckHeader {
     setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+interface CheckboxSectionProps {
+    studentId: string
+    editedIdStatusDictArray: EditedIdStatusDict[]
+    patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
+    errorPatch: any
+    isMultiSelecting: boolean
+    setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
+    reviewCheckArray: ReviewCheckData[]
+    statusArray: CheckboxStatus[]
+    setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
+    setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
+}
+
 export {
     CheckboxStatus,
     ReviewCheckData,
     HandleClickParams,
     CheckboxProps,
     EditedIdStatusDict,
-    ReviewCheckHeader
+    ReviewCheckHeader,
+    CheckboxSectionProps
 }
