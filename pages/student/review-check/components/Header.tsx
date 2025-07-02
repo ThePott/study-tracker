@@ -1,5 +1,6 @@
 import { ReviewCheckHeader } from '@/interfaces/reviewCheckInterfaces'
-import { Box, Button, ButtonGroup, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, IconButton, Typography } from '@mui/material'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 type ToggleButtonInfo = {
   buttonVarient: "contained" | "outlined" | "text",
@@ -20,7 +21,8 @@ const Header = ({
   patchReviewCheck,
   errorPatch,
   isMultiSelecting,
-  setIsMultiSelecting
+  setIsMultiSelecting,
+  setSelectedBookTitle
 }: ReviewCheckHeader) => {
 
   const toggleButtonInfo: ToggleButtonInfo = {
@@ -31,6 +33,9 @@ const Header = ({
     <Box className="w-full">
       <Box className="flex">
         <ButtonGroup>
+          <Button sx={buttonStyle} onClick={() => setSelectedBookTitle(null)}>
+            <ChevronLeftIcon fontSize='large'  />
+          </Button>
           <Button sx={buttonStyle} onClick={() => patchReviewCheck(studentId, editedIdStatusDictArray)} variant='outlined'>서버에 보내기</Button>
           <Button
             sx={buttonStyle}

@@ -53,6 +53,7 @@ interface ReviewCheckHeader {
     errorPatch: any
     isMultiSelecting: boolean
     setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
+    setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
 }
 
 interface CheckboxSectionProps {
@@ -66,6 +67,7 @@ interface CheckboxSectionProps {
     statusArray: CheckboxStatus[]
     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
     setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
+    setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
 }
 
 export {

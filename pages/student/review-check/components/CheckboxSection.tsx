@@ -12,7 +12,8 @@ const CheckboxSection = ({
   reviewCheckArray,
   statusArray,
   setRecentTwoIndexes,
-  setEditedIdStatusDictArray
+  setEditedIdStatusDictArray,
+  setSelectedBookTitle
 }: CheckboxSectionProps) => {
   return (
     <div className='flex flex-wrap gap-3'>
@@ -22,7 +23,8 @@ const CheckboxSection = ({
         patchReviewCheck={patchReviewCheck}
         errorPatch={errorPatch}
         isMultiSelecting={isMultiSelecting}
-        setIsMultiSelecting={setIsMultiSelecting} />
+        setIsMultiSelecting={setIsMultiSelecting}
+        setSelectedBookTitle={setSelectedBookTitle}/>
 
       {reviewCheckArray.map((reviewCheckData, index) => (
         <Checkbox

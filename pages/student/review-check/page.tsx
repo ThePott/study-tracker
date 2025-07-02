@@ -9,16 +9,20 @@ const studentId = "68494394d9f33f23de4513c5"
 
 const StdReviewCheckPage = () => {
     const [editedIdStatusDictArray, setEditedIdStatusDictArray] = useState<EditedIdStatusDict[]>([])
-    const [isMultiSelecting, setIsMultiSelecting] = useState<boolean>(false)
+    const [isMultiSelecting, setIsMultiSelecting] = useState<boolean>(true)
     const [selectedBookTitle, setSelectedBookTitle] = useState<string | null>(null)
     const [reviewCheckArray, setReviewCheckArray] = useState<ReviewCheckData[] | null>(null)
+    
     const { isLoading, error, bookTitleArray, groupedBookObject } = useReviewCheckApi(studentId)
     const { setRecentTwoIndexes, statusArray } = useCheckboxStatus(reviewCheckArray)
     const { patchReviewCheck, errorPatch } = useReviewCheckApiPatch()
 
     useEffect(
         () => {
-            if (!selectedBookTitle || !groupedBookObject) { return }
+            if (!selectedBookTitle || !groupedBookObject) { 
+                setReviewCheckArray(null)
+                return
+             }
             const reviewCheckArrayInBook = groupedBookObject[selectedBookTitle]
             if (!reviewCheckArrayInBook) { return }
 
@@ -46,6 +50,7 @@ const StdReviewCheckPage = () => {
         setRecentTwoIndexes={setRecentTwoIndexes}
         statusArray={statusArray}
         studentId={studentId}
+        setSelectedBookTitle={setSelectedBookTitle}
     />
 }
 
