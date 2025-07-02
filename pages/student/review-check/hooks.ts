@@ -143,7 +143,7 @@ const updateRecentTwoIndexes = (
  * 부모에게서 파라미터를 받아야 해서 콜백으로 감싸는 함수
 */
 const useCheckboxClickHandler = ({ setRecentTwoIndexes }: HandleClickParams) => {
-    return useCallback<MouseEventHandler<HTMLDivElement>>(
+    return useCallback<MouseEventHandler<HTMLButtonElement>>(
         (event) => {
             const optionalIndex = event.currentTarget.dataset.index
             if (!optionalIndex) { return }
