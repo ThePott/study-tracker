@@ -45,11 +45,12 @@ const patchReviewCheckArray = async (
     setIsLoadingPatch: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
     try {
+        if (editedIdStatusDictArray.length === 0) { return }
         console.log("---- preparing to ")
         const url = `http://localhost:3030/review-check/${studentId}`
         const response = await axios.patch(url, editedIdStatusDictArray)
         console.log("---- response:", response, editedIdStatusDictArray)
-
+        setErroPatch(null)
     } catch (error) {
         console.error("---- ERROR", error)
         setErroPatch(error.message)

@@ -3,12 +3,14 @@ import { useCheckboxStatus, useReviewCheckApi, useReviewCheckApiPatch } from './
 import Checkbox from "./Checkbox";
 import { useCallback, useState } from 'react';
 import { EditedIdStatusDict } from '@/interfaces/reviewCheckInterfaces';
+import Header from './Header';
 
 
 const studentId = "68494394d9f33f23de4513c5"
 
 const StdReviewCheckPage = () => {
     const [editedIdStatusDictArray, setEditedIdStatusDictArray] = useState<EditedIdStatusDict[]>([])
+    const [isMultiSelecting, setIsMultiSelecting] = useState<boolean>(false)
 
     const { reviewCheckArray, isLoading, error } = useReviewCheckApi(studentId)
     const { setRecentTwoIndexes, statusArray } = useCheckboxStatus(reviewCheckArray)
@@ -20,8 +22,14 @@ const StdReviewCheckPage = () => {
 
     return (
         <div className='flex flex-wrap gap-3'>
-            { errorPatch && JSON.stringify(errorPatch)}
-            <Button onClick={() => patchReviewCheck(studentId, editedIdStatusDictArray)} variant='outlined'>서버에 보내기</Button>
+            <Header
+                studentId={studentId}
+                editedIdStatusDictArray={editedIdStatusDictArray}
+                patchReviewCheck={patchReviewCheck}
+                errorPatch={errorPatch} 
+                isMultiSelecting={isMultiSelecting}
+                setIsMultiSelecting={setIsMultiSelecting}/>
+
             {reviewCheckArray.map((reviewCheckData, index) => (
                 <Checkbox
                     key={reviewCheckData._id}

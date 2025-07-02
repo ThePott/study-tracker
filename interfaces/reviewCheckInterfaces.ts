@@ -46,10 +46,20 @@ interface EditedIdStatusDict {
     status: CheckboxStatus;
 }
 
+interface ReviewCheckHeader {
+    studentId: string;
+    editedIdStatusDictArray: EditedIdStatusDict[];
+    patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
+    errorPatch: any
+    isMultiSelecting: boolean
+    setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 export {
     CheckboxStatus,
     ReviewCheckData,
     HandleClickParams,
     CheckboxProps,
-    EditedIdStatusDict
+    EditedIdStatusDict,
+    ReviewCheckHeader
 }
