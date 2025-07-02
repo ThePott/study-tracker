@@ -17,6 +17,7 @@ const BookBox = ({ bookTitle, setSelectedBookTitle }: { bookTitle: string, setSe
   const handleClick = () => {
     setIsSelected(true)
     setSelectedBookTitle(bookTitle)
+    
   }
 
   return (

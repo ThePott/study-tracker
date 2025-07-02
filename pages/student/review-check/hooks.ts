@@ -4,15 +4,20 @@ import { CheckboxStatus, EditedIdStatusDict, HandleClickParams, ReviewCheckData 
 
 /** SUB FUNCTION of useReviewCheckApi GET */
 const getReviewCheckArray = async (
-    setReviewCheckArray: React.Dispatch<React.SetStateAction<ReviewCheckData[] | null>>,
     setError: React.Dispatch<React.SetStateAction<null>>,
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    studentId: string
+    studentId: string,
+    setGroupedBookObject: React.Dispatch<any>,
+    setBookTitleArray: React.Dispatch<React.SetStateAction<string[]>>
+
 ) => {
     try {
         const url = `http://localhost:3030/review-check/${studentId}`
         const response = await axios.get(url)
-        setReviewCheckArray(response.data)
+
+        const data = response.data
+        setGroupedBookObject(data.groupedBookObject)
+        setBookTitleArray(data.bookTitleArray)
     } catch (error) {
         console.error("---- ERROR", error)
         setError(error.message)
@@ -22,19 +27,21 @@ const getReviewCheckArray = async (
 }
 /** API GET */
 const useReviewCheckApi = (studentId: string) => {
-    const [reviewCheckArray, setReviewCheckArray] = useState<ReviewCheckData[] | null>(null)
+    // const [reviewCheckArray, setReviewCheckArray] = useState<ReviewCheckData[] | null>(null)
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [groupedBookObject, setGroupedBookObject] = useState<any>(null)
+    const [bookTitleArray, setBookTitleArray] = useState<string[]>([])
 
     /** GET */
     useEffect(
         () => {
-            getReviewCheckArray(setReviewCheckArray, setError, setIsLoading, studentId)
+            getReviewCheckArray( setError, setIsLoading, studentId, setGroupedBookObject, setBookTitleArray)
         },
         [studentId]
     )
 
-    return { reviewCheckArray, isLoading, error }
+    return { isLoading, error, bookTitleArray, groupedBookObject }
 }
 
 /** SUB FUNCTION of useReviewCheckApi PATCH */

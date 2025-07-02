@@ -12,7 +12,10 @@
 # ==== 숙제 ====
 [완] 성능 개선
 [ ] 서버에서 권별로 받아오기
-
+    서버에선 책 제목 배열, 분류 객체를 보냄
+        setResponse로 몽땅 집어 넣는다
+        그러면 메인 페이지에서 response 바탕으로 책 제목 배열을 만들어 넣는다
+        책이 선택되면 response에서 해당 내용을 고른다 -> reviewCheckDataArray를 변경한다
 
 # ==== 질문 ====
 - review-check/Header가 보일 땐 레이아웃의 StudentHeader을 숨기고 싶습니다
