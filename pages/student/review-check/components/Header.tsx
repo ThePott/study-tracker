@@ -6,6 +6,14 @@ type ToggleButtonInfo = {
   textContent: string
 }
 
+const buttonStyle = {
+  color: "hsl(0 0 95%)",
+  borderColor: "hsl(0 0 30)",
+  "&:hover": {
+    borderColor: "hsl(0 0 60%)"
+  }
+}
+
 const Header = ({
   studentId,
   editedIdStatusDictArray,
@@ -23,8 +31,9 @@ const Header = ({
     <Box className="w-full">
       <Box className="flex">
         <ButtonGroup>
-          <Button onClick={() => patchReviewCheck(studentId, editedIdStatusDictArray)} variant='outlined'>서버에 보내기</Button>
+          <Button sx={buttonStyle} onClick={() => patchReviewCheck(studentId, editedIdStatusDictArray)} variant='outlined'>서버에 보내기</Button>
           <Button
+            sx={buttonStyle}
             onClick={() => setIsMultiSelecting((prev) => !prev)}
             variant={toggleButtonInfo.buttonVarient}>{toggleButtonInfo.textContent}</Button>
         </ButtonGroup>
