@@ -2,7 +2,7 @@ import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } f
 import axios from 'axios'
 import { CheckboxStatus, EditedIdStatusDict, HandleClickParams, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 
-/** SUB FUNCTION of useReviewCheckApi */
+/** SUB FUNCTION of useReviewCheckApi GET */
 const getReviewCheckArray = async (
     setReviewCheckArray: React.Dispatch<React.SetStateAction<ReviewCheckData[] | null>>,
     setError: React.Dispatch<React.SetStateAction<null>>,
@@ -20,12 +20,13 @@ const getReviewCheckArray = async (
         setIsLoading(false)
     }
 }
-/** API */
+/** API GET */
 const useReviewCheckApi = (studentId: string) => {
     const [reviewCheckArray, setReviewCheckArray] = useState<ReviewCheckData[] | null>(null)
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
+    /** GET */
     useEffect(
         () => {
             getReviewCheckArray(setReviewCheckArray, setError, setIsLoading, studentId)
@@ -35,6 +36,47 @@ const useReviewCheckApi = (studentId: string) => {
 
     return { reviewCheckArray, isLoading, error }
 }
+
+/** SUB FUNCTION of useReviewCheckApi PATCH */
+const patchReviewCheckArray = async (
+    studentId: string,
+    editedIdStatusDictArray: EditedIdStatusDict[],
+    setErroPatch: React.Dispatch<any>,
+    setIsLoadingPatch: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    try {
+        console.log("---- preparing to ")
+        const url = `http://localhost:3030/review-check/${studentId}`
+        const response = await axios.patch(url, editedIdStatusDictArray)
+        console.log("---- response:", response, editedIdStatusDictArray)
+
+    } catch (error) {
+        console.error("---- ERROR", error)
+        setErroPatch(error.message)
+
+    } finally {
+        setIsLoadingPatch(false)
+    }
+}
+/** API PATCH */
+const useReviewCheckApiPatch = () => {
+    const [errorPatch, setErroPatch] = useState(null)
+    const [isLoadingPatch, setIsLoadingPatch] = useState<boolean>(true)
+    /** PATCH  */
+    const patchReviewCheck = useCallback(
+        (
+            studentId: string,
+            editedIdStatusDictArray: EditedIdStatusDict[]
+        ) => {
+            console.log("---- this clicked")
+            patchReviewCheckArray(studentId, editedIdStatusDictArray, setErroPatch, setIsLoadingPatch)
+        },
+        []
+    )
+
+    return { patchReviewCheck, isLoadingPatch, errorPatch }
+}
+
 
 /** 
  * setRecentTwoIndexes 생성, 반환
@@ -130,11 +172,26 @@ const useEditedIndexTracker = (
                     copiedArray.push({ reviewCheckId, status })
                 }
 
-                return copiedArray 
+                return copiedArray
             })
         },
         [status]
     )
 }
 
-export { useReviewCheckApi, useCheckboxStatus, useCheckboxClickHandler, useEditedIndexTracker }
+// const patchReviewCheckArray = async () => {
+//     try {
+
+//     } catch (error) {
+
+//     } finally
+// }
+// const useReviewCheckPatchApi = useCallback(
+//     () => {
+
+//     },
+//     []
+// )
+
+
+export { useReviewCheckApi, useReviewCheckApiPatch, useCheckboxStatus, useCheckboxClickHandler, useEditedIndexTracker }
