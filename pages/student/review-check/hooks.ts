@@ -90,6 +90,7 @@ const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
         () => {
             if (!reviewCheckArray) { return [] }
 
+            // !!!!----TODO 한 번 만들고 재사용해도 됨. useRef? ----!!!!
             const initialStatusArray = reviewCheckArray.map((reviewCheck) => reviewCheck.status)
 
             if (recentTwoIndexes.length === 0) { return initialStatusArray }

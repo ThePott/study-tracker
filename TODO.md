@@ -6,24 +6,33 @@
 
 # ==== 완료 ====
 ## 성능 개선
-- 성능 개선 된 건지 확인
-- 내가 이해한 거 바탕으로 코드 다시 보기
-## 코드 개선
-- interface 한 곳에 몰아 넣기
-- 근본적 질문: get, patch를 한 후크 안에 넣는 게 맞나? <--- 분리하는 게 낫다
 ## 서버에 보내기
-- 수정 결과 console에 출력하기(완)
-- editedCheckboxIdArray -> editedIdStatusDictArray
 - 버튼 눌러서 서버에 보내기
 
-# ==== 지금 할 것 ====
-- 다중 선택 끄고 켤 수 있게
+# ==== 숙제 ====
+[완] 성능 개선
+[ ] 서버에서 권별로 받아오기
+
 
 # ==== 질문 ====
 - review-check/Header가 보일 땐 레이아웃의 StudentHeader을 숨기고 싶습니다
     - querySelector를 하듯이 해당 컴포넌트를 (예를 들어 review-check/page 로) 가져온 다음 클래스네임을 토글하는 게 가능할까요?
     - 헤더를 도중에 바꾸는 일반적인 방법은 무엇인가요? (혹은 헤더는 바뀌지 않아야 하나요?)
 - 상태를 부모로부터 받아와야 하는데 리렌더를 피할 방법
+    - `review-check/Header`의 `editedIdStatusDictArray`
+
+# ==== 지금 할 것 ====
+- 다중 선택 끄고 켤 수 있게
+    다중 선택 꺼지면 다중 선택 안 되게 ---- recentTwo 건드리지 않게
+    다중 선택 꺼지면 클릭하는 게 상태가 순환하게
+    - 현재 구조: 
+        클릭 
+        -> `useCheckboxClickHandler` 안의 `updateRecentTwoIndexes` 실행 
+        -> `recentTwoIndexes` 만든 `useCheckboxStatus`가 `statusArray` 업데이트
+        -> `statusArray`의 원소를 체크박스가 받음
+    - 개선 계획
+        1. `statusArray`의 의존성 배열에 `isMultiselecting`을 추가
+        2. `isMultiselecting`에 따라 두 케이스로 나눔
 
 # ==== 학생 페이지의 UI에서 남은 것 ====
 - 학생 측에서 5가지 상태 조작 모두 가능하게
