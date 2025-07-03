@@ -34,7 +34,7 @@ const Checkbox = React.memo(({
 
     return (
         <Button
-            className={`w-[60px] h-[60px]`}
+            className={`w-[60px] h-[60px] grow-1`}
             onClick={handleClick}
             data-index={index}
             variant={buttonProps.variant}

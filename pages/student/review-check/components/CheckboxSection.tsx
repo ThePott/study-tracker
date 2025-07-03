@@ -2,6 +2,7 @@ import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
 import Checkbox from './Checkbox'
 import Header from './Header'
 import { Box } from '@mui/material'
+import { useEffect, useRef } from 'react'
 
 const CheckboxSection = ({
   studentId,
@@ -16,8 +17,10 @@ const CheckboxSection = ({
   setEditedIdStatusDictArray,
   setSelectedBookTitle
 }: CheckboxSectionProps) => {
+
+
   return (
-    <Box className='flex flex-wrap gap-3'>
+    <Box>
       <Header
         studentId={studentId}
         editedIdStatusDictArray={editedIdStatusDictArray}
@@ -25,19 +28,24 @@ const CheckboxSection = ({
         errorPatch={errorPatch}
         isMultiSelecting={isMultiSelecting}
         setIsMultiSelecting={setIsMultiSelecting}
-        setSelectedBookTitle={setSelectedBookTitle}/>
+        setSelectedBookTitle={setSelectedBookTitle} />
 
-      {reviewCheckArray.map((reviewCheckData, index) => (
-        <Checkbox
-          key={reviewCheckData._id}
-          reviewCheckData={reviewCheckData}
-          index={index}
-          status={statusArray[index]}
-          setRecentTwoIndexes={setRecentTwoIndexes}
-          setEditedIdStatusDictArray={setEditedIdStatusDictArray}
-        />
-      ))}
-    </Box>
+      <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3">
+
+        {reviewCheckArray.map((reviewCheckData, index) => (
+          <Checkbox
+            key={reviewCheckData._id}
+            reviewCheckData={reviewCheckData}
+            index={index}
+            status={statusArray[index]}
+            setRecentTwoIndexes={setRecentTwoIndexes}
+            setEditedIdStatusDictArray={setEditedIdStatusDictArray}
+          />
+        ))}
+
+      </Box>
+
+    </Box >
   )
 }
 

@@ -8,7 +8,7 @@ const StudentLayout = () => {
     <div className='w-full h-full bg-black flex justify-center items-center'>
       <div className='w-2xl bg-bg0 sm:rounded-[24px] sm:overflow-hidden'>
         <StudentHeader />
-        <Box component="main" sx={{scrollbarColor: "hsl(0 0 30%) transparent"}} className='p-[12px] h-[calc(100vh-60px)] overflow-x-hidden overflow-y-scroll sm:h-[800px]'>
+        <Box component="main" sx={{scrollbarWidth: "none"}} className='p-[12px] h-[calc(100vh-60px)] overflow-x-hidden overflow-y-scroll sm:h-[800px]'>
           <Outlet context={Children} />
         </Box>
       </div>
