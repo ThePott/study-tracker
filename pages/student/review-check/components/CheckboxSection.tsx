@@ -1,6 +1,7 @@
 import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
 import Checkbox from './Checkbox'
 import Header from './Header'
+import { Box } from '@mui/material'
 
 const CheckboxSection = ({
   studentId,
@@ -16,7 +17,7 @@ const CheckboxSection = ({
   setSelectedBookTitle
 }: CheckboxSectionProps) => {
   return (
-    <div className='flex flex-wrap gap-3'>
+    <Box className='flex flex-wrap gap-3'>
       <Header
         studentId={studentId}
         editedIdStatusDictArray={editedIdStatusDictArray}
@@ -36,7 +37,7 @@ const CheckboxSection = ({
           setEditedIdStatusDictArray={setEditedIdStatusDictArray}
         />
       ))}
-    </div>
+    </Box>
   )
 }
 

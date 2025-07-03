@@ -29,6 +29,7 @@ const Header = ({
     buttonVarient: (isMultiSelecting ? "contained" : "outlined"),
     textContent: (isMultiSelecting ? "다중 선택 종료" : "다중 선택 시작")
   }
+
   return (
     <Box className="w-full">
       <Box className="flex">

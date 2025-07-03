@@ -1,7 +1,7 @@
-import React, { Children } from 'react'
+import { Box } from '@mui/material'
+import { Children } from 'react'
 import { Outlet } from 'react-router'
 import StudentHeader from './StudentHeader'
-import { Box } from '@mui/material'
 
 const StudentLayout = () => {
   return (

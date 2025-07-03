@@ -25,6 +25,7 @@ const getReviewCheckArray = async (
         setIsLoading(false)
     }
 }
+
 /** API GET */
 const useReviewCheckApi = (studentId: string) => {
     // const [reviewCheckArray, setReviewCheckArray] = useState<ReviewCheckData[] | null>(null)
@@ -66,6 +67,7 @@ const patchReviewCheckArray = async (
         setIsLoadingPatch(false)
     }
 }
+
 /** API PATCH */
 const useReviewCheckApiPatch = () => {
     const [errorPatch, setErroPatch] = useState(null)
@@ -84,7 +86,6 @@ const useReviewCheckApiPatch = () => {
 
     return { patchReviewCheck, isLoadingPatch, errorPatch }
 }
-
 
 /** 
  * setRecentTwoIndexes 생성, 반환
@@ -187,20 +188,5 @@ const useEditedIndexTracker = (
         [status]
     )
 }
-
-// const patchReviewCheckArray = async () => {
-//     try {
-
-//     } catch (error) {
-
-//     } finally
-// }
-// const useReviewCheckPatchApi = useCallback(
-//     () => {
-
-//     },
-//     []
-// )
-
 
 export { useReviewCheckApi, useReviewCheckApiPatch, useCheckboxStatus, useCheckboxClickHandler, useEditedIndexTracker }
