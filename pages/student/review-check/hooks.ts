@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
-import { CheckboxStatus, EditedIdStatusDict, HandleClickParams, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
+import { CheckboxStatus, EditedIdStatusDict, HandleClickParams, PatchResponse, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 
 /** SUB FUNCTION of useReviewCheckApi GET */
 const getReviewCheckArray = async (
@@ -37,7 +37,7 @@ const useReviewCheckApi = (studentId: string) => {
     /** GET */
     useEffect(
         () => {
-            getReviewCheckArray( setError, setIsLoading, studentId, setGroupedBookObject, setBookTitleArray)
+            getReviewCheckArray(setError, setIsLoading, studentId, setGroupedBookObject, setBookTitleArray)
         },
         [studentId]
     )
@@ -45,7 +45,9 @@ const useReviewCheckApi = (studentId: string) => {
     return { isLoading, error, bookTitleArray, groupedBookObject }
 }
 
-/** SUB FUNCTION of useReviewCheckApi PATCH */
+/** SUB FUNCTION of useReviewCheckApi PATCH 
+ * 
+ * ---- 삭제해야 ----*/
 const patchReviewCheckArray = async (
     studentId: string,
     editedIdStatusDictArray: EditedIdStatusDict[],
@@ -54,10 +56,8 @@ const patchReviewCheckArray = async (
 ) => {
     try {
         if (editedIdStatusDictArray.length === 0) { return }
-        console.log("---- preparing to ")
         const url = `http://localhost:3030/review-check/${studentId}`
         const response = await axios.patch(url, editedIdStatusDictArray)
-        console.log("---- response:", response, editedIdStatusDictArray)
         setErroPatch(null)
     } catch (error) {
         console.error("---- ERROR", error)
@@ -68,23 +68,73 @@ const patchReviewCheckArray = async (
     }
 }
 
-/** API PATCH */
-const useReviewCheckApiPatch = () => {
-    const [errorPatch, setErroPatch] = useState(null)
-    const [isLoadingPatch, setIsLoadingPatch] = useState<boolean>(true)
-    /** PATCH  */
-    const patchReviewCheck = useCallback(
-        (
-            studentId: string,
-            editedIdStatusDictArray: EditedIdStatusDict[]
-        ) => {
-            console.log("---- this clicked")
-            patchReviewCheckArray(studentId, editedIdStatusDictArray, setErroPatch, setIsLoadingPatch)
+
+
+/** ACUTAL PATCH  */
+const patchReviewCheckArray2 = async (
+    studentId: string,
+    editedIdStatusDictArray: EditedIdStatusDict[],
+    setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>
+) => {
+    try {
+        if (editedIdStatusDictArray.length === 0) { return }
+
+        setPatchResponse((prev) => ({ ...prev, status: "IS_LOADING" }))
+        const url = `http://localhost:3030/review-check/${studentId}`
+        const response = await axios.patch(url, editedIdStatusDictArray)
+        
+        setPatchResponse((prev) => ({ status: "IS_LOADING", message: null }))
+
+        // 여기에서 할 것
+        // 1111111111
+    } catch (error) {
+        console.error("---- ERROR", error)
+        setPatchResponse((prev) => ({ status: "IS_LOADING", message: error }))
+    }
+}
+
+
+
+/** API PATCH MANUALLY */
+const useReviewCheckPatchManual = (
+    studentId: string,
+    editedIdStatusDictArray: EditedIdStatusDict[],
+    setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>
+) => {
+    console.log("----redefining unmount effect")
+    useEffect(
+        () => {
+            return () => {
+                patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse)
+                console.log("---- manual patch when unmount")
+            }
         },
         []
     )
+}
 
-    return { patchReviewCheck, isLoadingPatch, errorPatch }
+
+
+const useReviewCheckPatchAutoOld = (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => {
+    const [errorPatch, setErroPatch] = useState(null)
+    const [isLoadingPatch, setIsLoadingPatch] = useState<boolean>(true)
+    /** PATCH  */
+    useEffect(
+        () => {
+            if (editedIdStatusDictArray.length === 0) { return }
+
+            const waitingPatch = () => {
+                patchReviewCheckArray(studentId, editedIdStatusDictArray, setErroPatch, setIsLoadingPatch)
+                console.log("---- saved automatically!")
+            }
+            const timeoutId = setTimeout(waitingPatch, 2000)
+
+            return () => clearTimeout(timeoutId)
+        },
+        [studentId, editedIdStatusDictArray]
+    )
+
+    return { isLoadingPatch, errorPatch }
 }
 
 /** 
@@ -189,4 +239,13 @@ const useEditedIndexTracker = (
     )
 }
 
-export { useReviewCheckApi, useReviewCheckApiPatch, useCheckboxStatus, useCheckboxClickHandler, useEditedIndexTracker }
+export {
+    useReviewCheckApi,
+    // useReviewCheckApiPatch,
+    useCheckboxStatus,
+    useCheckboxClickHandler,
+    useEditedIndexTracker,
+    useReviewCheckPatchAutoOld,
+    useReviewCheckPatchManual,
+    patchReviewCheckArray2
+}

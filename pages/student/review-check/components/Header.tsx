@@ -18,8 +18,8 @@ const buttonStyle = {
 const Header = ({
   studentId,
   editedIdStatusDictArray,
-  patchReviewCheck,
-  errorPatch,
+  // patchReviewCheck,
+  // errorPatch,
   isMultiSelecting,
   setIsMultiSelecting,
   setSelectedBookTitle
@@ -37,14 +37,14 @@ const Header = ({
           <Button sx={buttonStyle} onClick={() => setSelectedBookTitle(null)}>
             <ChevronLeftIcon fontSize='large'  />
           </Button>
-          <Button sx={buttonStyle} onClick={() => patchReviewCheck(studentId, editedIdStatusDictArray)} variant='outlined'>서버에 보내기</Button>
+          {/* <Button sx={buttonStyle} onClick={() => patchReviewCheck(studentId, editedIdStatusDictArray)} variant='outlined'>서버에 보내기</Button> */}
           <Button
             sx={buttonStyle}
             onClick={() => setIsMultiSelecting((prev) => !prev)}
             variant={toggleButtonInfo.buttonVarient}>{toggleButtonInfo.textContent}</Button>
         </ButtonGroup>
       </Box>
-      {errorPatch && <Typography variant='body1'>{JSON.stringify(errorPatch)}</Typography>}
+      {/* {errorPatch && <Typography variant='body1'>{JSON.stringify(errorPatch)}</Typography>} */}
     </Box>
   )
 }

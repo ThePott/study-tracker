@@ -1,6 +1,9 @@
 const checkboxStatusArray = ["DONE", "PASS", "WRONG", "CORRECT", "NOT_SOLVED"] as const;
 type CheckboxStatus = typeof checkboxStatusArray[number]
 
+const responseStatusArray = ["SUCCESS", "IS_LOADING", "ERROR"] as const
+type ResponseStatus = typeof responseStatusArray[number]
+
 interface ReviewCheckData {
     _id: string;
     studentId: string;
@@ -49,8 +52,8 @@ interface EditedIdStatusDict {
 interface ReviewCheckHeader {
     studentId: string;
     editedIdStatusDictArray: EditedIdStatusDict[];
-    patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
-    errorPatch: any
+    // patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
+    // errorPatch: any
     isMultiSelecting: boolean
     setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
     setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
@@ -59,8 +62,8 @@ interface ReviewCheckHeader {
 interface CheckboxSectionProps {
     studentId: string
     editedIdStatusDictArray: EditedIdStatusDict[]
-    patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
-    errorPatch: any
+    // patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
+    // errorPatch: any
     isMultiSelecting: boolean
     setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
     reviewCheckArray: ReviewCheckData[]
@@ -68,6 +71,12 @@ interface CheckboxSectionProps {
     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
     setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
     setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
+    setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>
+}
+
+interface PatchResponse {
+    status: ResponseStatus
+    message: string | null
 }
 
 export {
@@ -77,5 +86,6 @@ export {
     CheckboxProps,
     EditedIdStatusDict,
     ReviewCheckHeader,
-    CheckboxSectionProps
+    CheckboxSectionProps,
+    PatchResponse
 }

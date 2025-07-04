@@ -1,31 +1,46 @@
 import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
+import { Box } from '@mui/material'
+import { patchReviewCheckArray2, useReviewCheckPatchAutoOld } from '../hooks'
 import Checkbox from './Checkbox'
 import Header from './Header'
-import { Box } from '@mui/material'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
 const CheckboxSection = ({
   studentId,
   editedIdStatusDictArray,
-  patchReviewCheck,
-  errorPatch,
+  // patchReviewCheck,
+  // errorPatch,
   isMultiSelecting,
   setIsMultiSelecting,
   reviewCheckArray,
   statusArray,
   setRecentTwoIndexes,
   setEditedIdStatusDictArray,
-  setSelectedBookTitle
+  setSelectedBookTitle,
+  setPatchResponse
 }: CheckboxSectionProps) => {
 
 
+  useReviewCheckPatchAutoOld(studentId, editedIdStatusDictArray)
+  
+  useEffect(
+    () => {
+      return () => {
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse)
+        console.log("---- manual patch when unmount")
+      }
+    },
+    []
+  )
+
+  console.log("---- re-render")
   return (
     <Box>
       <Header
         studentId={studentId}
         editedIdStatusDictArray={editedIdStatusDictArray}
-        patchReviewCheck={patchReviewCheck}
-        errorPatch={errorPatch}
+        // patchReviewCheck={patchReviewCheck}
+        // errorPatch={errorPatch}
         isMultiSelecting={isMultiSelecting}
         setIsMultiSelecting={setIsMultiSelecting}
         setSelectedBookTitle={setSelectedBookTitle} />
