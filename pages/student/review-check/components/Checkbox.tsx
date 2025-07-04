@@ -1,6 +1,6 @@
-import { CheckboxProps } from "@/interfaces/reviewCheckInterfaces"
+import { CheckboxProps, CheckboxStatus } from "@/interfaces/reviewCheckInterfaces"
 import { Button } from "@mui/material"
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 import { useCheckboxClickHandler } from "../hooks"
 import useReviewCheckStore from "@/store/reviewCheckStore"
 
@@ -34,12 +34,12 @@ const Checkbox = React.memo(({
     const updateOneEditedIdStatusDictArray = useReviewCheckStore((state) => state.updateOneEditedIdStatusDictArray)
 
     /** status 바뀔 때마다 실행되는 함수 --> edited array를  업데이트 하기만 함 */
+    const prevStausRef = useRef<CheckboxStatus>(status)
     useEffect(
         () => {
-            return () => {
-                console.log("---- updating status")
-                updateOneEditedIdStatusDictArray(status, reviewCheckData)
-            }
+            if (prevStausRef.current === status) { return }
+            console.log("---- updating status")
+            updateOneEditedIdStatusDictArray(status, reviewCheckData)
         },
         [status]
     )

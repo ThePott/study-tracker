@@ -1,6 +1,6 @@
 import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
 import { Box } from '@mui/material'
-import { patchReviewCheckArray2, useReviewCheckPatchAutoOld } from '../hooks'
+import { patchReviewCheckArray2,  } from '../hooks'
 import Checkbox from './Checkbox'
 import Header from './Header'
 import { useCallback, useEffect } from 'react'
@@ -9,24 +9,22 @@ import useReviewCheckStore from '@/store/reviewCheckStore';
 const CheckboxSection = ({
   studentId,
   editedIdStatusDictArray,
-  // patchReviewCheck,
-  // errorPatch,
   isMultiSelecting,
   setIsMultiSelecting,
   reviewCheckArray,
   statusArray,
   setRecentTwoIndexes,
-  setEditedIdStatusDictArray,
   setSelectedBookTitle,
   setPatchResponse
 }: CheckboxSectionProps) => {
 
   const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
-
+  const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
+  
   useEffect(
     () => {
       const waitingPatch = () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse, updateReviewCheckArray)
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse, updateReviewCheckArray, setEditedIdStatusDictArray)
         console.log("---- saved automatically!", editedIdStatusDictArray.length, editedIdStatusDictArray)
       }
       const timeoutId = setTimeout(waitingPatch, 2000)
