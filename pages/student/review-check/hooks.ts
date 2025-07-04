@@ -1,6 +1,7 @@
 import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { CheckboxStatus, EditedIdStatusDict, HandleClickParams, PatchResponse, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
+import useReviewCheckStore from '@/store/reviewCheckStore'
 
 /** SUB FUNCTION of useReviewCheckApi GET */
 const getReviewCheckArray = async (
@@ -74,19 +75,23 @@ const patchReviewCheckArray = async (
 const patchReviewCheckArray2 = async (
     studentId: string,
     editedIdStatusDictArray: EditedIdStatusDict[],
-    setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>
+    setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>,
+    updateReviewCheckArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void
 ) => {
     try {
         if (editedIdStatusDictArray.length === 0) { return }
-
+        console.log("--- what is going wrong:", editedIdStatusDictArray)
         setPatchResponse((prev) => ({ ...prev, status: "IS_LOADING" }))
         const url = `http://localhost:3030/review-check/${studentId}`
         const response = await axios.patch(url, editedIdStatusDictArray)
         
         setPatchResponse((prev) => ({ status: "IS_LOADING", message: null }))
 
+
         // 여기에서 할 것
-        // 1111111111
+        // 1. review check array를 갈아끼운다
+        updateReviewCheckArray(editedIdStatusDictArray)
+        // 2. editedIdStatusDictArray를 비운다
     } catch (error) {
         console.error("---- ERROR", error)
         setPatchResponse((prev) => ({ status: "IS_LOADING", message: error }))
@@ -101,11 +106,19 @@ const useReviewCheckPatchManual = (
     editedIdStatusDictArray: EditedIdStatusDict[],
     setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>
 ) => {
+    console.log("---- not gonna use it!")
     console.log("----redefining unmount effect")
+
+    const updateReviewCheckArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
+
     useEffect(
         () => {
             return () => {
-                patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse)
+                patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse, updateReviewCheckArray)
+
+                
+
+
                 console.log("---- manual patch when unmount")
             }
         },
@@ -121,11 +134,12 @@ const useReviewCheckPatchAutoOld = (studentId: string, editedIdStatusDictArray: 
     /** PATCH  */
     useEffect(
         () => {
+            console.log("---- this should not be called")
             if (editedIdStatusDictArray.length === 0) { return }
 
             const waitingPatch = () => {
                 patchReviewCheckArray(studentId, editedIdStatusDictArray, setErroPatch, setIsLoadingPatch)
-                console.log("---- saved automatically!")
+                console.log("---- saved automatically!", editedIdStatusDictArray.length, editedIdStatusDictArray)
             }
             const timeoutId = setTimeout(waitingPatch, 2000)
 
@@ -206,45 +220,11 @@ const useCheckboxClickHandler = ({ setRecentTwoIndexes }: HandleClickParams) => 
     )
 }
 
-/** 
- * status update -> color change -> this runs
- * 
- * 내 status 바뀌면 그걸 부모한테 전달함
- */
-const useEditedIndexTracker = (
-    // index: number,
-    reviewCheckId: string,
-    status: CheckboxStatus,
-    reviewCheckData: ReviewCheckData,
-    setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>,
-) => {
-    useEffect(
-        () => {
-            setEditedIdStatusDictArray(prevDictArray => {
-                const indexInPrevArray = prevDictArray.findIndex((dict) => dict.reviewCheckId === reviewCheckId)
-                const copiedArray = [...prevDictArray]
-
-                if (indexInPrevArray !== -1) {
-                    copiedArray.splice(indexInPrevArray, 1)
-                }
-
-                if (status !== reviewCheckData.status) {
-                    copiedArray.push({ reviewCheckId, status })
-                }
-
-                return copiedArray
-            })
-        },
-        [status]
-    )
-}
 
 export {
     useReviewCheckApi,
-    // useReviewCheckApiPatch,
     useCheckboxStatus,
     useCheckboxClickHandler,
-    useEditedIndexTracker,
     useReviewCheckPatchAutoOld,
     useReviewCheckPatchManual,
     patchReviewCheckArray2

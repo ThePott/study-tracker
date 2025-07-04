@@ -53,6 +53,8 @@
 # ==== 지금 할 것 ====
 2. 자동 저장
     2-3. 패치 요청 성공하면 지금을 초깃값으로 초기화해야
+    SIDE_QUEST_1: id status dict array -> { id1: status1, id2: status2, ... }
+    
 
 
 # ==== 나중에 할 것 ====

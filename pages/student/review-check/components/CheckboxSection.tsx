@@ -3,7 +3,8 @@ import { Box } from '@mui/material'
 import { patchReviewCheckArray2, useReviewCheckPatchAutoOld } from '../hooks'
 import Checkbox from './Checkbox'
 import Header from './Header'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
+import useReviewCheckStore from '@/store/reviewCheckStore';
 
 const CheckboxSection = ({
   studentId,
@@ -20,13 +21,25 @@ const CheckboxSection = ({
   setPatchResponse
 }: CheckboxSectionProps) => {
 
+  const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
 
-  useReviewCheckPatchAutoOld(studentId, editedIdStatusDictArray)
-  
+  useEffect(
+    () => {
+      const waitingPatch = () => {
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse, updateReviewCheckArray)
+        console.log("---- saved automatically!", editedIdStatusDictArray.length, editedIdStatusDictArray)
+      }
+      const timeoutId = setTimeout(waitingPatch, 2000)
+
+      return () => clearTimeout(timeoutId)
+    },
+    [editedIdStatusDictArray]
+  )
+
   useEffect(
     () => {
       return () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse)
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse, updateReviewCheckArray)
         console.log("---- manual patch when unmount")
       }
     },
@@ -54,7 +67,7 @@ const CheckboxSection = ({
             index={index}
             status={statusArray[index]}
             setRecentTwoIndexes={setRecentTwoIndexes}
-            setEditedIdStatusDictArray={setEditedIdStatusDictArray}
+            // setEditedIdStatusDictArray={setEditedIdStatusDictArray}
           />
         ))}
 

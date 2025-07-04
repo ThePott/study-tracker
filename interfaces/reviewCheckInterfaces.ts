@@ -41,7 +41,7 @@ interface CheckboxProps {
     reviewCheckData: ReviewCheckData;
     status: CheckboxStatus;
     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>;
-    setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
+    // setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
 }
 
 interface EditedIdStatusDict {
