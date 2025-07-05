@@ -1,3 +1,5 @@
+
+
 const checkboxStatusArray = ["DONE", "PASS", "WRONG", "CORRECT", "NOT_SOLVED"] as const;
 type CheckboxStatus = typeof checkboxStatusArray[number]
 
@@ -71,13 +73,15 @@ interface CheckboxSectionProps {
     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
     setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
     setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
-    setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>
+    // setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>
 }
 
+/** ----DELETE THIS---- */
 interface PatchResponse {
     status: ResponseStatus
     message: string | null
 }
+
 
 export {
     CheckboxStatus,

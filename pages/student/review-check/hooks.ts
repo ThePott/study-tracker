@@ -75,23 +75,23 @@ const patchReviewCheckArray = async (
 const patchReviewCheckArray2 = async (
     studentId: string,
     editedIdStatusDictArray: EditedIdStatusDict[],
-    setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>,
+    // setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>,
     updateReviewCheckArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
     setEditedIdStatusDictArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
 ) => {
     try {
         if (editedIdStatusDictArray.length === 0) { return }
-        setPatchResponse((prev) => ({ ...prev, status: "IS_LOADING" }))
+        // setPatchResponse((prev) => ({ ...prev, status: "IS_LOADING" }))
         const url = `http://localhost:3030/review-check/${studentId}`
         const response = await axios.patch(url, editedIdStatusDictArray)
         
         updateReviewCheckArray(editedIdStatusDictArray)
         setEditedIdStatusDictArray([])
 
-        setPatchResponse({ status: "SUCCESS", message: null })
+        // setPatchResponse({ status: "SUCCESS", message: null })
     } catch (error) {
         console.error("---- ERROR", error)
-        setPatchResponse((prev) => ({ status: "ERROR", message: error }))
+        // setPatchResponse((prev) => ({ status: "ERROR", message: error }))
     }
 }
 

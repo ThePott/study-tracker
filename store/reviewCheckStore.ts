@@ -1,5 +1,6 @@
 import { CheckboxStatus, EditedIdStatusDict, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 import { create } from "zustand"
+import { ApiResponse, ResponseStatus } from "@/interfaces/commonInterfaces"
 
 // FOLD LEVEL 3
 
@@ -11,6 +12,9 @@ interface ReviewCheckState {
   editedIdStatusDictArray: EditedIdStatusDict[],
   setEditedIdStatusDictArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
   updateOneEditedIdStatusDictArray: (status: CheckboxStatus, reviewCheck: ReviewCheckData) => void,
+
+  response: ApiResponse | null,
+  setResponse: (status: ResponseStatus, message: string | null) => void,
 }
 
 const useReviewCheckStore = create<ReviewCheckState>()(
@@ -44,10 +48,13 @@ const useReviewCheckStore = create<ReviewCheckState>()(
         if (status !== reviewCheck.status) {
           copiedArray.push({ reviewCheckId: reviewCheck._id, status })
         }
-        
+
         return { editedIdStatusDictArray: copiedArray } // 채워 넣어야
       })
     },
+
+    response: null,
+    setResponse(status, message) { set({ response: { status, message } }) }
   })
 )
 

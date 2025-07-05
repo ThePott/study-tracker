@@ -14,7 +14,7 @@ const StdReviewCheckPage = () => {
     const setEditedIdStatusDictArray = useReviewCheckStore((state) => state.setEditedIdStatusDictArray)
     const [isMultiSelecting, setIsMultiSelecting] = useState<boolean>(true)
     const [selectedBookTitle, setSelectedBookTitle] = useState<string | null>(null)
-    const [patchResponse, setPatchResponse] = useState<PatchResponse | null>(null)
+    // const [patchResponse, setPatchResponse] = useState<PatchResponse | null>(null)
 
     const { isLoading, error, bookTitleArray, groupedBookObject } = useReviewCheckApi(studentId)
     const { setRecentTwoIndexes, statusArray } = useCheckboxStatus(reviewCheckArray)
@@ -52,7 +52,7 @@ const StdReviewCheckPage = () => {
         statusArray={statusArray}
         studentId={studentId}
         setSelectedBookTitle={setSelectedBookTitle}
-        setPatchResponse={setPatchResponse}
+        // setPatchResponse={setPatchResponse}
     />
 }
 

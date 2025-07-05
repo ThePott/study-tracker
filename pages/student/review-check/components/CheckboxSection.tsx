@@ -15,7 +15,7 @@ const CheckboxSection = ({
   statusArray,
   setRecentTwoIndexes,
   setSelectedBookTitle,
-  setPatchResponse
+  // setPatchResponse
 }: CheckboxSectionProps) => {
 
   const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
@@ -24,7 +24,7 @@ const CheckboxSection = ({
   useEffect(
     () => {
       const waitingPatch = () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse, updateReviewCheckArray, setEditedIdStatusDictArray)
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray,  updateReviewCheckArray, setEditedIdStatusDictArray)
         console.log("---- saved automatically!", editedIdStatusDictArray.length, editedIdStatusDictArray)
       }
       const timeoutId = setTimeout(waitingPatch, 2000)
@@ -37,7 +37,7 @@ const CheckboxSection = ({
   useEffect(
     () => {
       return () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse, updateReviewCheckArray, setEditedIdStatusDictArray)
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray,  updateReviewCheckArray, setEditedIdStatusDictArray)
         console.log("---- manual patch when unmount")
       }
     },
@@ -47,10 +47,10 @@ const CheckboxSection = ({
   console.log("---- re-render")
   return (
     <>
-    <Snackbar
+    {/* <Snackbar
         open={open}
         autoHideDuration={6000}
-        message="SAVE FAILED" />
+        message="SAVE FAILED" /> */}
       <Box>
         <Header
           studentId={studentId}
