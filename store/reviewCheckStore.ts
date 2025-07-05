@@ -1,6 +1,8 @@
 import { CheckboxStatus, EditedIdStatusDict, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 import { create } from "zustand"
 
+// FOLD LEVEL 3
+
 interface ReviewCheckState {
   reviewCheckArray: ReviewCheckData[],
   setReviewCheckArray: (newArray: ReviewCheckData[]) => void,

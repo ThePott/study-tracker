@@ -1,6 +1,6 @@
 import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
-import { Box } from '@mui/material'
-import { patchReviewCheckArray2,  } from '../hooks'
+import { Box, Snackbar } from '@mui/material'
+import { patchReviewCheckArray2, } from '../hooks'
 import Checkbox from './Checkbox'
 import Header from './Header'
 import { useCallback, useEffect } from 'react'
@@ -20,7 +20,7 @@ const CheckboxSection = ({
 
   const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
   const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
-  
+
   useEffect(
     () => {
       const waitingPatch = () => {
@@ -37,7 +37,7 @@ const CheckboxSection = ({
   useEffect(
     () => {
       return () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse, updateReviewCheckArray)
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray, setPatchResponse, updateReviewCheckArray, setEditedIdStatusDictArray)
         console.log("---- manual patch when unmount")
       }
     },
@@ -46,32 +46,35 @@ const CheckboxSection = ({
 
   console.log("---- re-render")
   return (
-    <Box>
-      <Header
-        studentId={studentId}
-        editedIdStatusDictArray={editedIdStatusDictArray}
-        // patchReviewCheck={patchReviewCheck}
-        // errorPatch={errorPatch}
-        isMultiSelecting={isMultiSelecting}
-        setIsMultiSelecting={setIsMultiSelecting}
-        setSelectedBookTitle={setSelectedBookTitle} />
+    <>
+    <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        message="SAVE FAILED" />
+      <Box>
+        <Header
+          studentId={studentId}
+          editedIdStatusDictArray={editedIdStatusDictArray}
+          isMultiSelecting={isMultiSelecting}
+          setIsMultiSelecting={setIsMultiSelecting}
+          setSelectedBookTitle={setSelectedBookTitle} />
 
-      <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3">
+        <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3">
 
-        {reviewCheckArray.map((reviewCheckData, index) => (
-          <Checkbox
-            key={reviewCheckData._id}
-            reviewCheckData={reviewCheckData}
-            index={index}
-            status={statusArray[index]}
-            setRecentTwoIndexes={setRecentTwoIndexes}
-            // setEditedIdStatusDictArray={setEditedIdStatusDictArray}
-          />
-        ))}
+          {reviewCheckArray.map((reviewCheckData, index) => (
+            <Checkbox
+              key={reviewCheckData._id}
+              reviewCheckData={reviewCheckData}
+              index={index}
+              status={statusArray[index]}
+              setRecentTwoIndexes={setRecentTwoIndexes}
+            />
+          ))}
 
-      </Box>
+        </Box>
 
-    </Box >
+      </Box >
+    </>
   )
 }
 
