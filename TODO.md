@@ -45,13 +45,12 @@
 2. 자동 저장
     2-1. setTimeout -> clearTimeout
     2-2. 혹은 unmount 되면 요청 / LIMITATION: 홈페이지 꺼질 땐 자동 저장 안 됨
-
+3. 서버 요청 인디케이터
+    3-1. 응답 상태 동그라미 불빛으로 보여줌
 
 # ==== 지금 할 것 ====
 3. 서버 요청 스낵바
-    헤더 state zustand로 바꾸기
-    response state 헤더에서 JSON stringify로 출력하기
-    
+    3-2. 실패하면 스낵바(토스트)로 에러 메시지 보여줌
 
 # ==== ZUSTAND 확인할 것 ====
 1. 자식 상태가 바뀌는 건 부모 리렌더에 영향이 없나?

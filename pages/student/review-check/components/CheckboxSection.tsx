@@ -1,6 +1,7 @@
 import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
 import useReviewCheckStore from '@/store/reviewCheckStore'
-import { Box } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import { Box, IconButton, Snackbar } from '@mui/material'
 import { useCallback, useEffect } from 'react'
 import { patchReviewCheckArray2, } from '../hooks'
 import Checkbox from './Checkbox'
@@ -21,11 +22,14 @@ const CheckboxSection = ({
   const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
   const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
   const setResponse = useCallback(useReviewCheckStore((state) => state.setResponse), [])
+  const hideResponseSnackbar = useCallback(useReviewCheckStore((state) => state.hideResponseSnackbar), [])
+
+  const response = useReviewCheckStore((state) => state.response)
 
   useEffect(
     () => {
       const waitingPatch = () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray,  updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
         console.log("---- saved automatically!", editedIdStatusDictArray.length, editedIdStatusDictArray)
       }
       const timeoutId = setTimeout(waitingPatch, 2000)
@@ -38,17 +42,32 @@ const CheckboxSection = ({
   useEffect(
     () => {
       return () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray,  updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
         console.log("---- manual patch when unmount")
       }
     },
     []
   )
 
-  console.log("---- re-render")
+  const actionFragment = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        // 수동으로 끌 때 작동하는 함수
+        onClick={hideResponseSnackbar}>
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
+
+  console.log("---- re-render section")
   return (
+    // Fold Level 5
     <>
       <Box>
+
         <Header
           isMultiSelecting={isMultiSelecting}
           setIsMultiSelecting={setIsMultiSelecting}
@@ -68,6 +87,13 @@ const CheckboxSection = ({
 
         </Box>
 
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={response && response.doOpenSnackbar}
+          autoHideDuration={6000}
+          onClose={hideResponseSnackbar} // 자동으로 꺼질 때 작동하는 함수
+          message="Fail to save"
+          action={actionFragment} />
       </Box >
     </>
   )

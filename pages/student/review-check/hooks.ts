@@ -55,19 +55,20 @@ const patchReviewCheckArray2 = async (
     editedIdStatusDictArray: EditedIdStatusDict[],
     updateReviewCheckArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
     setEditedIdStatusDictArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
-    setResponse: (status: ResponseStatus, message: string | null) => void,
+    setResponse: (status: ResponseStatus, message: string | null, doOpenSnackbar: boolean) => void,
 ) => {
     try {
         if (editedIdStatusDictArray.length === 0) { return }
-        setResponse("IS_LOADING", null)
-        const url = `http://localhost:3030/review-check/${studentId}`
+        setResponse("IS_LOADING", null, false)
+        // const url = `http://localhost:3030/review-check/${studentId}`
+        const url = `http://localhost:3030/review-checkxxxxxxxxxx/${studentId}` // <---- 오류 일으키는 용
         const response = await axios.patch(url, editedIdStatusDictArray)
         
         updateReviewCheckArray(editedIdStatusDictArray)
         setEditedIdStatusDictArray([])
-        setResponse("SUCCESS", null)
+        setResponse("SUCCESS", null, false)
     } catch (error) {
-        setResponse("ERROR", JSON.stringify(error))
+        setResponse("ERROR", JSON.stringify(error), true)
         console.error("---- ERROR", error)
     }
 }

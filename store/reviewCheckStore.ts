@@ -10,11 +10,15 @@ interface ReviewCheckState {
   updateReviewCheckArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
 
   editedIdStatusDictArray: EditedIdStatusDict[],
+  /** 얘보단 아래 걸 더 많이 쓸 거 같은데 맞네 비울 때만 쓴다 */
   setEditedIdStatusDictArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
+  /** 내 status 바뀜 -> 에디티드에 있는지 확인 후 갱신  */
   updateOneEditedIdStatusDictArray: (status: CheckboxStatus, reviewCheck: ReviewCheckData) => void,
 
   response: ApiResponse | null,
-  setResponse: (status: ResponseStatus, message: string | null) => void,
+  setResponse: (status: ResponseStatus, message: string | null, doOpenSnackbar: boolean) => void,
+  hideResponseSnackbar: () => void,
+  startResponseLoading: () => void,
 }
 
 const useReviewCheckStore = create<ReviewCheckState>()(
@@ -35,7 +39,9 @@ const useReviewCheckStore = create<ReviewCheckState>()(
     },
 
     editedIdStatusDictArray: [],
+    /** 얘보단 아래 걸 더 많이 쓸 거 같은데 맞네 비울 때만 쓴다 */
     setEditedIdStatusDictArray(editedIdStatusDictArray) { set({ editedIdStatusDictArray }) },
+    /** 내 status 바뀜 -> 에디티드에 있는지 확인 후 갱신  */
     updateOneEditedIdStatusDictArray(status, reviewCheck) {
       set((state) => {
         const copiedArray = [...state.editedIdStatusDictArray]
@@ -49,12 +55,26 @@ const useReviewCheckStore = create<ReviewCheckState>()(
           copiedArray.push({ reviewCheckId: reviewCheck._id, status })
         }
 
-        return { editedIdStatusDictArray: copiedArray } // 채워 넣어야
+        return { editedIdStatusDictArray: copiedArray }
       })
     },
 
     response: null,
-    setResponse(status, message) { set({ response: { status, message } }) }
+    setResponse(status, message, doOpenSnackbar) { set({ response: { status, message, doOpenSnackbar } }) },
+    hideResponseSnackbar() {
+      set((state) => ({ response: { ...state.response, doOpenSnackbar: false } }))
+    },
+    startResponseLoading() {
+      set((state) => {
+        if (!state.response) { return { response: { status: "IS_LOADING", message: null, doOpenSnackbar: false } } }
+
+        if (state.response.status === "IS_LOADING") { return state }
+
+        return { response: { ...state.response, status: "IS_LOADING" } }
+      })
+    },
+
+
   })
 )
 
