@@ -21,6 +21,7 @@ const BookSection = ({ bookTitleArray }: { bookTitleArray: string[] }) => {
     <Box className="flex flex-wrap gap-3">
 
       {isLoading && <BookkSectionSkeleton />}
+
       {!isLoading && bookTitleArray.map((bookTitle) => (
         <BookBox key={bookTitle} bookTitle={bookTitle} />
       ))}

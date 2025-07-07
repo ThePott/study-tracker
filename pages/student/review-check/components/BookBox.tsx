@@ -1,6 +1,6 @@
 import useReviewCheckStore from '@/store/reviewCheckStore'
-import { Box, Button, Skeleton, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { Button, Typography } from '@mui/material'
+import { useState } from 'react'
 
 const buttonStyle = {
   color: "hsl(0 0 95%)",
@@ -11,7 +11,6 @@ const buttonStyle = {
   borderRadius: "24px",
 }
 
-// const BookBox = ({ bookTitle, setSelectedBookTitle }: { bookTitle: string, setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>> }) => {
 const BookBox = ({ bookTitle }: { bookTitle: string }) => {
   const [isSelected, setIsSelected] = useState<boolean>(false)
   const bg = isSelected ? "white" : "inherit"
