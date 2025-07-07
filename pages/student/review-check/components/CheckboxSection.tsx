@@ -15,7 +15,7 @@ const CheckboxSection = ({
   reviewCheckArray,
   statusArray,
   setRecentTwoIndexes,
-  setSelectedBookTitle,
+  // setSelectedBookTitle,
 }: CheckboxSectionProps) => {
 
   const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
@@ -70,7 +70,8 @@ const CheckboxSection = ({
         <Header
           isMultiSelecting={isMultiSelecting}
           setIsMultiSelecting={setIsMultiSelecting}
-          setSelectedBookTitle={setSelectedBookTitle} />
+          // setSelectedBookTitle={setSelectedBookTitle} 
+          />
 
         <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3">
 

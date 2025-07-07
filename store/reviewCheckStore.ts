@@ -1,10 +1,18 @@
+import { ApiResponse } from "@/interfaces/commonInterfaces"
 import { CheckboxStatus, EditedIdStatusDict, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 import { create } from "zustand"
-import { ApiResponse, ResponseStatus } from "@/interfaces/commonInterfaces"
 
 // FOLD LEVEL 3
 
 interface ReviewCheckState {
+  // ---- fetch releated -----
+  groupedBookObject: any,
+  bookTitleArray: string[] | null,
+  selectedBookTitle: string | null,
+  setGroupedBookObject: (groupedBookObject: any) => void,
+  setBookTitleArray: (bookTitleArray: string[] | null) => void,
+  setSelectedBookTitle: (selectedBookTitle: string) => void,
+
   reviewCheckArray: ReviewCheckData[],
   setReviewCheckArray: (newArray: ReviewCheckData[]) => void,
   updateReviewCheckArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
@@ -16,13 +24,20 @@ interface ReviewCheckState {
   updateOneEditedIdStatusDictArray: (status: CheckboxStatus, reviewCheck: ReviewCheckData) => void,
 
   response: ApiResponse | null,
-  setResponse: (status: ResponseStatus, message: string | null, doOpenSnackbar: boolean) => void,
+  setResponse: (response: ApiResponse | null) => void,
   hideResponseSnackbar: () => void,
   startResponseLoading: () => void,
 }
 
 const useReviewCheckStore = create<ReviewCheckState>()(
   (set) => ({
+    groupedBookObject: null,
+    bookTitleArray: null,
+    selectedBookTitle: null,
+    setGroupedBookObject(groupedBookObject) { set({ groupedBookObject }) },
+    setBookTitleArray(bookTitleArray) { set({ bookTitleArray }) },
+    setSelectedBookTitle(selectedBookTitle) { set({ selectedBookTitle }) },
+
     reviewCheckArray: [],
     setReviewCheckArray(reviewCheckArray) { set({ reviewCheckArray }) },
     updateReviewCheckArray(editedIdStatusDictArray) {
@@ -60,7 +75,7 @@ const useReviewCheckStore = create<ReviewCheckState>()(
     },
 
     response: null,
-    setResponse(status, message, doOpenSnackbar) { set({ response: { status, message, doOpenSnackbar } }) },
+    setResponse(response) { set({ response }) },
     hideResponseSnackbar() {
       set((state) => ({ response: { ...state.response, doOpenSnackbar: false } }))
     },

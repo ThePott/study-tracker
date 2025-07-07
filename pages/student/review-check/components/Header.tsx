@@ -9,13 +9,6 @@ type ToggleButtonInfo = {
   textContent: string
 }
 
-const buttonStyle = {
-  color: "hsl(0 0 95%)",
-  borderColor: "hsl(0 0 30)",
-  "&:hover": {
-    borderColor: "hsl(0 0 60%)"
-  }
-}
 const COLORS = {
   neutral: "hsl(0 0 60%)",
   success: "oklch(0.8378 0.2263 157.76)",
@@ -39,12 +32,12 @@ const getStatusColor = (response: ApiResponse | null): string => {
 const Header = ({
   isMultiSelecting,
   setIsMultiSelecting,
-  setSelectedBookTitle
+  // setSelectedBookTitle
 }: ReviewCheckHeader) => {
-
+  const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)
   const response = useReviewCheckStore((state) => state.response)
   const color = getStatusColor(response)
-  
+
   const toggleButtonInfo: ToggleButtonInfo = {
     buttonVarient: (isMultiSelecting ? "contained" : "outlined"),
     textContent: (isMultiSelecting ? "다중 선택 종료" : "다중 선택 시작")
@@ -52,7 +45,7 @@ const Header = ({
 
   return (
     // !!!!---- TODO 여기 테마에 맞춰 자동조저뢰게 해야 함 ----!!!!
-    <AppBar position="static" sx={{ backgroundColor: "hsl(0 0 0)" }}>
+    <AppBar position="static">
       <Toolbar className='flex gap-6'>
 
         <Box className="grow">
@@ -63,7 +56,6 @@ const Header = ({
         </Box>
 
         <Button
-          sx={buttonStyle}
           onClick={() => setIsMultiSelecting((prev) => !prev)}
           variant={toggleButtonInfo.buttonVarient}>
           {toggleButtonInfo.textContent}

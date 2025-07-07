@@ -6,6 +6,8 @@ import StdSummary from '../pages/student/summary/page.js'
 import App from './App.jsx'
 import './index.css'
 import StudentLayout from './layouts/student/StudentLayout.js'
+import { ThemeProvider } from '@mui/material'
+import theme from './theme.js'
 
 const router = createBrowserRouter([
   {
@@ -33,5 +35,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')!).render(
+  <ThemeProvider theme={theme}>
     <RouterProvider router={router} />
+  </ThemeProvider>
 )

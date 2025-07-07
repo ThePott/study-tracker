@@ -2,49 +2,57 @@ import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } f
 import axios from 'axios'
 import { CheckboxStatus, EditedIdStatusDict, HandleClickParams, PatchResponse, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 import useReviewCheckStore from '@/store/reviewCheckStore'
-import { ResponseStatus } from '@/interfaces/commonInterfaces'
+import { ApiResponse, ResponseStatus } from '@/interfaces/commonInterfaces'
 
 /** SUB FUNCTION of useReviewCheckApi GET */
 const getReviewCheckArray = async (
-    setError: React.Dispatch<React.SetStateAction<null>>,
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setResponse: (response: ApiResponse | null) => void,
     studentId: string,
-    setGroupedBookObject: React.Dispatch<any>,
-    setBookTitleArray: React.Dispatch<React.SetStateAction<string[]>>
+    setGroupedBookObject: (groupedBookObject: any) => void,
+    setBookTitleArray: (bookTitleArray: string[] | null) => void,
 
 ) => {
     try {
-        const url = `http://localhost:3030/review-check/${studentId}`
-        const response = await axios.get(url)
+        const response: ApiResponse = {
+            status: "IS_LOADING",
+            message: null,
+            doOpenSnackbar: false
+        }
+        setResponse(response)
 
-        const data = response.data
+        const url = `http://localhost:3030/review-check/${studentId}`
+        const json = await axios.get(url)
+
+        const data = json.data
         setGroupedBookObject(data.groupedBookObject)
         setBookTitleArray(data.bookTitleArray)
+
+        response.status = "SUCCESS"
+        setResponse(response)
     } catch (error) {
         console.error("---- ERROR", error)
-        setError(error.message)
-    } finally {
-        setIsLoading(false)
+        const response: ApiResponse = {
+            status: "ERROR",
+            message: JSON.stringify(error),
+            doOpenSnackbar: true
+        }
+        setResponse(response)
     }
 }
 
 /** API GET */
 const useReviewCheckApi = (studentId: string) => {
-    // const [reviewCheckArray, setReviewCheckArray] = useState<ReviewCheckData[] | null>(null)
-    const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [groupedBookObject, setGroupedBookObject] = useState<any>(null)
-    const [bookTitleArray, setBookTitleArray] = useState<string[]>([])
+    const setResponse = useReviewCheckStore((state)=> state.setResponse)
+    const setGroupedBookObject = useReviewCheckStore((state)=> state.setGroupedBookObject)
+    const setBookTitleArray = useReviewCheckStore((state)=> state.setBookTitleArray)
 
     /** GET */
     useEffect(
         () => {
-            getReviewCheckArray(setError, setIsLoading, studentId, setGroupedBookObject, setBookTitleArray)
+            getReviewCheckArray(setResponse, studentId, setGroupedBookObject, setBookTitleArray)
         },
         [studentId]
     )
-
-    return { isLoading, error, bookTitleArray, groupedBookObject }
 }
 
 
@@ -55,20 +63,34 @@ const patchReviewCheckArray2 = async (
     editedIdStatusDictArray: EditedIdStatusDict[],
     updateReviewCheckArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
     setEditedIdStatusDictArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void,
-    setResponse: (status: ResponseStatus, message: string | null, doOpenSnackbar: boolean) => void,
+    setResponse: (response: ApiResponse) => void,
 ) => {
     try {
         if (editedIdStatusDictArray.length === 0) { return }
-        setResponse("IS_LOADING", null, false)
+
+        const response: ApiResponse = {
+            status: "IS_LOADING",
+            message: null,
+            doOpenSnackbar: false
+        }
+        setResponse(response)
+
         const url = `http://localhost:3030/review-check/${studentId}`
         // const url = `http://localhost:3030/review-checkxxxxxxxxxx/${studentId}` // <---- 오류 일으키는 용
-        const response = await axios.patch(url, editedIdStatusDictArray)
-        
+        const _ = await axios.patch(url, editedIdStatusDictArray)
+
         updateReviewCheckArray(editedIdStatusDictArray)
         setEditedIdStatusDictArray([])
-        setResponse("SUCCESS", null, false)
+
+        response.status = "SUCCESS"
+        setResponse(response)
     } catch (error) {
-        setResponse("ERROR", JSON.stringify(error), true)
+        const response: ApiResponse = {
+            status: "ERROR",
+            message: JSON.stringify(error),
+            doOpenSnackbar: true
+        }
+        setResponse(response)
         console.error("---- ERROR", error)
     }
 }
@@ -142,10 +164,36 @@ const useCheckboxClickHandler = ({ setRecentTwoIndexes }: HandleClickParams) => 
     )
 }
 
+const useReviewCheckUpdate = () => {
+    const selectedBookTitle = useReviewCheckStore((state) => state.selectedBookTitle)
+    const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)
+    const groupedBookObject = useReviewCheckStore((state) => state.groupedBookObject)
+    const setReviewCheckArray = useReviewCheckStore((state) => state.setReviewCheckArray)
+
+    useEffect(
+        () => {
+            // 1. 텅 비었으면 아무것도 안 함
+            if (!groupedBookObject) { return }
+            // 2. 타이틀만 텅 비었으면 리뷰도 비움
+            if (!selectedBookTitle) {
+                setReviewCheckArray(null)
+                return
+            }
+            // 3. 둘다 차있으면 제목에 맞게 리뷰 채움
+            const reviewCheckArrayInBook = groupedBookObject[selectedBookTitle]
+            if (!reviewCheckArrayInBook) { return }
+
+            setReviewCheckArray(reviewCheckArrayInBook)
+        },
+        [selectedBookTitle]
+    )
+}
+
 
 export {
     useReviewCheckApi,
     useCheckboxStatus,
     useCheckboxClickHandler,
-    patchReviewCheckArray2
+    patchReviewCheckArray2,
+    useReviewCheckUpdate,
 }

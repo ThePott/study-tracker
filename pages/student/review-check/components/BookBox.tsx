@@ -1,3 +1,4 @@
+import useReviewCheckStore from '@/store/reviewCheckStore'
 import { Box, Button, Skeleton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 
@@ -10,9 +11,12 @@ const buttonStyle = {
   borderRadius: "24px",
 }
 
-const BookBox = ({ bookTitle, setSelectedBookTitle }: { bookTitle: string, setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>> }) => {
+// const BookBox = ({ bookTitle, setSelectedBookTitle }: { bookTitle: string, setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>> }) => {
+const BookBox = ({ bookTitle }: { bookTitle: string }) => {
   const [isSelected, setIsSelected] = useState<boolean>(false)
   const bg = isSelected ? "white" : "inherit"
+
+  const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)
 
   const handleClick = () => {
     setIsSelected(true)
@@ -28,7 +32,7 @@ const BookBox = ({ bookTitle, setSelectedBookTitle }: { bookTitle: string, setSe
       onClick={handleClick}>
 
       <Typography variant='h6'>{bookTitle}</Typography>
-      
+
     </Button>
   )
 }
