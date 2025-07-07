@@ -52,8 +52,6 @@ interface EditedIdStatusDict {
 }
 
 interface ReviewCheckHeader {
-    studentId: string;
-    editedIdStatusDictArray: EditedIdStatusDict[];
     // patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
     // errorPatch: any
     isMultiSelecting: boolean

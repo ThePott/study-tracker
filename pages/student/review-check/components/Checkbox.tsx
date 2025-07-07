@@ -44,7 +44,6 @@ const Checkbox = React.memo(({
         [status]
     )
 
-    console.log("----re-render checkbox:", index)
     return (
         <Button
             className={`w-[60px] h-[60px] grow-1`}

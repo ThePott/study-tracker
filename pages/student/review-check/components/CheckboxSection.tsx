@@ -1,10 +1,10 @@
 import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
-import { Box, Snackbar } from '@mui/material'
+import useReviewCheckStore from '@/store/reviewCheckStore'
+import { Box } from '@mui/material'
+import { useCallback, useEffect } from 'react'
 import { patchReviewCheckArray2, } from '../hooks'
 import Checkbox from './Checkbox'
 import Header from './Header'
-import { useCallback, useEffect } from 'react'
-import useReviewCheckStore from '@/store/reviewCheckStore';
 
 const CheckboxSection = ({
   studentId,
@@ -20,11 +20,12 @@ const CheckboxSection = ({
 
   const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
   const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
+  const setResponse = useCallback(useReviewCheckStore((state) => state.setResponse), [])
 
   useEffect(
     () => {
       const waitingPatch = () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray,  updateReviewCheckArray, setEditedIdStatusDictArray)
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray,  updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
         console.log("---- saved automatically!", editedIdStatusDictArray.length, editedIdStatusDictArray)
       }
       const timeoutId = setTimeout(waitingPatch, 2000)
@@ -37,7 +38,7 @@ const CheckboxSection = ({
   useEffect(
     () => {
       return () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray,  updateReviewCheckArray, setEditedIdStatusDictArray)
+        patchReviewCheckArray2(studentId, editedIdStatusDictArray,  updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
         console.log("---- manual patch when unmount")
       }
     },
@@ -47,14 +48,8 @@ const CheckboxSection = ({
   console.log("---- re-render")
   return (
     <>
-    {/* <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        message="SAVE FAILED" /> */}
       <Box>
         <Header
-          studentId={studentId}
-          editedIdStatusDictArray={editedIdStatusDictArray}
           isMultiSelecting={isMultiSelecting}
           setIsMultiSelecting={setIsMultiSelecting}
           setSelectedBookTitle={setSelectedBookTitle} />
