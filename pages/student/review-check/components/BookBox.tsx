@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Skeleton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 
 const buttonStyle = {
@@ -17,17 +17,18 @@ const BookBox = ({ bookTitle, setSelectedBookTitle }: { bookTitle: string, setSe
   const handleClick = () => {
     setIsSelected(true)
     setSelectedBookTitle(bookTitle)
-    
+
   }
 
   return (
     <Button
       className="flex justify-center items-center p-6 rounded-3xl w-[200px] h-[200px]"
       variant='outlined'
-      sx={{...buttonStyle, backgroundColor: bg }}
-      onClick={handleClick}
-    >
+      sx={{ ...buttonStyle, backgroundColor: bg }}
+      onClick={handleClick}>
+
       <Typography variant='h6'>{bookTitle}</Typography>
+      
     </Button>
   )
 }

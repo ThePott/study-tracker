@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import BookSection from './components/BookSection';
 import CheckboxSection from './components/CheckboxSection';
 import { useCheckboxStatus, useReviewCheckApi } from './hooks';
+import { Skeleton } from '@mui/material';
 
 const studentId = "68494394d9f33f23de4513c5"
 
@@ -33,7 +34,13 @@ const StdReviewCheckPage = () => {
         [selectedBookTitle]
     )
 
-    if (isLoading) { return <div>Loading...</div> }
+    if (isLoading) { return (
+        <>
+        <Skeleton sx={{border: "1px solid white", borderRadius: "24px"}} variant="rounded" width={200} height={200} />
+        <Skeleton sx={{border: "1px solid white", borderRadius: "24px"}} variant="rounded" width={200} height={200} />
+        </>
+    )}
+
     if (error) { return <div>Error: {error}</div> }
     
     if (!selectedBookTitle) { 

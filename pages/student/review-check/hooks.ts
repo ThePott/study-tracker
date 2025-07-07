@@ -60,8 +60,8 @@ const patchReviewCheckArray2 = async (
     try {
         if (editedIdStatusDictArray.length === 0) { return }
         setResponse("IS_LOADING", null, false)
-        // const url = `http://localhost:3030/review-check/${studentId}`
-        const url = `http://localhost:3030/review-checkxxxxxxxxxx/${studentId}` // <---- 오류 일으키는 용
+        const url = `http://localhost:3030/review-check/${studentId}`
+        // const url = `http://localhost:3030/review-checkxxxxxxxxxx/${studentId}` // <---- 오류 일으키는 용
         const response = await axios.patch(url, editedIdStatusDictArray)
         
         updateReviewCheckArray(editedIdStatusDictArray)

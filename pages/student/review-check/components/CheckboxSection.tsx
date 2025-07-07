@@ -16,7 +16,6 @@ const CheckboxSection = ({
   statusArray,
   setRecentTwoIndexes,
   setSelectedBookTitle,
-  // setPatchResponse
 }: CheckboxSectionProps) => {
 
   const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
