@@ -1,13 +1,11 @@
+import { ApiResponse } from '@/interfaces/commonInterfaces';
 import { ReviewCheckHeader } from '@/interfaces/reviewCheckInterfaces';
 import useReviewCheckStore from '@/store/reviewCheckStore';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { AppBar, Box, Button, IconButton, Toolbar } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
-import { ApiResponse } from '@/interfaces/commonInterfaces';
-type ToggleButtonInfo = {
-  buttonVarient: "contained" | "outlined" | "text",
-  textContent: string
-}
+import GradingIcon from '@mui/icons-material/Grading';
+import { AppBar, Box, FormControlLabel, IconButton, Switch, ToggleButton, ToggleButtonGroup, Toolbar } from '@mui/material';
+
 
 const COLORS = {
   neutral: "hsl(0 0 60%)",
@@ -32,36 +30,37 @@ const getStatusColor = (response: ApiResponse | null): string => {
 const Header = ({
   isMultiSelecting,
   setIsMultiSelecting,
-  // setSelectedBookTitle
 }: ReviewCheckHeader) => {
   const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)
   const response = useReviewCheckStore((state) => state.response)
   const color = getStatusColor(response)
 
-  const toggleButtonInfo: ToggleButtonInfo = {
-    buttonVarient: (isMultiSelecting ? "contained" : "outlined"),
-    textContent: (isMultiSelecting ? "다중 선택 종료" : "다중 선택 시작")
-  }
+  const changeTo = useReviewCheckStore((state) => state.changeTo)
+  const setChangeTo = useReviewCheckStore((state) => state.setChangeTo)
 
   return (
-    // !!!!---- TODO 여기 테마에 맞춰 자동조저뢰게 해야 함 ----!!!!
-    <AppBar position="static">
-      <Toolbar className='flex gap-6'>
+    // Fold Level 5
+    <AppBar position='sticky' className='bg-amber-300 overflow-x-scroll'>
+      <Toolbar disableGutters className='flex justify'>
 
         <Box className="grow">
-          <IconButton size="large" edge="start" color="inherit" aria-label="back" className='grow'
+          <IconButton size="large" edge="start" color="inherit" aria-label="back"
             onClick={() => setSelectedBookTitle(null)}>
             <ChevronLeftIcon fontSize='large' />
           </IconButton>
         </Box>
 
-        <Button
-          onClick={() => setIsMultiSelecting((prev) => !prev)}
-          variant={toggleButtonInfo.buttonVarient}>
-          {toggleButtonInfo.textContent}
-        </Button>
+        
+        <ToggleButtonGroup  value={changeTo} exclusive onChange={(_event, newValue) => setChangeTo(newValue)} className="shrink-0">
+          <ToggleButton value="DONE">완료</ToggleButton>
+          <ToggleButton value="PASS">패스</ToggleButton>
+          <ToggleButton value="WRONG" color="error">오답</ToggleButton>
+          <ToggleButton value="CORRECT" color='primary'>정답</ToggleButton>
+          <ToggleButton value="NOT_SOLVED">아직</ToggleButton>
+        </ToggleButtonGroup>
 
-        <CircleIcon sx={{ backgroundColor: { color } }} />
+        <FormControlLabel control={<Switch defaultChecked />} label={<GradingIcon />} className='w-[90px]' />
+        <CircleIcon sx={{ backgroundColor: { color }, paddingRight: "12px" }} fontSize="small" />
       </Toolbar>
     </AppBar>
   )

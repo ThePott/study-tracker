@@ -73,7 +73,7 @@ const CheckboxSection = ({
           // setSelectedBookTitle={setSelectedBookTitle} 
           />
 
-        <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3">
+        <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3 px-3">
 
           {reviewCheckArray.map((reviewCheckData, index) => (
             <Checkbox

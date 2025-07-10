@@ -27,8 +27,12 @@ interface ReviewCheckState {
   setResponse: (response: ApiResponse | null) => void,
   hideResponseSnackbar: () => void,
   startResponseLoading: () => void,
+
+  changeTo: CheckboxStatus,
+  setChangeTo: (changeTo: CheckboxStatus) => void,
 }
 
+// Fold Levl 3
 const useReviewCheckStore = create<ReviewCheckState>()(
   (set) => ({
     groupedBookObject: null,
@@ -89,6 +93,8 @@ const useReviewCheckStore = create<ReviewCheckState>()(
       })
     },
 
+    changeTo: "CORRECT",
+    setChangeTo(changeTo) { set({ changeTo }) },
 
   })
 )

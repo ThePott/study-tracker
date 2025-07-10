@@ -8,6 +8,7 @@ import './index.css'
 import StudentLayout from './layouts/student/StudentLayout.js'
 import { ThemeProvider } from '@mui/material'
 import theme from './theme.js'
+import Workbench from '@/pages/workbench/Workbench.js'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: "/workbench",
+    element: <Workbench />
+  }
 ]);
 
 createRoot(document.getElementById('root')!).render(

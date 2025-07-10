@@ -27,7 +27,7 @@
     // /books   -> /:bookId
 
     // 헤더의 show 여부를 className 줘서 display: none; 으로 감추기
-## grouped-by-page로 branch 만들기
+## ----branch 나누기 ----> grouped-by-page로 branch
 8. page로 group -> step으로 group
 9. [step, page, index] 형식의 인덱스 만들기
 10. 배열 인덱스로 다중 선택 되게 하기
@@ -49,7 +49,9 @@
     4-1. book section 스켈레톤 / LIMITATION: 비동기 렌더링은 없으므로 checkbox들은 일부만 로딩하는 걸로 로직을 바꿔야 함
 
 # ==== 지금 할 것 ====
-5. 버튼 매니 헤더 만들기
+5. 버튼 매니 헤더 만들기 <-- 버튼 그룹 이용해서 내가 만들어야 함
+    아니면 tab으로 한 다음에 value에 따라서 색을 바꾸자 <--- 이게 더 나을 거 같기도 하다> // 탭은 색상이 제한적, 버튼 그룹 써야
+    
 
 
 # ==== 나중에 할 것 ====
@@ -61,3 +63,5 @@
 ## 변수 더 깔끔하게 정리
     SIDE_QUEST_1: id status dict array -> { id1: status1, id2: status2, ... }
 
+## 로딩 최적화
+    loader 써서 미리 fetch하자.
