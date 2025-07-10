@@ -4,21 +4,33 @@ import React, { useCallback, useEffect, useRef } from "react"
 import { useCheckboxClickHandler } from "../hooks"
 import useReviewCheckStore from "@/store/reviewCheckStore"
 
-const getButtonProps = (status: string) => {
-    const variantObject = {
-        "CORRECT": { variant: "contained", color: "primary", sx: {} },
-        "WRONG": { variant: "contained", color: "error", sx: {} },
-        "NOT_SOLVED": {
-            variant: "outlined",
-            sx: {
-                color: "hsl(0 0 95%)",
+const variantObject = {
+    "CORRECT": { variant: "contained", color: "primary", sx: {} },
+    "WRONG": { variant: "contained", color: "error", sx: {} },
+    "PASS": { variant: "contained", color: "warning", sx: {} },
+    "NOT_SOLVED": {
+        variant: "outlined",
+        color: undefined,
+        sx: {
+            color: "hsl(0 0 95%)",
+            borderColor: "hsl(0 0 30%)",
+            "&:hover": { borderColor: "hsl(0 0 60%)" }
+        }
+    },
+    "DONE": {
+        variant: "contained",
+        color: undefined,
+        sx: {
+            color: "hsl(0 0 65%)",
+            backgroundColor: "hsl(0 0 0)",
+            borderColor: "hsl(0 0 0)",
+            "&:hover": {
                 borderColor: "hsl(0 0 30%)",
-                "&:hover": { borderColor: "hsl(0 0 60%)" }
+                backgroundColor: "hsl(0 0 15%)",
             }
         }
-    }
-    return variantObject[status] || variantObject["NOT_SOLVED"]
-}
+    },
+} as const
 
 const Checkbox = React.memo(({
     index,
@@ -27,7 +39,7 @@ const Checkbox = React.memo(({
     setRecentTwoIndexes,
     // setEditedIdStatusDictArray
 }: CheckboxProps) => {
-    const buttonProps = getButtonProps(status)
+    const buttonProps = variantObject[status]
 
     const handleClick = useCheckboxClickHandler({ setRecentTwoIndexes })
 
@@ -36,10 +48,10 @@ const Checkbox = React.memo(({
 
     /** status 바뀔 때마다 실행되는 함수 --> edited array를  업데이트 하기만 함 */
     const prevStausRef = useRef<CheckboxStatus>(status)
+
     useEffect(
         () => {
             if (prevStausRef.current === status) { return }
-            console.log("---- updating status")
             updateOneEditedIdStatusDictArray(status, reviewCheckData)
             startResponseLoading()
         },

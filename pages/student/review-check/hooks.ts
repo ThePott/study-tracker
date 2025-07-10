@@ -1,8 +1,8 @@
-import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
-import axios from 'axios'
-import { CheckboxStatus, EditedIdStatusDict, HandleClickParams, PatchResponse, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
+import { ApiResponse } from '@/interfaces/commonInterfaces'
+import { EditedIdStatusDict, HandleClickParams, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 import useReviewCheckStore from '@/store/reviewCheckStore'
-import { ApiResponse, ResponseStatus } from '@/interfaces/commonInterfaces'
+import axios from 'axios'
+import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
 
 /** SUB FUNCTION of useReviewCheckApi GET */
 const getReviewCheckArray = async (
@@ -101,7 +101,7 @@ const patchReviewCheckArray2 = async (
  */
 const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
     const [recentTwoIndexes, setRecentTwoIndexes] = useState<number[]>([])
-
+    const changeTo = useReviewCheckStore((state) => state.changeTo)
     const statusArray = useMemo(
         () => {
             if (!reviewCheckArray) { return [] }
@@ -117,7 +117,7 @@ const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
             const startIndex = Math.min(...recentSortedArray)
             const spliceLength = Math.max(...recentTwoIndexes) - startIndex + 1
 
-            copiedInitialStatusArray.splice(startIndex, spliceLength, ...Array(spliceLength).fill("CORRECT"))
+            copiedInitialStatusArray.splice(startIndex, spliceLength, ...Array(spliceLength).fill(changeTo))
 
             return copiedInitialStatusArray
         },
@@ -150,6 +150,9 @@ const updateRecentTwoIndexes = (
  * update recent two index가 메인 기능
  * 
  * 부모에게서 파라미터를 받아야 해서 콜백으로 감싸는 함수
+ * 
+ * ==== 개선 가능 ====
+ * 그냥 () => 함수() 형태로 바꾸면 된다. 어렵게 하지 말자
 */
 const useCheckboxClickHandler = ({ setRecentTwoIndexes }: HandleClickParams) => {
     return useCallback<MouseEventHandler<HTMLButtonElement>>(
@@ -191,9 +194,5 @@ const useReviewCheckUpdate = () => {
 
 
 export {
-    useReviewCheckApi,
-    useCheckboxStatus,
-    useCheckboxClickHandler,
-    patchReviewCheckArray2,
-    useReviewCheckUpdate,
+    patchReviewCheckArray2, useCheckboxClickHandler, useCheckboxStatus, useReviewCheckApi, useReviewCheckUpdate
 }

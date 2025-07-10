@@ -9,24 +9,23 @@ import CustomToggleButtonGroup from './CustomToggleButtonGroup';
 
 
 const COLORS = {
-  neutral: "hsl(0 0 60%)",
   success: "oklch(0.8378 0.2263 157.76)",
-  loading: "oklch(0.8378 0.2045 103.76)",
+  loading: "oklch(0.7584 0.2067 58.23)",
   error: "oklch(0.6 0.2557 31.76)"
 } as const;
 
-const getStatusColor = (response: ApiResponse | null): string => {
-  if (response === null) return COLORS.neutral;
+const getStatusColor = (response: ApiResponse): string => {
+  if (response === null) return COLORS.loading
 
   switch (response.status) {
     case 'SUCCESS':
-      return COLORS.success;
+      return COLORS.success
     case 'IS_LOADING':
-      return COLORS.loading;
+      return COLORS.loading
     default:
-      return COLORS.error;
+      return COLORS.error
   }
-};
+}
 
 const Header = () => {
   const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)

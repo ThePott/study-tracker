@@ -1,5 +1,3 @@
-
-
 const checkboxStatusArray = ["DONE", "PASS", "WRONG", "CORRECT", "NOT_SOLVED"] as const;
 type CheckboxStatus = typeof checkboxStatusArray[number]
 
