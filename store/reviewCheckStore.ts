@@ -3,7 +3,6 @@ import { CheckboxStatus, EditedIdStatusDict, ReviewCheckData } from "@/interface
 import { create } from "zustand"
 
 // FOLD LEVEL 3
-
 interface ReviewCheckState {
   // ---- fetch releated -----
   groupedBookObject: any,
@@ -30,6 +29,9 @@ interface ReviewCheckState {
 
   changeTo: CheckboxStatus,
   setChangeTo: (changeTo: CheckboxStatus) => void,
+
+  isMultiSelecting: boolean,
+  setIsMultiSelecting: (isMultiSelecting: boolean) => void,
 }
 
 // Fold Levl 3
@@ -96,6 +98,8 @@ const useReviewCheckStore = create<ReviewCheckState>()(
     changeTo: "CORRECT",
     setChangeTo(changeTo) { set({ changeTo }) },
 
+    isMultiSelecting: true,
+    setIsMultiSelecting(isMultiSelecting) { set({ isMultiSelecting }) },
   })
 )
 

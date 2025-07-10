@@ -62,8 +62,8 @@ interface CheckboxSectionProps {
     editedIdStatusDictArray: EditedIdStatusDict[]
     // patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
     // errorPatch: any
-    isMultiSelecting: boolean
-    setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
+    // isMultiSelecting: boolean
+    // setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
     reviewCheckArray: ReviewCheckData[]
     statusArray: CheckboxStatus[]
     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>

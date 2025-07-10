@@ -24,10 +24,6 @@ const variantObject = {
             color: "hsl(0 0 65%)",
             backgroundColor: "hsl(0 0 0)",
             borderColor: "hsl(0 0 0)",
-            "&:hover": {
-                borderColor: "hsl(0 0 30%)",
-                backgroundColor: "hsl(0 0 15%)",
-            }
         }
     },
 } as const

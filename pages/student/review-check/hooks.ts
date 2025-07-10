@@ -56,7 +56,7 @@ const useReviewCheckApi = (studentId: string) => {
 }
 
 
-
+// ---------------------- 여기서 시연 -------------------------
 /** ACUTAL PATCH  */
 const patchReviewCheckArray2 = async (
     studentId: string,

@@ -5,8 +5,6 @@
 # ██      ███████ 
 
 # ==== 목표 ====
-5. 버튼 매니 헤더 만들기
-6. 버튼 매니 헤더 클릭한 색으로 수정되게 하기
 
 7. 다중 선택 끄기 기능
     다중 선택 꺼지면 다중 선택 안 되게 ---- recentTwo 건드리지 않게
@@ -41,17 +39,38 @@
 1. 패딩 맞추기: grid auto fit, minmax(60px, 1fr)
 2. 자동 저장
     2-1. setTimeout -> clearTimeout
-    2-2. 혹은 unmount 되면 요청 / LIMITATION: 홈페이지 꺼질 땐 자동 저장 안 됨
+    2-2. 혹은 unmount 되면 요청
+    LIMITATION
+        홈페이지 꺼질 땐 자동 저장 안 됨
 3. 서버 요청 인디케이터
     3-1. 응답 상태 동그라미 불빛으로 보여줌
     3-2. 실패하면 스낵바(토스트)로 에러 메시지 보여줌
+        후크로 가저 주소 바꾸고 시연
+    3-3. 서버로부터 응답 받으면 변경되었다고 기록한 것 초기화
+        editedIdStatusDictArray
+        recentTwo
 4. 스켈레톤
-    4-1. book section 스켈레톤 / LIMITATION: 비동기 렌더링은 없으므로 checkbox들은 일부만 로딩하는 걸로 로직을 바꿔야 함
+    4-1. book section 스켈레톤
+    LIMITATION
+        비동기 렌더링은 없다
+        너무 많이 로딩하는 게 문제
+        checkbox들은 일부만 로딩하는 걸로 로직을 바꿔야 함
+5. 리뷰 체크 전용 헤더 만들기
+6. 리뷰 체크 전용 헤더 버튼 색으로 수정되게 하기
+    완료, 패스는 호버 상호작용 없음
 
 # ==== 지금 할 것 ====
-5. 버튼 매니 헤더 만들기 <-- 버튼 그룹 이용해서 내가 만들어야 함
-    아니면 tab으로 한 다음에 value에 따라서 색을 바꾸자 <--- 이게 더 나을 거 같기도 하다> // 탭은 색상이 제한적, 버튼 그룹 써야
-    
+7. 다중 선택 끄기 기능
+    다중 선택 꺼지면 다중 선택 안 되게 ---- recentTwo 건드리지 않게
+    - 현재 구조: 
+        클릭 
+        -> `useCheckboxClickHandler` 안의 `updateRecentTwoIndexes` 실행 
+        -> `recentTwoIndexes` 만든 `useCheckboxStatus`가 `statusArray` 업데이트
+        -> `statusArray`의 원소를 체크박스가 받음
+    - 개선 계획
+        1. `statusArray`의 의존성 배열에 `isMultiselecting`을 추가
+        2. `isMultiselecting`에 따라 두 케이스로 나눔
+
 
 
 # ==== 나중에 할 것 ====

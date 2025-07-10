@@ -10,12 +10,9 @@ import Header from './Header'
 const CheckboxSection = ({
   studentId,
   editedIdStatusDictArray,
-  isMultiSelecting,
-  setIsMultiSelecting,
   reviewCheckArray,
   statusArray,
   setRecentTwoIndexes,
-  // setSelectedBookTitle,
 }: CheckboxSectionProps) => {
 
   const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
@@ -67,11 +64,7 @@ const CheckboxSection = ({
     <>
       <Box>
 
-        <Header
-          isMultiSelecting={isMultiSelecting}
-          setIsMultiSelecting={setIsMultiSelecting}
-          // setSelectedBookTitle={setSelectedBookTitle} 
-          />
+        <Header/>
 
         <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3 px-3">
 
