@@ -4,17 +4,25 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import React, { useState } from 'react';
 
 interface CustomButtonProps {
-  label: string
-  status: CheckboxStatus
-  isSelected: boolean
-  setSelectedStatus: React.Dispatch<React.SetStateAction<CheckboxStatus>>
-
+  label: string;
+  status: CheckboxStatus;
+  isSelected: boolean;
+  setSelectedStatus: React.Dispatch<React.SetStateAction<CheckboxStatus>>;
 }
+
+const BUTTON_CONFIG = [
+  { label: "완료", status: "DONE" as CheckboxStatus },
+  { label: "패스", status: "PASS" as CheckboxStatus },
+  { label: "정답", status: "CORRECT" as CheckboxStatus },
+  { label: "오답", status: "WRONG" as CheckboxStatus },
+  { label: "아직", status: "NOT_SOLVED" as CheckboxStatus },
+] as const;
 
 const getButtonProps = (status: CheckboxStatus, isSelected: boolean) => {
   const variantObject = {
     "CORRECT": { color: "primary", sx: {} },
     "WRONG": { color: "error", sx: {} },
+    "PASS": { color: "warning", sx: {} },
     "NOT_SOLVED": {
       color: undefined,
       sx: {
@@ -34,13 +42,11 @@ const getButtonProps = (status: CheckboxStatus, isSelected: boolean) => {
         backgroundColor: isSelected ? "hsl(0 0 0)" : undefined,
         borderColor: "hsl(0 0 0)",
         "&:hover": { 
-          borderColor: "hsl(0 0 15%)",
+          borderColor: "hsl(0 0 30%)",
           backgroundColor: isSelected ? "hsl(0 0 15%)" : undefined,
         }
       }
     },
-    "PASS": { color: "warning", sx: {} },
-
   }
   return variantObject[status] || variantObject["NOT_SOLVED"]
 }
@@ -64,11 +70,15 @@ const Workbench = () => {
   const [selectedStatus, setSelectedStatus] = useState<CheckboxStatus>("CORRECT")
   return (
     <ButtonGroup>
-      <CustomButton label="완료" status="DONE" isSelected={selectedStatus === "DONE"} setSelectedStatus={setSelectedStatus} />
-      <CustomButton label="패스" status="PASS" isSelected={selectedStatus === "PASS"} setSelectedStatus={setSelectedStatus} />
-      <CustomButton label="정답" status="CORRECT" isSelected={selectedStatus === "CORRECT"} setSelectedStatus={setSelectedStatus} />
-      <CustomButton label="오답" status="WRONG" isSelected={selectedStatus === "WRONG"} setSelectedStatus={setSelectedStatus} />
-      <CustomButton label="아직" status="NOT_SOLVED" isSelected={selectedStatus === "NOT_SOLVED"} setSelectedStatus={setSelectedStatus} />
+      {BUTTON_CONFIG.map(({ label, status }) => (
+        <CustomButton
+          key={status}
+          label={label}
+          status={status}
+          isSelected={selectedStatus === status}
+          setSelectedStatus={setSelectedStatus}
+        />
+      ))}
     </ButtonGroup>
   )
 }
