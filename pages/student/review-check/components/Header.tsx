@@ -1,10 +1,11 @@
 import { ApiResponse } from '@/interfaces/commonInterfaces';
-import { ReviewCheckHeader } from '@/interfaces/reviewCheckInterfaces';
+// import { ReviewCheckHeader } from '@/interfaces/reviewCheckInterfaces';
 import useReviewCheckStore from '@/store/reviewCheckStore';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import CircleIcon from '@mui/icons-material/Circle';
 import GradingIcon from '@mui/icons-material/Grading';
 import { AppBar, Box, FormControlLabel, IconButton, Switch, ToggleButton, ToggleButtonGroup, Toolbar } from '@mui/material';
+import CustomToggleButtonGroup from './CustomToggleButtonGroup';
 
 
 const COLORS = {
@@ -27,21 +28,15 @@ const getStatusColor = (response: ApiResponse | null): string => {
   }
 };
 
-const Header = ({
-  isMultiSelecting,
-  setIsMultiSelecting,
-}: ReviewCheckHeader) => {
+const Header = () => {
   const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)
   const response = useReviewCheckStore((state) => state.response)
   const color = getStatusColor(response)
 
-  const changeTo = useReviewCheckStore((state) => state.changeTo)
-  const setChangeTo = useReviewCheckStore((state) => state.setChangeTo)
-
   return (
     // Fold Level 5
     <AppBar position='sticky' className='bg-amber-300 overflow-x-scroll'>
-      <Toolbar disableGutters className='flex justify'>
+      <Toolbar disableGutters className='flex gap-6'>
 
         <Box className="grow">
           <IconButton size="large" edge="start" color="inherit" aria-label="back"
@@ -50,17 +45,13 @@ const Header = ({
           </IconButton>
         </Box>
 
-        
-        <ToggleButtonGroup  value={changeTo} exclusive onChange={(_event, newValue) => setChangeTo(newValue)} className="shrink-0">
-          <ToggleButton value="DONE">완료</ToggleButton>
-          <ToggleButton value="PASS">패스</ToggleButton>
-          <ToggleButton value="WRONG" color="error">오답</ToggleButton>
-          <ToggleButton value="CORRECT" color='primary'>정답</ToggleButton>
-          <ToggleButton value="NOT_SOLVED">아직</ToggleButton>
-        </ToggleButtonGroup>
 
-        <FormControlLabel control={<Switch defaultChecked />} label={<GradingIcon />} className='w-[90px]' />
-        <CircleIcon sx={{ backgroundColor: { color }, paddingRight: "12px" }} fontSize="small" />
+        <CustomToggleButtonGroup />
+
+        <Box className="flex">
+          <FormControlLabel control={<Switch defaultChecked />} label={<GradingIcon />} className='w-[90px]' />
+          <CircleIcon sx={{ backgroundColor: { color }, paddingRight: "12px" }} fontSize="small" />
+        </Box>
       </Toolbar>
     </AppBar>
   )

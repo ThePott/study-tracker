@@ -51,13 +51,13 @@ interface EditedIdStatusDict {
     status: CheckboxStatus;
 }
 
-interface ReviewCheckHeader {
-    // patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
-    // errorPatch: any
-    isMultiSelecting: boolean
-    setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
-    // setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
-}
+// interface ReviewCheckHeader {
+//     // patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
+//     // errorPatch: any
+//     isMultiSelecting: boolean
+//     setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
+//     // setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
+// }
 
 interface CheckboxSectionProps {
     studentId: string
@@ -87,7 +87,7 @@ export {
     HandleClickParams,
     CheckboxProps,
     EditedIdStatusDict,
-    ReviewCheckHeader,
+    // ReviewCheckHeader,
     CheckboxSectionProps,
     PatchResponse
 }
