@@ -59,21 +59,15 @@
     완료, 패스는 호버 상호작용 없음
 
 # ==== 지금 할 것 ====
------------- 현재 스토어 만드는 중 -------------
-7. 다중 선택 끄기 기능
-    다중 선택 꺼지면 다중 선택 안 되게 ---- recentTwo 건드리지 않게
-    - 개선 방안
-        단일 클릭에선 클릭하면 recentTwoIndexes 건드리지 않고 statusArray를 직접 바꿈
-            zustand store로 바꿔야 하는 것
-            <!-- 1. recentTwoIndexes,  -->
-            2. statusArray, updateRangeFromStatusArray
-        zustand setter 만들 것
-            updateOneFromStatusArray
+click -> two indexes -> status array -> edited array -> 저장
+여기서 시간 걸리는 게 어디지?
 
-할 것: suspense 이용해서 체크박스만 있는 곳을 checkboxMany라고 한 다음에 lazy import, suspence하면
-스켈레톤 쓸 수 있다
+
 
 # ==== 나중에 할 것 ====
+
+
+
 ## 스크롤 조작
 - 완료가 아닌 첫 번째 네모가 위에서 두 번째 줄에 로딩되게 하기
 
@@ -85,7 +79,9 @@
 ## 로딩 최적화
     loader 써서 미리 fetch하자.
 
+    할 것: suspense 이용해서 체크박스만 있는 곳을 checkboxMany라고 한 다음에 lazy import, suspence하면 스켈레톤 쓸 수 있다
+
 ## 프로그레스 바
 
-#
+## 진도표에서 선생은 칸반 보드로 드래그 드롭 할 수 있게
 

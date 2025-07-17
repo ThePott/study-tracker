@@ -12,9 +12,6 @@ const StdReviewCheckPage = () => {
 
     const reviewCheckArray = useReviewCheckStore((state) => state.reviewCheckArray)
 
-    const response = useReviewCheckStore((state) => state.response)
-    if (response && response.status) { console.log("---- response status:", response.status) }
-
     // ---- call effect custom hooks
     useReviewCheckApi(studentId)
     useReviewCheckUpdate()

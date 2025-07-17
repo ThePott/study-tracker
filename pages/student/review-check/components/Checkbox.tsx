@@ -47,11 +47,13 @@ const Checkbox = React.memo(({
         () => {
             if (prevStausRef.current === status) { return }
             updateOneEditedIdStatusDictArray(status, reviewCheckData)
+            console.log("---- status change -> start loading:", index, status)
             startResponseLoading()
         },
         [status]
     )
 
+    console.log("---- checkbox re-render:", index)
     return (
         <Button
             className={`w-[60px] h-[60px] grow-1`}

@@ -13,7 +13,6 @@ const getReviewCheckArray = async (
 
 ) => {
     try {
-        console.log("---- loading for get")
         const response: ApiResponse = {
             status: "IS_LOADING",
             message: null,
@@ -67,7 +66,11 @@ const patchReviewCheckArray2 = async (
 ) => {
     try {
         if (editedIdStatusDictArray.length === 0) { return }
-        
+
+        const copiedEditedArray = [...editedIdStatusDictArray]
+        updateReviewCheckArray(editedIdStatusDictArray)
+        setEditedIdStatusDictArray([])
+
         console.log("---- loading for patch")
         const response: ApiResponse = {
             status: "IS_LOADING",
@@ -78,13 +81,11 @@ const patchReviewCheckArray2 = async (
 
         const url = `http://localhost:3030/review-check/${studentId}`
         // const url = `http://localhost:3030/review-checkxxxxxxxxxx/${studentId}` // <---- 오류 일으키는 용
-        const _ = await axios.patch(url, editedIdStatusDictArray)
+        const _ = await axios.patch(url, copiedEditedArray)
 
-        updateReviewCheckArray(editedIdStatusDictArray)
-        setEditedIdStatusDictArray([])
-
-        response.status = "SUCCESS"
-        setResponse(response)
+        const copiedResponse = { ...response }
+        copiedResponse.status = "SUCCESS"
+        setResponse(copiedResponse)
     } catch (error) {
         const response: ApiResponse = {
             status: "ERROR",
@@ -96,27 +97,7 @@ const patchReviewCheckArray2 = async (
     }
 }
 
-
-
-/** update recent two index가 메인 기능 */
-const useCheckboxClickHandler = () => {
-    const isMultiSelecting = useReviewCheckStore((state) => state.isMultiSelecting)
-    // const updateStatusArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
-    const appendToRecentTwoIndexes = useReviewCheckStore((state) => state.appendToRecentTwoIndexes)
-
-    return useCallback<MouseEventHandler<HTMLButtonElement>>(
-        (event) => {
-            const optionalIndex = event.currentTarget.dataset.index
-            if (!optionalIndex) { return }
-
-            const index = Number(optionalIndex)
-            appendToRecentTwoIndexes(index)
-        },
-        []
-    )
-}
-
-/** 선택된 책에 맞춰 review check array 채움 */
+/** selected book -> review check array 채움 */
 const useReviewCheckUpdate = () => {
     const selectedBookTitle = useReviewCheckStore((state) => state.selectedBookTitle)
     const groupedBookObject = useReviewCheckStore((state) => state.groupedBookObject)
@@ -141,16 +122,51 @@ const useReviewCheckUpdate = () => {
     )
 }
 
+/** click event -> recent two indexes || single update on status array */
+const useCheckboxClickHandler = () => {
+    // const isMultiSelecting = useReviewCheckStore((state) => state.isMultiSelecting)
+    // const updateStatusArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
+    const appendToRecentTwoIndexes = useReviewCheckStore((state) => state.appendToRecentTwoIndexes)
+    const updateOneOfStatusArray = useReviewCheckStore((state) => state.updateOneOfStatusArray)
+
+    return useCallback<MouseEventHandler<HTMLButtonElement>>(
+        (event) => {
+            const optionalIndex = event.currentTarget.dataset.index
+            if (!optionalIndex) { return }
+
+            const index = Number(optionalIndex)
+
+            const isMultiSelecting = useReviewCheckStore.getState().isMultiSelecting
+
+            if (isMultiSelecting) {
+                appendToRecentTwoIndexes(index)
+                return
+            }
+
+            updateOneOfStatusArray(index)
+        },
+        []
+    )
+}
+
+/** review check array || recent two indexes -> update status array  */
 const useUpdateStatusArray = () => {
     const updateStatusArray = useReviewCheckStore((state) => state.updateStatusArray)
     const reviewCheckArray = useReviewCheckStore((state) => state.reviewCheckArray)
     const recentTwoIndexes = useReviewCheckStore((state) => state.recentTwoIndexes)
-    useEffect(() => { updateStatusArray() }, [reviewCheckArray, recentTwoIndexes])
+    useEffect(
+        () => {
+            const isMultiSelecting = useReviewCheckStore.getState().isMultiSelecting
+            if (!isMultiSelecting) { return }
+
+            updateStatusArray()
+        },
+        [reviewCheckArray, recentTwoIndexes]
+    )
 }
 
-const useTimeoutToAutoSave = (studentId: string) => {
-    // 스토어 세터 함수는 콜백으로 감쌀 필요가 없어보이는데
-
+/** edited array -> time out -> patch request */
+const useAutoSave = (studentId: string) => {
     const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
     const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
     const setResponse = useCallback(useReviewCheckStore((state) => state.setResponse), [])
@@ -161,7 +177,6 @@ const useTimeoutToAutoSave = (studentId: string) => {
         () => {
             const waitingPatch = () => {
                 patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
-                console.log("---- saved automatically!", editedIdStatusDictArray.length, editedIdStatusDictArray)
             }
             const timeoutId = setTimeout(waitingPatch, 2000)
 
@@ -190,5 +205,5 @@ const useManualPatchWhenUnmount = (studentId: string) => {
 
 export {
     patchReviewCheckArray2, useCheckboxClickHandler, useReviewCheckApi, useReviewCheckUpdate,
-    useUpdateStatusArray, useTimeoutToAutoSave, useManualPatchWhenUnmount
+    useUpdateStatusArray, useAutoSave, useManualPatchWhenUnmount
 }

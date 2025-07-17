@@ -35,9 +35,11 @@ interface ReviewCheckState {
 
   recentTwoIndexes: number[],
   appendToRecentTwoIndexes: (index: number) => void,
+  clearRecentTwoIndexes: () => void,
 
   statusArray: CheckboxStatus[],
-  updateStatusArray: () => void
+  updateStatusArray: () => void,
+  updateOneOfStatusArray: (index: number) => void,
 }
 
 // Fold Levl 3
@@ -128,6 +130,7 @@ const useReviewCheckStore = create<ReviewCheckState>()(
         return { recentTwoIndexes: copiedIndexes }
       })
     },
+    clearRecentTwoIndexes() { set({ recentTwoIndexes: [] }) },
 
     statusArray: [],
     updateStatusArray() {
@@ -153,7 +156,12 @@ const useReviewCheckStore = create<ReviewCheckState>()(
         return { statusArray: copiedInitialStatusArray }
       })
     },
-
+    updateOneOfStatusArray(index) {
+      set((state) => {
+        const updatedArray = state.statusArray.map((tempStatus, tempIndex) => (tempIndex === index ? state.changeTo : tempStatus))
+        return { statusArray: updatedArray }
+      })
+    },
   })
 )
 

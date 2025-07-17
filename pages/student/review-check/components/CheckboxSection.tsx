@@ -3,7 +3,7 @@ import useReviewCheckStore from '@/store/reviewCheckStore'
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, IconButton, Skeleton, Snackbar } from '@mui/material'
 import { useCallback } from 'react'
-import { useManualPatchWhenUnmount, useTimeoutToAutoSave, useUpdateStatusArray } from '../hooks'
+import { useManualPatchWhenUnmount, useAutoSave, useUpdateStatusArray } from '../hooks'
 import Checkbox from './Checkbox'
 import Header from './Header'
 
@@ -20,7 +20,7 @@ const CheckboxSection = ({
 
   // ---- call effect custom hooks
   useUpdateStatusArray()
-  useTimeoutToAutoSave(studentId)
+  useAutoSave(studentId)
   useManualPatchWhenUnmount(studentId)
 
   const actionFragment = (
