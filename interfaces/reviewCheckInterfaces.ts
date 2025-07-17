@@ -28,9 +28,9 @@ interface ReviewCheckData {
     reviewedAt?: Date;    // When teacher marked as reviewed (optional)
 }
 
-interface HandleClickParams {
-    setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>,
-}
+// interface HandleClickParams {
+//     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>,
+// }
 
 /**
  * index는 이런 의미다
@@ -40,7 +40,7 @@ interface CheckboxProps {
     index: number;
     reviewCheckData: ReviewCheckData;
     status: CheckboxStatus;
-    setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>;
+    // setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>;
     // setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
 }
 
@@ -64,9 +64,9 @@ interface CheckboxSectionProps {
     // errorPatch: any
     // isMultiSelecting: boolean
     // setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
-    reviewCheckArray: ReviewCheckData[]
-    statusArray: CheckboxStatus[]
-    setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
+    // reviewCheckArray: ReviewCheckData[]
+    // statusArray: CheckboxStatus[]
+    // setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
     setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
     // setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
     // setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>
@@ -82,7 +82,7 @@ interface PatchResponse {
 export {
     CheckboxStatus,
     ReviewCheckData,
-    HandleClickParams,
+    // HandleClickParams,
     CheckboxProps,
     EditedIdStatusDict,
     // ReviewCheckHeader,

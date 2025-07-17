@@ -2,7 +2,7 @@ import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
 import useReviewCheckStore from '@/store/reviewCheckStore'
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, IconButton, Snackbar } from '@mui/material'
-import { useCallback, useEffect } from 'react'
+import { Suspense, useCallback, useEffect } from 'react'
 import { patchReviewCheckArray2, } from '../hooks'
 import Checkbox from './Checkbox'
 import Header from './Header'
@@ -10,9 +10,9 @@ import Header from './Header'
 const CheckboxSection = ({
   studentId,
   editedIdStatusDictArray,
-  reviewCheckArray,
-  statusArray,
-  setRecentTwoIndexes,
+  // reviewCheckArray,
+  // statusArray,
+  // setRecentTwoIndexes,
 }: CheckboxSectionProps) => {
 
   const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
@@ -21,6 +21,14 @@ const CheckboxSection = ({
   const hideResponseSnackbar = useCallback(useReviewCheckStore((state) => state.hideResponseSnackbar), [])
 
   const response = useReviewCheckStore((state) => state.response)
+
+  const statusArray = useReviewCheckStore((state) => state.statusArray)
+  const updateStatusArray = useReviewCheckStore((state) => state.updateStatusArray)
+
+  const reviewCheckArray = useReviewCheckStore((state) => state.reviewCheckArray)
+  const recentTwoIndexes = useReviewCheckStore((state) => state.recentTwoIndexes)
+
+  useEffect(() => {updateStatusArray()}, [reviewCheckArray, recentTwoIndexes])
 
   useEffect(
     () => {
@@ -58,13 +66,12 @@ const CheckboxSection = ({
     </>
   );
 
-  console.log("---- re-render section")
   return (
     // Fold Level 5
     <>
       <Box>
 
-        <Header/>
+        <Header />
 
         <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3 px-3">
 
@@ -73,8 +80,8 @@ const CheckboxSection = ({
               key={reviewCheckData._id}
               reviewCheckData={reviewCheckData}
               index={index}
-              status={statusArray[index]}
-              setRecentTwoIndexes={setRecentTwoIndexes}
+              status={statusArray[index] ?? "NOT_SOLVED"}
+              // setRecentTwoIndexes={setRecentTwoIndexes}
             />
           ))}
 

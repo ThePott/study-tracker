@@ -32,12 +32,12 @@ const Checkbox = React.memo(({
     index,
     reviewCheckData,
     status,
-    setRecentTwoIndexes,
+    // setRecentTwoIndexes,
     // setEditedIdStatusDictArray
 }: CheckboxProps) => {
     const buttonProps = variantObject[status]
 
-    const handleClick = useCheckboxClickHandler({ setRecentTwoIndexes })
+    const handleClick = useCheckboxClickHandler()
 
     const updateOneEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.updateOneEditedIdStatusDictArray), [])
     const startResponseLoading = useCallback(useReviewCheckStore((state) => state.startResponseLoading), [])

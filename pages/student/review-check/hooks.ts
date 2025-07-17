@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/interfaces/commonInterfaces'
-import { EditedIdStatusDict, HandleClickParams, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
+import { EditedIdStatusDict, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
 import useReviewCheckStore from '@/store/reviewCheckStore'
 import axios from 'axios'
 import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
@@ -100,8 +100,10 @@ const patchReviewCheckArray2 = async (
  * 여기서 status array 업데이트 함
  */
 const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
-    const [recentTwoIndexes, setRecentTwoIndexes] = useState<number[]>([])
+    // const [recentTwoIndexes, setRecentTwoIndexes] = useState<number[]>([])
+    const recentTwoIndexes = useReviewCheckStore((state) => state.recentTwoIndexes)
     const changeTo = useReviewCheckStore((state) => state.changeTo)
+    
     const statusArray = useMemo(
         () => {
             if (!reviewCheckArray) { return [] }
@@ -125,26 +127,26 @@ const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
     )
 
     return {
-        setRecentTwoIndexes,
+        // setRecentTwoIndexes,
         statusArray
     }
 }
 
 /** SUB FUNCTION of useCheckboxClickHandler */
-const updateRecentTwoIndexes = (
-    index: number,
-    setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
-) => {
-    setRecentTwoIndexes(prev => {
-        const newArray = [...prev]
-        if (newArray.length === 2) {
-            newArray.shift()
-        }
-        newArray.push(index)
+// const updateRecentTwoIndexes = (
+//     index: number,
+//     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
+// ) => {
+//     setRecentTwoIndexes(prev => {
+//         const newArray = [...prev]
+//         if (newArray.length === 2) {
+//             newArray.shift()
+//         }
+//         newArray.push(index)
 
-        return newArray
-    })
-}
+//         return newArray
+//     })
+// }
 
 /**  
  * update recent two index가 메인 기능
@@ -154,19 +156,25 @@ const updateRecentTwoIndexes = (
  * ==== 개선 가능 ====
  * 그냥 () => 함수() 형태로 바꾸면 된다. 어렵게 하지 말자
 */
-const useCheckboxClickHandler = ({ setRecentTwoIndexes }: HandleClickParams) => {
+const useCheckboxClickHandler = () => {
+    const isMultiSelecting = useReviewCheckStore((state) => state.isMultiSelecting)
+    // const updateStatusArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
+    const appendToRecentTwoIndexes = useReviewCheckStore((state) => state.appendToRecentTwoIndexes)
+    
     return useCallback<MouseEventHandler<HTMLButtonElement>>(
         (event) => {
             const optionalIndex = event.currentTarget.dataset.index
             if (!optionalIndex) { return }
 
             const index = Number(optionalIndex)
-            updateRecentTwoIndexes(index, setRecentTwoIndexes)
+            appendToRecentTwoIndexes(index)
+            // updateRecentTwoIndexes(index, setRecentTwoIndexes)
         },
         []
     )
 }
 
+/** 선택된 책에 맞춰 review check array 채움 */
 const useReviewCheckUpdate = () => {
     const selectedBookTitle = useReviewCheckStore((state) => state.selectedBookTitle)
     const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)

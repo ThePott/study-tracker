@@ -32,6 +32,12 @@ interface ReviewCheckState {
 
   isMultiSelecting: boolean,
   setIsMultiSelecting: (isMultiSelecting: boolean) => void,
+
+  recentTwoIndexes: number[],
+  appendToRecentTwoIndexes: (index: number) => void,
+
+  statusArray: CheckboxStatus[],
+  updateStatusArray: () => void
 }
 
 // Fold Levl 3
@@ -100,6 +106,54 @@ const useReviewCheckStore = create<ReviewCheckState>()(
 
     isMultiSelecting: true,
     setIsMultiSelecting(isMultiSelecting) { set({ isMultiSelecting }) },
+
+    recentTwoIndexes: [],
+    appendToRecentTwoIndexes(index) {
+      set((state) => {
+        const copiedIndexes = [...state.recentTwoIndexes]
+
+        // 날 두 번 탭하면 끔
+        if (copiedIndexes.at(-1) === index) {
+          copiedIndexes.pop()
+          return { recentTwoIndexes: copiedIndexes }
+        }
+
+        // 그 외에는 2개까지만 유지하며 추가
+        if (copiedIndexes.length >= 2) {
+          copiedIndexes.shift()
+        }
+        copiedIndexes.push(index)
+
+        console.log("---- recent two:", copiedIndexes)
+        return { recentTwoIndexes: copiedIndexes }
+      })
+    },
+
+    statusArray: [],
+    updateStatusArray() {
+      set((state) => {
+        if (!state.reviewCheckArray) {
+          return { statusArray: [] }
+        }
+
+        // !!!!----TODO 한 번 만들고 재사용해도 됨. useRef? ----!!!!
+        const initialStatusArray = state.reviewCheckArray.map((reviewCheck) => reviewCheck.status)
+
+        if (state.recentTwoIndexes.length === 0) {
+          return { statusArray: initialStatusArray }
+        }
+
+        const copiedInitialStatusArray = [...initialStatusArray]
+
+        const startIndex = Math.min(...state.recentTwoIndexes)
+        const spliceLength = Math.max(...state.recentTwoIndexes) - startIndex + 1
+
+        copiedInitialStatusArray.splice(startIndex, spliceLength, ...Array(spliceLength).fill(state.changeTo))
+
+        return { statusArray: copiedInitialStatusArray }
+      })
+    },
+
   })
 )
 

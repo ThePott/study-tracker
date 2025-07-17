@@ -5,7 +5,6 @@
 # ██      ███████ 
 
 # ==== 목표 ====
-
 7. 다중 선택 끄기 기능
     다중 선택 꺼지면 다중 선택 안 되게 ---- recentTwo 건드리지 않게
     다중 선택 꺼지면 클릭하는 게 상태가 순환하게
@@ -60,18 +59,19 @@
     완료, 패스는 호버 상호작용 없음
 
 # ==== 지금 할 것 ====
+------------ 현재 스토어 만드는 중 -------------
 7. 다중 선택 끄기 기능
     다중 선택 꺼지면 다중 선택 안 되게 ---- recentTwo 건드리지 않게
-    - 현재 구조: 
-        클릭 
-        -> `useCheckboxClickHandler` 안의 `updateRecentTwoIndexes` 실행 
-        -> `recentTwoIndexes` 만든 `useCheckboxStatus`가 `statusArray` 업데이트
-        -> `statusArray`의 원소를 체크박스가 받음
-    - 개선 계획
-        1. `statusArray`의 의존성 배열에 `isMultiselecting`을 추가
-        2. `isMultiselecting`에 따라 두 케이스로 나눔
+    - 개선 방안
+        단일 클릭에선 클릭하면 recentTwoIndexes 건드리지 않고 statusArray를 직접 바꿈
+            zustand store로 바꿔야 하는 것
+            <!-- 1. recentTwoIndexes,  -->
+            2. statusArray, updateRangeFromStatusArray
+        zustand setter 만들 것
+            updateOneFromStatusArray
 
-
+할 것: suspense 이용해서 체크박스만 있는 곳을 checkboxMany라고 한 다음에 lazy import, suspence하면
+스켈레톤 쓸 수 있다
 
 # ==== 나중에 할 것 ====
 ## 스크롤 조작
@@ -84,3 +84,8 @@
 
 ## 로딩 최적화
     loader 써서 미리 fetch하자.
+
+## 프로그레스 바
+
+#
+
