@@ -5,25 +5,14 @@
 # ██      ███████ 
 
 # ==== 목표 ====
-7. 다중 선택 끄기 기능
-    다중 선택 꺼지면 다중 선택 안 되게 ---- recentTwo 건드리지 않게
-    다중 선택 꺼지면 클릭하는 게 상태가 순환하게
-    - 현재 구조: 
-        클릭 
-        -> `useCheckboxClickHandler` 안의 `updateRecentTwoIndexes` 실행 
-        -> `recentTwoIndexes` 만든 `useCheckboxStatus`가 `statusArray` 업데이트
-        -> `statusArray`의 원소를 체크박스가 받음
-    - 개선 계획
-        1. `statusArray`의 의존성 배열에 `isMultiselecting`을 추가
-        2. `isMultiselecting`에 따라 두 케이스로 나눔
-
-8. url 나누기:      review-check        review-check/:bookId
+3. url 나누기:      review-check        review-check/:bookId
     // current url review check 이면 student header말고 버튼 그룹으로 렌더링 처리
     // 현재 url만 가져와서 플래그 변수 
     // 권별 선택, 문제별 선택 url 나누기
     // /books   -> /:bookId
 
     // 헤더의 show 여부를 className 줘서 display: none; 으로 감추기
+4. 
 ## ----branch 나누기 ----> grouped-by-page로 branch
 8. page로 group -> step으로 group
 9. [step, page, index] 형식의 인덱스 만들기
@@ -35,34 +24,10 @@
 ---- 여기까지만 하기
 
 # ==== 완료 ====
-1. 패딩 맞추기: grid auto fit, minmax(60px, 1fr)
-2. 자동 저장
-    2-1. setTimeout -> clearTimeout
-    2-2. 혹은 unmount 되면 요청
-    LIMITATION
-        홈페이지 꺼질 땐 자동 저장 안 됨
-3. 서버 요청 인디케이터
-    3-1. 응답 상태 동그라미 불빛으로 보여줌
-    3-2. 실패하면 스낵바(토스트)로 에러 메시지 보여줌
-        후크로 가저 주소 바꾸고 시연
-    3-3. 서버로부터 응답 받으면 변경되었다고 기록한 것 초기화
-        editedIdStatusDictArray
-        recentTwo
-4. 스켈레톤
-    4-1. book section 스켈레톤
-    LIMITATION
-        비동기 렌더링은 없다
-        너무 많이 로딩하는 게 문제
-        checkbox들은 일부만 로딩하는 걸로 로직을 바꿔야 함
-5. 리뷰 체크 전용 헤더 만들기
-6. 리뷰 체크 전용 헤더 버튼 색으로 수정되게 하기
-    완료, 패스는 호버 상호작용 없음
+1. 자동 저장 버그 해결
+2. 다중 선택 끄기 기능 추가
 
 # ==== 지금 할 것 ====
-click -> two indexes -> status array -> edited array -> 저장
-여기서 시간 걸리는 게 어디지?
-
-
 
 # ==== 나중에 할 것 ====
 

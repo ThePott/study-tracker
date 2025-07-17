@@ -34,6 +34,7 @@ const Checkbox = React.memo(({
     status,
 }: CheckboxProps) => {
     const buttonProps = variantObject[status]
+    if (!buttonProps) { console.error("---- failed to get status:", index, status) }
 
     const handleClick = useCheckboxClickHandler()
 
@@ -53,7 +54,7 @@ const Checkbox = React.memo(({
         [status]
     )
 
-    console.log("---- checkbox re-render:", index)
+    // console.log("---- checkbox re-render:", index)
     return (
         <Button
             className={`w-[60px] h-[60px] grow-1`}

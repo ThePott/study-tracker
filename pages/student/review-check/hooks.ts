@@ -65,27 +65,37 @@ const patchReviewCheckArray2 = async (
     setResponse: (response: ApiResponse) => void,
 ) => {
     try {
-        if (editedIdStatusDictArray.length === 0) { return }
-
+        console.log("...patch stage 1")
+        if (editedIdStatusDictArray.length === 0) {
+            const response: ApiResponse = {
+                status: "SUCCESS",
+                message: null,
+                doOpenSnackbar: false
+            }
+            setResponse(response)
+            return
+        }
+        console.log("...patch stage 2")
         const copiedEditedArray = [...editedIdStatusDictArray]
         updateReviewCheckArray(editedIdStatusDictArray)
         setEditedIdStatusDictArray([])
 
-        console.log("---- loading for patch")
+        console.log("---- LOADING for patch")
         const response: ApiResponse = {
             status: "IS_LOADING",
             message: null,
             doOpenSnackbar: false
         }
         setResponse(response)
-
+        console.log("...patch stage 3")
         const url = `http://localhost:3030/review-check/${studentId}`
         // const url = `http://localhost:3030/review-checkxxxxxxxxxx/${studentId}` // <---- 오류 일으키는 용
         const _ = await axios.patch(url, copiedEditedArray)
-
+        console.log("...patch stage 4")
         const copiedResponse = { ...response }
         copiedResponse.status = "SUCCESS"
         setResponse(copiedResponse)
+        console.log("---- SUCCESS")
     } catch (error) {
         const response: ApiResponse = {
             status: "ERROR",
@@ -190,11 +200,12 @@ const useManualPatchWhenUnmount = (studentId: string) => {
     const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
     const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
     const setResponse = useCallback(useReviewCheckStore((state) => state.setResponse), [])
-    const editedIdStatusDictArray = useReviewCheckStore((state) => state.editedIdStatusDictArray)
+
 
     useEffect(
         () => {
             return () => {
+                const editedIdStatusDictArray = useReviewCheckStore.getState().editedIdStatusDictArray
                 patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
                 console.log("---- manual patch when unmount")
             }
