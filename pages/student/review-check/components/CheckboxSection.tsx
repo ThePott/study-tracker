@@ -1,57 +1,27 @@
 import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
 import useReviewCheckStore from '@/store/reviewCheckStore'
 import CloseIcon from '@mui/icons-material/Close'
-import { Box, IconButton, Snackbar } from '@mui/material'
-import { Suspense, useCallback, useEffect } from 'react'
-import { patchReviewCheckArray2, } from '../hooks'
+import { Box, IconButton, Skeleton, Snackbar } from '@mui/material'
+import { useCallback } from 'react'
+import { useManualPatchWhenUnmount, useTimeoutToAutoSave, useUpdateStatusArray } from '../hooks'
 import Checkbox from './Checkbox'
 import Header from './Header'
 
 const CheckboxSection = ({
   studentId,
-  editedIdStatusDictArray,
-  // reviewCheckArray,
-  // statusArray,
-  // setRecentTwoIndexes,
 }: CheckboxSectionProps) => {
-
-  const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
-  const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
-  const setResponse = useCallback(useReviewCheckStore((state) => state.setResponse), [])
   const hideResponseSnackbar = useCallback(useReviewCheckStore((state) => state.hideResponseSnackbar), [])
 
   const response = useReviewCheckStore((state) => state.response)
 
   const statusArray = useReviewCheckStore((state) => state.statusArray)
-  const updateStatusArray = useReviewCheckStore((state) => state.updateStatusArray)
 
   const reviewCheckArray = useReviewCheckStore((state) => state.reviewCheckArray)
-  const recentTwoIndexes = useReviewCheckStore((state) => state.recentTwoIndexes)
 
-  useEffect(() => {updateStatusArray()}, [reviewCheckArray, recentTwoIndexes])
-
-  useEffect(
-    () => {
-      const waitingPatch = () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
-        console.log("---- saved automatically!", editedIdStatusDictArray.length, editedIdStatusDictArray)
-      }
-      const timeoutId = setTimeout(waitingPatch, 2000)
-
-      return () => clearTimeout(timeoutId)
-    },
-    [editedIdStatusDictArray]
-  )
-
-  useEffect(
-    () => {
-      return () => {
-        patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
-        console.log("---- manual patch when unmount")
-      }
-    },
-    []
-  )
+  // ---- call effect custom hooks
+  useUpdateStatusArray()
+  useTimeoutToAutoSave(studentId)
+  useManualPatchWhenUnmount(studentId)
 
   const actionFragment = (
     <>
@@ -64,7 +34,7 @@ const CheckboxSection = ({
         <CloseIcon fontSize="small" />
       </IconButton>
     </>
-  );
+  )
 
   return (
     // Fold Level 5
@@ -75,13 +45,12 @@ const CheckboxSection = ({
 
         <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3 px-3">
 
-          {reviewCheckArray.map((reviewCheckData, index) => (
+          {statusArray.length !== 0 && reviewCheckArray.map((reviewCheckData, index) => (
             <Checkbox
               key={reviewCheckData._id}
               reviewCheckData={reviewCheckData}
               index={index}
-              status={statusArray[index] ?? "NOT_SOLVED"}
-              // setRecentTwoIndexes={setRecentTwoIndexes}
+              status={statusArray[index]}
             />
           ))}
 

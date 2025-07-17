@@ -28,20 +28,10 @@ interface ReviewCheckData {
     reviewedAt?: Date;    // When teacher marked as reviewed (optional)
 }
 
-// interface HandleClickParams {
-//     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>,
-// }
-
-/**
- * index는 이런 의미다
- * reviewCheckData는 이런 의미다
- */
 interface CheckboxProps {
     index: number;
     reviewCheckData: ReviewCheckData;
     status: CheckboxStatus;
-    // setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>;
-    // setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
 }
 
 interface EditedIdStatusDict {
@@ -49,27 +39,8 @@ interface EditedIdStatusDict {
     status: CheckboxStatus;
 }
 
-// interface ReviewCheckHeader {
-//     // patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
-//     // errorPatch: any
-//     isMultiSelecting: boolean
-//     setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
-//     // setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
-// }
-
 interface CheckboxSectionProps {
     studentId: string
-    editedIdStatusDictArray: EditedIdStatusDict[]
-    // patchReviewCheck: (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[]) => void
-    // errorPatch: any
-    // isMultiSelecting: boolean
-    // setIsMultiSelecting: React.Dispatch<React.SetStateAction<boolean>>
-    // reviewCheckArray: ReviewCheckData[]
-    // statusArray: CheckboxStatus[]
-    // setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
-    setEditedIdStatusDictArray: React.Dispatch<React.SetStateAction<EditedIdStatusDict[]>>
-    // setSelectedBookTitle: React.Dispatch<React.SetStateAction<string>>
-    // setPatchResponse: React.Dispatch<React.SetStateAction<PatchResponse>>
 }
 
 /** ----DELETE THIS---- */
@@ -82,10 +53,8 @@ interface PatchResponse {
 export {
     CheckboxStatus,
     ReviewCheckData,
-    // HandleClickParams,
     CheckboxProps,
     EditedIdStatusDict,
-    // ReviewCheckHeader,
     CheckboxSectionProps,
     PatchResponse
 }

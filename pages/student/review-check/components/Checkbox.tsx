@@ -32,8 +32,6 @@ const Checkbox = React.memo(({
     index,
     reviewCheckData,
     status,
-    // setRecentTwoIndexes,
-    // setEditedIdStatusDictArray
 }: CheckboxProps) => {
     const buttonProps = variantObject[status]
 

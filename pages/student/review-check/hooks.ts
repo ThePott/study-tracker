@@ -13,6 +13,7 @@ const getReviewCheckArray = async (
 
 ) => {
     try {
+        console.log("---- loading for get")
         const response: ApiResponse = {
             status: "IS_LOADING",
             message: null,
@@ -42,9 +43,9 @@ const getReviewCheckArray = async (
 
 /** API GET */
 const useReviewCheckApi = (studentId: string) => {
-    const setResponse = useReviewCheckStore((state)=> state.setResponse)
-    const setGroupedBookObject = useReviewCheckStore((state)=> state.setGroupedBookObject)
-    const setBookTitleArray = useReviewCheckStore((state)=> state.setBookTitleArray)
+    const setResponse = useReviewCheckStore((state) => state.setResponse)
+    const setGroupedBookObject = useReviewCheckStore((state) => state.setGroupedBookObject)
+    const setBookTitleArray = useReviewCheckStore((state) => state.setBookTitleArray)
 
     /** GET */
     useEffect(
@@ -56,7 +57,6 @@ const useReviewCheckApi = (studentId: string) => {
 }
 
 
-// ---------------------- 여기서 시연 -------------------------
 /** ACUTAL PATCH  */
 const patchReviewCheckArray2 = async (
     studentId: string,
@@ -67,7 +67,8 @@ const patchReviewCheckArray2 = async (
 ) => {
     try {
         if (editedIdStatusDictArray.length === 0) { return }
-
+        
+        console.log("---- loading for patch")
         const response: ApiResponse = {
             status: "IS_LOADING",
             message: null,
@@ -95,72 +96,14 @@ const patchReviewCheckArray2 = async (
     }
 }
 
-/** 
- * setRecentTwoIndexes 생성, 반환
- * 여기서 status array 업데이트 함
- */
-const useCheckboxStatus = (reviewCheckArray: ReviewCheckData[] | null) => {
-    // const [recentTwoIndexes, setRecentTwoIndexes] = useState<number[]>([])
-    const recentTwoIndexes = useReviewCheckStore((state) => state.recentTwoIndexes)
-    const changeTo = useReviewCheckStore((state) => state.changeTo)
-    
-    const statusArray = useMemo(
-        () => {
-            if (!reviewCheckArray) { return [] }
 
-            // !!!!----TODO 한 번 만들고 재사용해도 됨. useRef? ----!!!!
-            const initialStatusArray = reviewCheckArray.map((reviewCheck) => reviewCheck.status)
 
-            if (recentTwoIndexes.length === 0) { return initialStatusArray }
-
-            const copiedInitialStatusArray = [...initialStatusArray]
-            const recentSortedArray = [...recentTwoIndexes].sort((a, b) => a - b)
-
-            const startIndex = Math.min(...recentSortedArray)
-            const spliceLength = Math.max(...recentTwoIndexes) - startIndex + 1
-
-            copiedInitialStatusArray.splice(startIndex, spliceLength, ...Array(spliceLength).fill(changeTo))
-
-            return copiedInitialStatusArray
-        },
-        [reviewCheckArray, recentTwoIndexes]
-    )
-
-    return {
-        // setRecentTwoIndexes,
-        statusArray
-    }
-}
-
-/** SUB FUNCTION of useCheckboxClickHandler */
-// const updateRecentTwoIndexes = (
-//     index: number,
-//     setRecentTwoIndexes: React.Dispatch<React.SetStateAction<number[]>>
-// ) => {
-//     setRecentTwoIndexes(prev => {
-//         const newArray = [...prev]
-//         if (newArray.length === 2) {
-//             newArray.shift()
-//         }
-//         newArray.push(index)
-
-//         return newArray
-//     })
-// }
-
-/**  
- * update recent two index가 메인 기능
- * 
- * 부모에게서 파라미터를 받아야 해서 콜백으로 감싸는 함수
- * 
- * ==== 개선 가능 ====
- * 그냥 () => 함수() 형태로 바꾸면 된다. 어렵게 하지 말자
-*/
+/** update recent two index가 메인 기능 */
 const useCheckboxClickHandler = () => {
     const isMultiSelecting = useReviewCheckStore((state) => state.isMultiSelecting)
     // const updateStatusArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
     const appendToRecentTwoIndexes = useReviewCheckStore((state) => state.appendToRecentTwoIndexes)
-    
+
     return useCallback<MouseEventHandler<HTMLButtonElement>>(
         (event) => {
             const optionalIndex = event.currentTarget.dataset.index
@@ -168,7 +111,6 @@ const useCheckboxClickHandler = () => {
 
             const index = Number(optionalIndex)
             appendToRecentTwoIndexes(index)
-            // updateRecentTwoIndexes(index, setRecentTwoIndexes)
         },
         []
     )
@@ -177,7 +119,6 @@ const useCheckboxClickHandler = () => {
 /** 선택된 책에 맞춰 review check array 채움 */
 const useReviewCheckUpdate = () => {
     const selectedBookTitle = useReviewCheckStore((state) => state.selectedBookTitle)
-    const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)
     const groupedBookObject = useReviewCheckStore((state) => state.groupedBookObject)
     const setReviewCheckArray = useReviewCheckStore((state) => state.setReviewCheckArray)
 
@@ -200,7 +141,54 @@ const useReviewCheckUpdate = () => {
     )
 }
 
+const useUpdateStatusArray = () => {
+    const updateStatusArray = useReviewCheckStore((state) => state.updateStatusArray)
+    const reviewCheckArray = useReviewCheckStore((state) => state.reviewCheckArray)
+    const recentTwoIndexes = useReviewCheckStore((state) => state.recentTwoIndexes)
+    useEffect(() => { updateStatusArray() }, [reviewCheckArray, recentTwoIndexes])
+}
+
+const useTimeoutToAutoSave = (studentId: string) => {
+    // 스토어 세터 함수는 콜백으로 감쌀 필요가 없어보이는데
+
+    const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
+    const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
+    const setResponse = useCallback(useReviewCheckStore((state) => state.setResponse), [])
+
+    const editedIdStatusDictArray = useReviewCheckStore((state) => state.editedIdStatusDictArray)
+
+    useEffect(
+        () => {
+            const waitingPatch = () => {
+                patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
+                console.log("---- saved automatically!", editedIdStatusDictArray.length, editedIdStatusDictArray)
+            }
+            const timeoutId = setTimeout(waitingPatch, 2000)
+
+            return () => clearTimeout(timeoutId)
+        },
+        [editedIdStatusDictArray]
+    )
+}
+
+const useManualPatchWhenUnmount = (studentId: string) => {
+    const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
+    const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
+    const setResponse = useCallback(useReviewCheckStore((state) => state.setResponse), [])
+    const editedIdStatusDictArray = useReviewCheckStore((state) => state.editedIdStatusDictArray)
+
+    useEffect(
+        () => {
+            return () => {
+                patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
+                console.log("---- manual patch when unmount")
+            }
+        },
+        []
+    )
+}
 
 export {
-    patchReviewCheckArray2, useCheckboxClickHandler, useCheckboxStatus, useReviewCheckApi, useReviewCheckUpdate
+    patchReviewCheckArray2, useCheckboxClickHandler, useReviewCheckApi, useReviewCheckUpdate,
+    useUpdateStatusArray, useTimeoutToAutoSave, useManualPatchWhenUnmount
 }
