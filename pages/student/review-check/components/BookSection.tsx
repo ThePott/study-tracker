@@ -18,7 +18,7 @@ const BookSection = ({ bookTitleArray }: { bookTitleArray: string[] }) => {
   if (response && response.status === "ERROR") { return <div>Error: {response.message}</div> }
 
   return (
-    <Box className="flex flex-wrap gap-3">
+    <Box className="flex flex-wrap gap-3 p-3">
 
       {isLoading && <BookkSectionSkeleton />}
 

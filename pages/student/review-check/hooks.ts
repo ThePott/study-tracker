@@ -1,8 +1,8 @@
 import { ApiResponse } from '@/interfaces/commonInterfaces'
-import { EditedIdStatusDict, ReviewCheckData } from "@/interfaces/reviewCheckInterfaces"
+import { EditedIdStatusDict } from "@/interfaces/reviewCheckInterfaces"
 import useReviewCheckStore from '@/store/reviewCheckStore'
 import axios from 'axios'
-import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
+import { MouseEventHandler, useCallback, useEffect } from 'react'
 
 /** SUB FUNCTION of useReviewCheckApi GET */
 const getReviewCheckArray = async (
@@ -134,8 +134,6 @@ const useReviewCheckUpdate = () => {
 
 /** click event -> recent two indexes || single update on status array */
 const useCheckboxClickHandler = () => {
-    // const isMultiSelecting = useReviewCheckStore((state) => state.isMultiSelecting)
-    // const updateStatusArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
     const appendToRecentTwoIndexes = useReviewCheckStore((state) => state.appendToRecentTwoIndexes)
     const updateOneOfStatusArray = useReviewCheckStore((state) => state.updateOneOfStatusArray)
 
@@ -177,9 +175,9 @@ const useUpdateStatusArray = () => {
 
 /** edited array -> time out -> patch request */
 const useAutoSave = (studentId: string) => {
-    const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
-    const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
-    const setResponse = useCallback(useReviewCheckStore((state) => state.setResponse), [])
+    const updateReviewCheckArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
+    const setEditedIdStatusDictArray = useReviewCheckStore((state) => state.setEditedIdStatusDictArray)
+    const setResponse = useReviewCheckStore((state) => state.setResponse)
 
     const editedIdStatusDictArray = useReviewCheckStore((state) => state.editedIdStatusDictArray)
 
@@ -197,9 +195,9 @@ const useAutoSave = (studentId: string) => {
 }
 
 const useManualPatchWhenUnmount = (studentId: string) => {
-    const updateReviewCheckArray = useCallback(useReviewCheckStore((state) => state.updateReviewCheckArray), [])
-    const setEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.setEditedIdStatusDictArray), [])
-    const setResponse = useCallback(useReviewCheckStore((state) => state.setResponse), [])
+    const updateReviewCheckArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
+    const setEditedIdStatusDictArray = useReviewCheckStore((state) => state.setEditedIdStatusDictArray)
+    const setResponse = useReviewCheckStore((state) => state.setResponse)
 
 
     useEffect(
@@ -215,6 +213,7 @@ const useManualPatchWhenUnmount = (studentId: string) => {
 }
 
 export {
-    patchReviewCheckArray2, useCheckboxClickHandler, useReviewCheckApi, useReviewCheckUpdate,
-    useUpdateStatusArray, useAutoSave, useManualPatchWhenUnmount
+    patchReviewCheckArray2, useAutoSave, useCheckboxClickHandler, useManualPatchWhenUnmount, useReviewCheckApi, useReviewCheckUpdate,
+    useUpdateStatusArray
 }
+

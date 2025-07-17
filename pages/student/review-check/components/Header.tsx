@@ -4,7 +4,7 @@ import useReviewCheckStore from '@/store/reviewCheckStore';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import CircleIcon from '@mui/icons-material/Circle';
 import GradingIcon from '@mui/icons-material/Grading';
-import { AppBar, Box, FormControlLabel, IconButton, Switch, Toolbar } from '@mui/material';
+import { AppBar, FormControlLabel, IconButton, Switch, Box } from '@mui/material';
 import CustomToggleButtonGroup from './CustomToggleButtonGroup';
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -54,8 +54,8 @@ const Header = React.memo(() => {
 
   return (
     // Fold Level 5
-    <AppBar position='sticky' className='bg-amber-300 overflow-x-scroll'>
-      <Toolbar disableGutters className='flex gap-6'>
+    // <AppBar position='sticky' className='bg-amber-300 overflow-x-scroll'>
+      <Box className='flex gap-6 p-3 h-[70px] items-center'>
 
         <Box className="grow">
           <IconButton size="large" edge="start" color="inherit" aria-label="back"
@@ -72,8 +72,8 @@ const Header = React.memo(() => {
           <CircleIcon sx={{ backgroundColor: { color }, paddingRight: "12px" }} fontSize="small" />
         </Box>
 
-      </Toolbar>
-    </AppBar>
+      </Box>
+    // </AppBar>
   )
 })
 

@@ -6,6 +6,7 @@ import { useCallback } from 'react'
 import { useManualPatchWhenUnmount, useAutoSave, useUpdateStatusArray } from '../hooks'
 import Checkbox from './Checkbox'
 import Header from './Header'
+import ChangeToButtonGroup from './ChangeToButtonGroup'
 
 const CheckboxSection = ({
   studentId,
@@ -39,22 +40,27 @@ const CheckboxSection = ({
   return (
     // Fold Level 5
     <>
-      <Box>
+      <Box className="flex flex-col h-full">
 
         <Header />
 
-        <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3 px-3">
+        <Box sx={{scrollbarWidth: "none"}} className="grow overflow-y-scroll">
+          <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3 px-3">
 
-          {statusArray.length !== 0 && reviewCheckArray.map((reviewCheckData, index) => (
-            <Checkbox
-              key={reviewCheckData._id}
-              reviewCheckData={reviewCheckData}
-              index={index}
-              status={statusArray[index]}
-            />
-          ))}
+            {statusArray.length !== 0 && reviewCheckArray.map((reviewCheckData, index) => (
+              <Checkbox
+                key={reviewCheckData._id}
+                reviewCheckData={reviewCheckData}
+                index={index}
+                status={statusArray[index]}
+              />
+            ))}
 
+          </Box>
         </Box>
+
+        <ChangeToButtonGroup />
+
 
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
