@@ -1,6 +1,6 @@
 import { Box, Skeleton } from '@mui/material'
 import BookBox from './BookBox'
-import useReviewCheckStore from '@/store/reviewCheckStore'
+import useReviewCheckStore from '@/src/_store/reviewCheckStore'
 
 const BookkSectionSkeleton = () => {
   return (

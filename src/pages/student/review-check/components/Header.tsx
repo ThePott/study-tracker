@@ -1,5 +1,5 @@
-import { ApiResponse } from '@/interfaces/commonInterfaces';
-import useReviewCheckStore from '@/store/reviewCheckStore';
+import { ApiResponse } from '@/src/_interfaces/commonInterfaces';
+import useReviewCheckStore from '@/src/_store/reviewCheckStore';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import CircleIcon from '@mui/icons-material/Circle';
 import GradingIcon from '@mui/icons-material/Grading';

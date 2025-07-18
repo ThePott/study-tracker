@@ -5,8 +5,8 @@
 // 여기 코드 엉망이다
 // 여기 코드 엉망이다
 
-import { CheckboxStatus } from '@/interfaces/reviewCheckInterfaces';
-import useReviewCheckStore from '@/store/reviewCheckStore';
+import { CheckboxStatus } from '@/src/_interfaces/reviewCheckInterfaces';
+import useReviewCheckStore from '@/src/_store/reviewCheckStore';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import React, { useState } from 'react';

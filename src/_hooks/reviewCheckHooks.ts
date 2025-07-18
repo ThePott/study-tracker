@@ -1,6 +1,6 @@
-import { ApiResponse } from '@/interfaces/commonInterfaces'
-import { EditedIdStatusDict } from "@/interfaces/reviewCheckInterfaces"
-import useReviewCheckStore from '@/store/reviewCheckStore'
+import { ApiResponse } from '@/src/_interfaces/commonInterfaces'
+import { EditedIdStatusDict } from "@/src/_interfaces/reviewCheckInterfaces"
+import useReviewCheckStore from '@/src/_store/reviewCheckStore'
 import axios from 'axios'
 import { MouseEventHandler, useCallback, useEffect } from 'react'
 

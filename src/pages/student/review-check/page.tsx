@@ -1,7 +1,7 @@
-import useReviewCheckStore from '@/store/reviewCheckStore';
+import useReviewCheckStore from '@/src/_store/reviewCheckStore';
 import BookSection from './components/BookSection';
 import CheckboxSection from './components/CheckboxSection';
-import { useReviewCheckApi, useReviewCheckUpdate } from './hooks';
+import { useReviewCheckApi, useReviewCheckUpdate } from '../../../_hooks/reviewCheckHooks';
 
 const studentId = "68494394d9f33f23de4513c5"
 

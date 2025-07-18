@@ -5,14 +5,18 @@ import InstructorSidebar from './InstructorSidebar'
 
 const InstructorLayout = () => {
   return (
-    <Box className="flex w-screen h-screen overflow-hidden">
-      <InstructorSidebar />
-      <Box className="grow">
-        <InstructorHeader />
-        <Box className="p-3">
+    <Box className="w-screen h-screen overflow-hidden flex flex-col">
+      <InstructorHeader />
+
+      <Box className="flex-1 flex overflow-hidden">
+
+        <InstructorSidebar />
+
+        <Box className="flex-1 p-3">
           <Outlet />
         </Box>
       </Box>
+
     </Box>
   )
 }

@@ -1,4 +1,4 @@
-import { InstructorState } from "@/interfaces/InstructorInterfaces";
+import { InstructorState } from "@/src/_interfaces/InstructorInterfaces";
 import { create } from "zustand";
 
 const useInstructorStore = create<InstructorState>()((set) => ({

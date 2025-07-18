@@ -1,5 +1,5 @@
-import { QuestionGroup, Topic } from "@/interfaces/bookInterfaces"
-import { completedStatusArray, CompletedStatus, ProgressData } from "@/interfaces/progressInterfaces"
+import { QuestionGroup, Topic } from "@/src/_interfaces/bookInterfaces"
+import { completedStatusArray, CompletedStatus, ProgressData } from "@/src/_interfaces/progressInterfaces"
 import { useState } from 'react'
 
 import { useOneBook, useUpdateProgressCompleted } from './hooks'

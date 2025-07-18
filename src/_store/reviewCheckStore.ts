@@ -1,5 +1,5 @@
 
-import { ReviewCheckState } from "@/interfaces/reviewCheckInterfaces"
+import { ReviewCheckState } from "@/src/_interfaces/reviewCheckInterfaces"
 import { create } from "zustand"
 
 

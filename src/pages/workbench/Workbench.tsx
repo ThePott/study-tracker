@@ -1,4 +1,4 @@
-import { CheckboxStatus } from '@/interfaces/reviewCheckInterfaces';
+import { CheckboxStatus } from '@/src/_interfaces/reviewCheckInterfaces';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import React, { useState } from 'react';
