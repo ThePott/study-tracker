@@ -33,8 +33,8 @@ const Checkbox = React.memo(({
     reviewCheckData,
     status,
 }: CheckboxProps) => {
-    const buttonProps = variantObject[status]
-    if (!buttonProps) { console.error("---- failed to get status:", index, status) }
+    const buttonProps = status ? variantObject[status] : variantObject["NOT_SOLVED"]
+    if (!status) { console.error("----- status failed:", index, status) }
 
     const handleClick = useCheckboxClickHandler()
 
@@ -46,10 +46,13 @@ const Checkbox = React.memo(({
 
     useEffect(
         () => {
+            if (!status) { return }
             if (prevStausRef.current === status) { return }
+
             updateOneEditedIdStatusDictArray(status, reviewCheckData)
             console.log("---- status change -> start loading:", index, status)
             startResponseLoading()
+            prevStausRef.current = status
         },
         [status]
     )

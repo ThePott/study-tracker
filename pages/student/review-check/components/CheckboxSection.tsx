@@ -1,24 +1,22 @@
 import { CheckboxSectionProps } from '@/interfaces/reviewCheckInterfaces'
 import useReviewCheckStore from '@/store/reviewCheckStore'
 import CloseIcon from '@mui/icons-material/Close'
-import { Box, IconButton, Skeleton, Snackbar } from '@mui/material'
+import { Box, IconButton, Snackbar } from '@mui/material'
 import { useCallback } from 'react'
-import { useManualPatchWhenUnmount, useAutoSave, useUpdateStatusArray } from '../hooks'
+import { useAutoSave, useManualPatchWhenUnmount, useUpdateStatusArray } from '../hooks'
+import ChangeToButtonGroup from './ChangeToButtonGroup'
 import Checkbox from './Checkbox'
 import Header from './Header'
-import ChangeToButtonGroup from './ChangeToButtonGroup'
 
 const CheckboxSection = ({
   studentId,
 }: CheckboxSectionProps) => {
   const hideResponseSnackbar = useCallback(useReviewCheckStore((state) => state.hideResponseSnackbar), [])
-
   const response = useReviewCheckStore((state) => state.response)
-
   const statusArray = useReviewCheckStore((state) => state.statusArray)
-
   const reviewCheckArray = useReviewCheckStore((state) => state.reviewCheckArray)
-
+  console.log("---- status array length:", statusArray.length)
+  
   // ---- call effect custom hooks
   useUpdateStatusArray()
   useAutoSave(studentId)
@@ -60,7 +58,6 @@ const CheckboxSection = ({
         </Box>
 
         <ChangeToButtonGroup />
-
 
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

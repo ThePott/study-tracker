@@ -1,9 +1,6 @@
 const checkboxStatusArray = ["DONE", "PASS", "WRONG", "CORRECT", "NOT_SOLVED"] as const;
 type CheckboxStatus = typeof checkboxStatusArray[number]
 
-const responseStatusArray = ["SUCCESS", "IS_LOADING", "ERROR"] as const
-type ResponseStatus = typeof responseStatusArray[number]
-
 interface ReviewCheckData {
     _id: string;
     studentId: string;
@@ -43,18 +40,10 @@ interface CheckboxSectionProps {
     studentId: string
 }
 
-/** ----DELETE THIS---- */
-interface PatchResponse {
-    status: ResponseStatus
-    message: string | null
-}
-
-
 export {
     CheckboxStatus,
     ReviewCheckData,
     CheckboxProps,
     EditedIdStatusDict,
     CheckboxSectionProps,
-    PatchResponse
 }

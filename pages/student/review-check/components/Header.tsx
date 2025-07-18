@@ -1,13 +1,11 @@
 import { ApiResponse } from '@/interfaces/commonInterfaces';
-// import { ReviewCheckHeader } from '@/interfaces/reviewCheckInterfaces';
 import useReviewCheckStore from '@/store/reviewCheckStore';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import CircleIcon from '@mui/icons-material/Circle';
 import GradingIcon from '@mui/icons-material/Grading';
-import { AppBar, FormControlLabel, IconButton, Switch, Box } from '@mui/material';
-import CustomToggleButtonGroup from './CustomToggleButtonGroup';
-import { useEffect, useState } from 'react';
+import { Box, FormControlLabel, IconButton, Switch } from '@mui/material';
 import React from 'react';
+import CustomToggleButtonGroup from './CustomToggleButtonGroup';
 
 
 const COLORS = {
@@ -31,49 +29,48 @@ const getStatusColor = (response: ApiResponse): string => {
 
 /** 현재 문제---- store를 스위치에 바로 연결하면 너무 반응이 느려져서 useState을 중간에 끼워넣음. 그래서 업데이트가 두 번 일어남 */
 const Header = React.memo(() => {
-  const [isChecked, setIsChecked] = useState<boolean>(true)
-
   const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)
   const response = useReviewCheckStore((state) => state.response)
   const color = getStatusColor(response)
 
+  const isMultiSelelcting = useReviewCheckStore((state) => state.isMultiSelecting)
   const setIsMultiSelecting = useReviewCheckStore((state) => state.setIsMultiSelecting)
   const clearRecentTwoIndexes = useReviewCheckStore((state) => state.clearRecentTwoIndexes)
-  const handleChange = (_event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-    setIsChecked(checked)
+  const setReviewCheckArray = useReviewCheckStore((state) => state.setReviewCheckArray)
+  const clearStatusArray = useReviewCheckStore((state) => state.clearStatusArray)
+
+
+  const handleSwitchChange = (_event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    setIsMultiSelecting(checked)
+    clearRecentTwoIndexes()
   }
 
-  useEffect(
-    () => {
-      setIsMultiSelecting(isChecked)
-      clearRecentTwoIndexes()
-    },
-    [isChecked]
-  )
-
+  const handleBackClick = () => {
+    setSelectedBookTitle(null)
+    setReviewCheckArray([])
+    clearStatusArray()
+  }
 
   return (
     // Fold Level 5
-    // <AppBar position='sticky' className='bg-amber-300 overflow-x-scroll'>
-      <Box className='flex gap-6 p-3 h-[70px] items-center'>
+    <Box className='flex gap-6 p-3 h-[70px] items-center'>
 
-        <Box className="grow">
-          <IconButton size="large" edge="start" color="inherit" aria-label="back"
-            onClick={() => setSelectedBookTitle(null)}>
-            <ChevronLeftIcon fontSize='large' />
-          </IconButton>
-        </Box>
-
-
-        <CustomToggleButtonGroup />
-
-        <Box className="flex">
-          <FormControlLabel control={<Switch checked={isChecked} onChange={handleChange} />} label={<GradingIcon />} className='w-[90px]' />
-          <CircleIcon sx={{ backgroundColor: { color }, paddingRight: "12px" }} fontSize="small" />
-        </Box>
-
+      <Box className="grow">
+        <IconButton size="large" edge="start" color="inherit" aria-label="back"
+          onClick={handleBackClick}>
+          <ChevronLeftIcon fontSize='large' />
+        </IconButton>
       </Box>
-    // </AppBar>
+
+
+      <CustomToggleButtonGroup />
+
+      <Box className="flex">
+        <FormControlLabel control={<Switch checked={isMultiSelelcting} onChange={handleSwitchChange} />} label={<GradingIcon />} className='w-[90px]' />
+        <CircleIcon sx={{ backgroundColor: { color }, paddingRight: "12px" }} fontSize="small" />
+      </Box>
+
+    </Box>
   )
 })
 

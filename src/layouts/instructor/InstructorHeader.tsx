@@ -10,20 +10,18 @@ interface TabInfo {
 const tabInfoArray: TabInfo[] = [
   { pathname: "summary", label: "요약" },
   { pathname: "progress", label: "진도표" },
-  { pathname: "review-check", label: "오답 체크" },
+  { pathname: "review-assignment", label: "오답 과제" },
 ]
 
-
-
-const StudentHeader = () => {
+const InstructorHeader = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const currentPathname = location.pathname.split("/student/")[1].split("/")[0]
+  const currentPathname = location.pathname.split("/instructor/")[1]?.split("/")[0] ?? ""
 
   return (
     <Tabs variant='fullWidth'
-      value={currentPathname} onChange={(_event, value) => navigate(`/student/${value}`)}>
-      {tabInfoArray.map((tabInfo, index) => <Tab sx={{fontWeight: 600}} key={index} value={tabInfo.pathname} label={tabInfo.label} />)}
+      value={currentPathname} onChange={(_event, value) => navigate(`/instructor/${value}`)}>
+      {tabInfoArray.map((tabInfo, index) => <Tab sx={{ fontWeight: 600 }} key={index} value={tabInfo.pathname} label={tabInfo.label} />)}
 
     </Tabs>
   )
@@ -31,4 +29,4 @@ const StudentHeader = () => {
 
 
 
-export default StudentHeader
+export default InstructorHeader

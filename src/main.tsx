@@ -9,11 +9,33 @@ import StudentLayout from './layouts/student/StudentLayout.js'
 import { ThemeProvider } from '@mui/material'
 import theme from './theme.js'
 import Workbench from '@/pages/workbench/Workbench.js'
+import InstructorLayout from './layouts/instructor/InstructorLayout.js'
+import InstructorSummaryPage from '@/pages/instructor/summary/InstructorSummaryPage.js'
+import InstructorProgressPage from '@/pages/instructor/progress/page.js'
+import InstructorReviewAssignmentPage from '@/pages/instructor/review-assignment/page.js'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/instructor",
+    element: <InstructorLayout />,
+    children: [
+      {
+        path: "summary",
+        element: <InstructorSummaryPage />
+      },
+      {
+        path: "progress",
+        element: <InstructorProgressPage />
+      },
+      {
+        path: "review-assignment",
+        element: <InstructorReviewAssignmentPage />
+      },
+    ]
   },
   {
     path: "/student",
