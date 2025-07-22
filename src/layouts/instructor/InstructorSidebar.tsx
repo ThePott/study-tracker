@@ -4,9 +4,11 @@ import { Box } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useEffect } from 'react';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 
 const InstructorSidebar = () => {
+  const navigate = useNavigate()
+
   const studentArray: Student[] = useLoaderData()
 
   const setStudentArray = useInstructorStore((state) => state.setStudentArray)

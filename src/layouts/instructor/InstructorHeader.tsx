@@ -20,7 +20,7 @@ const InstructorHeader = () => {
 
   return (
     <Tabs variant='fullWidth'
-      value={currentPathname} onChange={(_event, value) => navigate(`/instructor/${value}`)}>
+      value={currentPathname} onChange={(_event, value) => navigate(`/instructor/${value}`, { viewTransition: true })}>
       <Tab sx={{ fontWeight: 600, minWidth: "132px", flexGrow: 0 }} value="manage" label="학생 관리" />
       {tabInfoArray.map((tabInfo, index) => <Tab sx={{ fontWeight: 600 }} key={index} value={tabInfo.pathname} label={tabInfo.label} />)}
 
