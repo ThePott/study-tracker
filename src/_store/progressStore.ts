@@ -7,6 +7,15 @@ const useProgressStore = create<ProgressState>()((set) => ({
 
     activeProgress: null,
     setActiveProgress(activeProgress) { set({ activeProgress }) },
+
+    updateProgress(progress) {
+        set((state) => {
+
+            const newProgressArray = state.progressArray.map(
+                (el) => el._id === progress._id ? progress : el)
+            return {progressArray: newProgressArray}
+        })
+    },
 }))
 
 export default useProgressStore

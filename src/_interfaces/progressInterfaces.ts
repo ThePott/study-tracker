@@ -27,4 +27,6 @@ export interface ProgressState {
 
   activeProgress: ProgressData | null
   setActiveProgress: (activeProgress: ProgressData | null) => void
+
+  updateProgress: (progress: ProgressData) => void
 }

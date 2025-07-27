@@ -14,13 +14,14 @@ const InstructorProgressPage = () => {
 
   const activeProgress = useProgressStore((state) => state.activeProgress)
   const setActiveProgress = useProgressStore((state) => state.setActiveProgress)
+  const updateProgress = useProgressStore((state) => state.updateProgress)
   // const progressArray = useProgressStore((state) => state.progressArray)
 
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 20,
+        distance: 2,
       }
     })
   )
@@ -35,6 +36,39 @@ const InstructorProgressPage = () => {
 
   const handleDragOver = (event: DragOverEvent) => {
     const { active, over } = event
+
+    if (!over) { return }
+    if (active.id === over.id) { return }
+
+    const curentData = active.data.current
+    const overData = over.data.current
+    if (!curentData || !overData) { return }
+
+    const isOverColumn = overData.type === "COLUMN"
+    if (isOverColumn) {
+      const copiedProgress = { ...curentData.kanban }
+      copiedProgress.inProgressStatus = over.id
+
+      updateProgress(copiedProgress)
+      
+      // const oldIndex = boardIdArray.indexOf(active.id)
+      // boardArray[oldIndex].type = overData.columnType
+      // console.log("---- im here")
+    }
+
+    // const isBoardActive = curentData.type === "BOARD"
+    // const isOverAnotherBoard = overData.type === "BOARD"
+
+    // if (isBoardActive && isOverAnotherBoard) {
+    //   const oldIndex = boardIdArray.indexOf(active.id)
+    //   const newIndex = boardIdArray.indexOf(over.id)
+
+    //   const newArray = arrayMove(boardArray, oldIndex, newIndex)
+
+    //   setBoardArray(newArray)
+
+    //   boardArray[oldIndex].type = boardArray[newIndex].type
+    // }
   }
 
 
