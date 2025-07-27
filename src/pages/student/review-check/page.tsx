@@ -9,7 +9,7 @@ const StdReviewCheckPage = () => {
     const bookTitleArray = useReviewCheckStore((state) => state.bookTitleArray)
     const selectedBookTitle = useReviewCheckStore((state) => state.selectedBookTitle)
     const reviewCheckArray = useReviewCheckStore((state) => state.reviewCheckArray)
-
+    // ---- 허스키 : ESLint 통과 못하면 커밋 자체를 못 하게 함 <<< 팀 프로젝트 할 때는 필수 <<<<
     // ---- call effect custom hooks
     useReviewCheckApi(studentId)
     useReviewCheckUpdate()

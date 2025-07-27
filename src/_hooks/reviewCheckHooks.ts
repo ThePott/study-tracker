@@ -54,6 +54,8 @@ const useReviewCheckApi = (studentId: string) => {
         [studentId]
     )
 }
+// api관련된 건 별도 폴더로 구분
+// backend기준으로 세부 폴더 구분
 
 /** ACUTAL PATCH  */
 const patchReviewCheckArray2 = async (
