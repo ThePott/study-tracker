@@ -24,4 +24,7 @@ export interface ProgressData {
 export interface ProgressState {
   progressArray: ProgressData[]
   setProgressArray: (progressArray: ProgressData[]) => void
+
+  activeProgress: ProgressData | null
+  setActiveProgress: (activeProgress: ProgressData | null) => void
 }
