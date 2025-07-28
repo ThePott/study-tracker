@@ -7,9 +7,12 @@ import ProgressColumn from "./instructorProgressComponents/ProgressColumn"
 import { Box } from "@mui/material"
 import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { createPortal } from "react-dom"
+import { arrayMove } from "@dnd-kit/sortable"
 
 const InstructorProgressPage = () => {
   const student = useInstructorStore((state) => state.selectedStudent)
+  const progressArray = useProgressStore((state) => state.progressArray)
+  const setProgressArray = useProgressStore((state) => state.setProgressArray)
   useProgressGet(student?.studentId)
 
   const activeProgress = useProgressStore((state) => state.activeProgress)
@@ -49,26 +52,23 @@ const InstructorProgressPage = () => {
       const copiedProgress = { ...curentData.kanban }
       copiedProgress.inProgressStatus = over.id
 
-      updateProgress(copiedProgress)
-      
-      // const oldIndex = boardIdArray.indexOf(active.id)
-      // boardArray[oldIndex].type = overData.columnType
-      // console.log("---- im here")
+      updateProgress(copiedProgress) //<----------- update은 나중에 한 번에 하는 걸로 바꿔야
     }
 
-    // const isBoardActive = curentData.type === "BOARD"
-    // const isOverAnotherBoard = overData.type === "BOARD"
+    
+    const isKanbanActive = curentData.type === "KANBAN"
+    const isOverAnotherKanban = overData.type === "KANBAN"
 
-    // if (isBoardActive && isOverAnotherBoard) {
-    //   const oldIndex = boardIdArray.indexOf(active.id)
-    //   const newIndex = boardIdArray.indexOf(over.id)
+    if (isKanbanActive && isOverAnotherKanban) {
+      const oldIndex = progressArray.findIndex((progress) => progress._id === active.id)
+      const newIndex = progressArray.findIndex((progress) => progress._id === over.id)
 
-    //   const newArray = arrayMove(boardArray, oldIndex, newIndex)
+      const newArray = arrayMove(progressArray, oldIndex, newIndex)
 
-    //   setBoardArray(newArray)
+      setProgressArray(newArray)
 
-    //   boardArray[oldIndex].type = boardArray[newIndex].type
-    // }
+      progressArray[oldIndex].inProgressStatus = progressArray[newIndex].inProgressStatus
+    }
   }
 
 
