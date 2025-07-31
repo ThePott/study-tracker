@@ -10,7 +10,6 @@ import ProgressBox from "./instructorProgressComponents/ProgressBox"
 import ProgressColumn from "./instructorProgressComponents/ProgressColumn"
 
 const InstructorProgressPage = () => {
-  // const student = useInstructorStore((state) => state.selectedStudent)
   const progressArray = useProgressStore((state) => state.progressArray)
   const setProgressArray = useProgressStore((state) => state.setProgressArray)
   const handleStatusChange = useProgressStore((state) => state.handleStatusChange)
@@ -97,14 +96,9 @@ const InstructorProgressPage = () => {
     }
   }
 
-  // const initialStatusDict = useProgressStore((state) => state.initialStatusDict)
-  // const editedStatusDict = useProgressStore((state) => state.editedStatusDict)
-
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} collisionDetection={rectIntersection}>
       <Box className="flex gap-3">
-        {/* <Button onClick={() => console.log("---- initial status dict:", initialStatusDict)}>initial</Button> */}
-        {/* <Button onClick={() => console.log("---- edited:", editedStatusDict)}>edited</Button> */}
         {inProgressStatusArray.map((inProgressStatus) => <ProgressColumn key={inProgressStatus} inProgressStatus={inProgressStatus} />)}
       </Box>
 

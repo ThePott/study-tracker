@@ -2,7 +2,6 @@ import { ProgressData } from '@/src/_interfaces/progressInterfaces';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Box, Typography } from '@mui/material';
-import { useEffect } from 'react';
 
 const ProgressBox = ({ progress }: { progress: ProgressData }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -17,27 +16,6 @@ const ProgressBox = ({ progress }: { progress: ProgressData }) => {
     transform: CSS.Transform.toString(transform),
     transition,
   }
-
-
-  // const prevStatus = useRef<InProgressStatus>(progress.inProgressStatus)
-  // const updateOneEditedProgressArray = useProgressStore((state) => state.updateOneEditedProgressArray)
-  // const editedProgressArray = useProgressStore((state) => state.editedProgressArray)
-
-  useEffect(
-    () => {
-      // -----!!!!!----- 삭제 금지 !!!!! ----- if (progress.completed !== "IN_PROGRESS") { return } // <----- 나중에는 이것도 켜야 함!!!!
-      // if (prevStatus.current === progress.inProgressStatus) { return }
-      // console.log("---- status changed from:", prevStatus, "---- to:", progress.inProgressStatus)
-      // updateOneEditedProgressArray(prevStatus.current, progress)
-
-      // prevStatus.current = progress.inProgressStatus
-      // console.log("---- edited array length:", editedProgressArray.length)
-
-
-    },
-    [progress.inProgressStatus]
-  )
-
 
   if (isDragging) return (
     <div
@@ -57,10 +35,5 @@ const ProgressBox = ({ progress }: { progress: ProgressData }) => {
   )
 }
 
-
-// export default React.memo(
-//   ProgressBox,
-//   (prevProps, nextProps) => { return prevProps.progress._id === nextProps.progress._id; }
-// )
 
 export default ProgressBox

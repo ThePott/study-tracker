@@ -27,6 +27,15 @@ export const useProgressGet = () => {
   }, [student])
 }
 
+const patchProgressStatus = async (studentId: string, editedStatusDict: StatusDict) => {
+  if (!studentId) { return }
+  const url = `/student/${studentId}/progress/in-progress-status`
+  const response = await axios.patch(url, {
+    inProgressStatusDict: editedStatusDict
+  })
+  console.log("---- response:", response)
+}
+
 /** MUST be called at ProgressPage ONLY */
 export const useAutoSaveProgress = () => {
   const student = useInstructorStore((state) => state.selectedStudent)
@@ -37,9 +46,10 @@ export const useAutoSaveProgress = () => {
   useEffect(() => {
     if (!studentId) { return }
     if (Object.values(editedStatusDict).length === 0) { return }
-    
+
     const timeoutId = setTimeout(() => {
       console.log("---- want to save now:", editedStatusDict)
+      patchProgressStatus(studentId, editedStatusDict)
       mergeStatusToInitial()
     }, 2000)
 
