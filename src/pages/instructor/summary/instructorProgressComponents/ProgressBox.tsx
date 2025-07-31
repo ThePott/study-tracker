@@ -9,7 +9,7 @@ import { memo } from 'react';
 const comletedStyle = {
   "NOT_STARTED": "border-zinc-400",
   "IN_PROGRESS": "border-blue-400",
-  "COMPLETED": "border-black",
+  "COMPLETED": "border-black text-zinc-600",
 }
 
 const ProgressBox = memo(({ progress }: { progress: ProgressData }) => {
