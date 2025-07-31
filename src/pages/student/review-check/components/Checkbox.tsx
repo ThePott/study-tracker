@@ -34,12 +34,11 @@ const Checkbox = React.memo(({
     status,
 }: CheckboxProps) => {
     const buttonProps = status ? variantObject[status] : variantObject["NOT_SOLVED"]
-    if (!status) { console.error("----- status failed:", index, status) }
 
     const handleClick = useCheckboxClickHandler()
 
-    const updateOneEditedIdStatusDictArray = useCallback(useReviewCheckStore((state) => state.updateOneEditedIdStatusDictArray), [])
-    const startResponseLoading = useCallback(useReviewCheckStore((state) => state.startResponseLoading), [])
+    const updateOneEditedIdStatusDictArray = useReviewCheckStore((state) => state.updateOneEditedIdStatusDictArray)
+    const startResponseLoading = useReviewCheckStore((state) => state.startResponseLoading)
 
     /** status 바뀔 때마다 실행되는 함수 --> edited array를  업데이트 하기만 함 */
     const prevStausRef = useRef<CheckboxStatus>(status)

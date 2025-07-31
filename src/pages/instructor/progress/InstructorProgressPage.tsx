@@ -1,33 +1,27 @@
-import { useProgressGet } from "@/src/_hooks/progressHooks"
+import { useAutoSaveProgress, useProgressGet } from "@/src/_hooks/progressHooks"
+import { inProgressStatusArray } from "@/src/_interfaces/progressInterfaces"
 import useInstructorStore from "@/src/_store/instructorStore"
 import useProgressStore from "@/src/_store/progressStore"
-import ProgressBox from "./instructorProgressComponents/ProgressBox"
-import { inProgressStatusArray } from "@/src/_interfaces/progressInterfaces"
-import ProgressColumn from "./instructorProgressComponents/ProgressColumn"
-import { Box } from "@mui/material"
-import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { createPortal } from "react-dom"
+import { closestCorners, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, rectIntersection } from '@dnd-kit/core'
 import { arrayMove } from "@dnd-kit/sortable"
+import { Box, Button } from "@mui/material"
+import { createPortal } from "react-dom"
+import ProgressBox from "./instructorProgressComponents/ProgressBox"
+import ProgressColumn from "./instructorProgressComponents/ProgressColumn"
 
 const InstructorProgressPage = () => {
-  const student = useInstructorStore((state) => state.selectedStudent)
+  // const student = useInstructorStore((state) => state.selectedStudent)
   const progressArray = useProgressStore((state) => state.progressArray)
   const setProgressArray = useProgressStore((state) => state.setProgressArray)
-  useProgressGet(student?.studentId)
-
+  const handleStatusChange = useProgressStore((state) => state.handleStatusChange)
+  
+  
   const activeProgress = useProgressStore((state) => state.activeProgress)
   const setActiveProgress = useProgressStore((state) => state.setActiveProgress)
   const updateProgress = useProgressStore((state) => state.updateProgress)
-  // const progressArray = useProgressStore((state) => state.progressArray)
-
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 2,
-      }
-    })
-  )
+  
+  useAutoSaveProgress()
+  useProgressGet()
 
   const handleDragStart = (event: DragStartEvent) => {
     const currentEventData = event.active.data.current
@@ -43,20 +37,52 @@ const InstructorProgressPage = () => {
     if (!over) { return }
     if (active.id === over.id) { return }
 
-    const curentData = active.data.current
+    const currentData = active.data.current
     const overData = over.data.current
-    if (!curentData || !overData) { return }
+    if (!currentData || !overData) { return }
 
     const isOverColumn = overData.type === "COLUMN"
-    if (isOverColumn) {
-      const copiedProgress = { ...curentData.kanban }
-      copiedProgress.inProgressStatus = over.id
+    if (isOverColumn && currentData.kanban.inProgressStatus !== over.id) {
+      currentData.kanban.inProgressStatus = over.id
 
-      updateProgress(copiedProgress) //<----------- update은 나중에 한 번에 하는 걸로 바꿔야
+      const updatedProgress = {
+        ...currentData.kanban,
+        inProgressStatus: over.id
+      }
+      updateProgress(updatedProgress)
+
+      // updateProgress(currentData.kanban)
     }
 
-    
-    const isKanbanActive = curentData.type === "KANBAN"
+    const isKanbanActive = currentData.type === "KANBAN"
+    const isOverAnotherKanban = overData.type === "KANBAN"
+
+    if (isKanbanActive && isOverAnotherKanban) {
+      const copiedArray = [...progressArray]
+      const oldIndex = copiedArray.findIndex((progress) => progress._id === active.id)
+      const newIndex = copiedArray.findIndex((progress) => progress._id === over.id)
+
+      if (copiedArray[oldIndex].inProgressStatus !== copiedArray[newIndex].inProgressStatus) {
+        copiedArray[oldIndex] = { ...copiedArray[oldIndex], inProgressStatus: copiedArray[newIndex].inProgressStatus }
+      }
+
+      const newArray = arrayMove(copiedArray, oldIndex, newIndex)
+
+      setProgressArray(newArray)
+    }
+  }
+
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    setActiveProgress(null)
+
+    const { active, over } = event
+
+    const currentData = active.data.current
+    const overData = over.data.current
+    if (!currentData || !overData) { return }
+
+    const isKanbanActive = currentData.type === "KANBAN"
     const isOverAnotherKanban = overData.type === "KANBAN"
 
     if (isKanbanActive && isOverAnotherKanban) {
@@ -67,31 +93,19 @@ const InstructorProgressPage = () => {
 
       setProgressArray(newArray)
 
-      progressArray[oldIndex].inProgressStatus = progressArray[newIndex].inProgressStatus
+      handleStatusChange(progressArray[oldIndex])
     }
   }
 
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    setActiveProgress(null)
-
-    const { active, over } = event
-
-    // if (!over) { return }
-    // if (active.id === over.id) { return }
-
-    // const oldIndex = boardIdArray.indexOf(active.id)
-    // const newIndex = boardIdArray.indexOf(over.id)
-
-    // const newArray = arrayMove(boardArray, oldIndex, newIndex)
-
-    // setBoardArray(newArray)
-  }
+  // const initialStatusDict = useProgressStore((state) => state.initialStatusDict)
+  // const editedStatusDict = useProgressStore((state) => state.editedStatusDict)
 
   return (
-    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
+    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} collisionDetection={rectIntersection}>
       <Box className="flex gap-3">
-        {inProgressStatusArray.map((inProgressStatus) => <ProgressColumn inProgressStatus={inProgressStatus} />)}
+        {/* <Button onClick={() => console.log("---- initial status dict:", initialStatusDict)}>initial</Button> */}
+        {/* <Button onClick={() => console.log("---- edited:", editedStatusDict)}>edited</Button> */}
+        {inProgressStatusArray.map((inProgressStatus) => <ProgressColumn key={inProgressStatus} inProgressStatus={inProgressStatus} />)}
       </Box>
 
       {createPortal(

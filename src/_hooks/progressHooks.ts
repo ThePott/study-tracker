@@ -1,27 +1,48 @@
 import { useEffect } from "react"
 import useProgressStore from "../_store/progressStore"
 import axios from "axios"
+import { ProgressData, StatusDict } from "../_interfaces/progressInterfaces"
+import useInstructorStore from "../_store/instructorStore"
 
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 
-export const useProgressGet = (studentId: string) => {
-  // if (!studentId) {return }
+const getProgressArray = async (studentId: string, setProgressArray: (progressArray: ProgressData[]) => void, setInitialStatusDict: (progressArray: ProgressData[]) => void) => {
+  if (!studentId) { return }
+  const url = `/student/${studentId}/progress`
+  const response = await axios.get(url)
+  setProgressArray(response.data)
+  setInitialStatusDict(response.data)
+}
+
+export const useProgressGet = () => {
+  const student = useInstructorStore((state) => state.selectedStudent)
+  const studentId = student?.studentId
   const setProgressArray = useProgressStore((state) => state.setProgressArray)
+  const setInitialStatusDict = useProgressStore((state) => state.setInitialStatusDict)
 
   useEffect(() => {
-    const fetchDataArray = async () => {
-      try {
-        const url = `/student/${studentId}/progress`
-        const response = await axios.get(url)
-        setProgressArray(response.data)
-      } catch (error) {
-        console.error("---- ERROR OCCURRED:", error)
-      } finally {
-        // setLoading(false)
-      }
-    }
+    if (!studentId) { return }
+    getProgressArray(studentId, setProgressArray, setInitialStatusDict)
+  }, [student])
+}
 
-    fetchDataArray()
-  }, [studentId])
+/** MUST be called at ProgressPage ONLY */
+export const useAutoSaveProgress = () => {
+  const student = useInstructorStore((state) => state.selectedStudent)
+  const studentId = student?.studentId
+  const editedStatusDict = useProgressStore((state) => state.editedStatusDict)
+  const mergeStatusToInitial = useProgressStore((state) => state.mergeStatusToInitial)
+
+  useEffect(() => {
+    if (!studentId) { return }
+    if (Object.values(editedStatusDict).length === 0) { return }
+    
+    const timeoutId = setTimeout(() => {
+      console.log("---- want to save now:", editedStatusDict)
+      mergeStatusToInitial()
+    }, 2000)
+
+    return () => clearTimeout(timeoutId)
+  }, [editedStatusDict])
 }

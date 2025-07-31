@@ -1,9 +1,9 @@
-import { InProgressStatus } from '@/src/_interfaces/progressInterfaces'
-import useProgressStore from '@/src/_store/progressStore'
-import { Box } from '@mui/material'
-import ProgressBox from './ProgressBox'
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { InProgressStatus } from '@/src/_interfaces/progressInterfaces';
+import useProgressStore from '@/src/_store/progressStore';
 import { useDroppable } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { Box } from '@mui/material';
+import ProgressBox from './ProgressBox';
 
 const ProgressColumn = ({ inProgressStatus }: { inProgressStatus: InProgressStatus }) => {
   const progressArray = useProgressStore((state) => state.progressArray)
@@ -17,13 +17,13 @@ const ProgressColumn = ({ inProgressStatus }: { inProgressStatus: InProgressStat
       type: "COLUMN",
       columnType: inProgressStatus
     }
-  });
+  })
 
   return (
     <Box className="flex flex-col gap-3 flex-1" ref={setNodeRef}>
       <p className="text-xl font-semibold">{inProgressStatus}</p>
       <SortableContext items={idArray} strategy={verticalListSortingStrategy}>
-        {filteredProgressArray.map((progress, index) => <ProgressBox key={index} progress={progress} />)}
+        {filteredProgressArray.map((progress) => <ProgressBox key={progress._id} progress={progress} />)}
       </SortableContext>
     </Box>
   )
