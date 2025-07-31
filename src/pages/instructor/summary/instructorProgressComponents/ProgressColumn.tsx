@@ -10,7 +10,7 @@ import React, { memo } from 'react';
 const ProgressColumn = memo(({ inProgressStatus }: { inProgressStatus: InProgressStatus }) => {
   const progressArray = useProgressStore((state) => state.progressArray)
 
-  const filteredProgressArray = progressArray.filter((progress) => progress.inProgressStatus === inProgressStatus)
+  const filteredProgressArray = progressArray.filter((progress) => progress.inProgressStatus === inProgressStatus && progress.completed === "IN_PROGRESS")
   const idArray = filteredProgressArray.map((progress) => progress._id)
 
   const { isOver, setNodeRef } = useDroppable({

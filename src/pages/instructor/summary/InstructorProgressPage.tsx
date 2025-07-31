@@ -19,9 +19,9 @@ const InstructorProgressPage = () => {
   const setActiveProgress = useProgressStore((state) => state.setActiveProgress)
   const updateProgress = useProgressStore((state) => state.updateProgress)
 
-  useAutoSaveInProgressStatus()
-  useAutoSaveCompleted()
-  useProgressGet()
+  // useAutoSaveInProgressStatus()
+  // useAutoSaveCompleted()
+  // useProgressGet()
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {

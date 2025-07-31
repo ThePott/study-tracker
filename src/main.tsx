@@ -1,21 +1,20 @@
+import InstructorReviewAssignmentPage from '@/src/pages/instructor/review-assignment/page.js'
+import InstructorProgressPage from '@/src/pages/instructor/summary/InstructorProgressPage.js'
+import Workbench from '@/src/pages/workbench/Workbench.js'
+import { Skeleton, ThemeProvider } from '@mui/material'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
+import { getStudentArray } from './_utils/axiosUtils.js'
+import App from './App.jsx'
+import './index.css'
+import InstructorLayout from './layouts/instructor/InstructorLayout.js'
+import StudentLayout from './layouts/student/StudentLayout.js'
+import InstructorManagePage from './pages/instructor/manage/InstructorManagePage.js'
+import RealInstructorProgressPage from './pages/instructor/progress/RealInstructorProgressPage.js'
 import StdProgressPage from './pages/student/progress/page.js'
 import StdReviewCheckPage from './pages/student/review-check/page.js'
 import StdSummary from './pages/student/summary/page.js'
-import App from './App.jsx'
-import './index.css'
-import StudentLayout from './layouts/student/StudentLayout.js'
-import { ThemeProvider } from '@mui/material'
 import theme from './theme.js'
-import Workbench from '@/src/pages/workbench/Workbench.js'
-import InstructorLayout from './layouts/instructor/InstructorLayout.js'
-import InstructorSummaryPage from '@/src/pages/instructor/summary/InstructorSummaryPage.js'
-import InstructorProgressPage from '@/src/pages/instructor/progress/InstructorProgressPage.js'
-import InstructorReviewAssignmentPage from '@/src/pages/instructor/review-assignment/page.js'
-import { getStudentArray } from './_utils/axiosUtils.js'
-import InstructorManagePage from './pages/instructor/manage/InstructorManagePage.js'
-import { Skeleton } from '@mui/material'
 
 const router = createBrowserRouter([
   {
@@ -34,11 +33,11 @@ const router = createBrowserRouter([
       },
       {
         path: "summary",
-        element: <InstructorSummaryPage />
+        element: <InstructorProgressPage />
       },
       {
         path: "progress",
-        element: <InstructorProgressPage />
+        element: <RealInstructorProgressPage />
       },
       {
         path: "review-assignment",

@@ -37,7 +37,7 @@ const ProgressBox = memo(({ progress }: { progress: ProgressData }) => {
     </div>
   )
 
-  const containerBaseStyle = "p-3 bg-zinc-800 border-1"
+  const containerBaseStyle = "p-3 bg-zinc-800 border-2 rounded-3xl"
   const containerCompletedStye = comletedStyle[progress.completed]
   const containerStyle = `${containerBaseStyle} ${containerCompletedStye}`
 
