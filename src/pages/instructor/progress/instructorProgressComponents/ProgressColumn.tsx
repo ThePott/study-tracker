@@ -4,8 +4,9 @@ import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Box } from '@mui/material';
 import ProgressBox from './ProgressBox';
+import React, { memo } from 'react';
 
-const ProgressColumn = ({ inProgressStatus }: { inProgressStatus: InProgressStatus }) => {
+const ProgressColumn = memo(({ inProgressStatus }: { inProgressStatus: InProgressStatus }) => {
   const progressArray = useProgressStore((state) => state.progressArray)
 
   const filteredProgressArray = progressArray.filter((progress) => progress.inProgressStatus === inProgressStatus)
@@ -27,6 +28,6 @@ const ProgressColumn = ({ inProgressStatus }: { inProgressStatus: InProgressStat
       </SortableContext>
     </Box>
   )
-}
+})
 
 export default ProgressColumn

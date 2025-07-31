@@ -2,7 +2,7 @@ import { useAutoSaveProgress, useProgressGet } from "@/src/_hooks/progressHooks"
 import { inProgressStatusArray } from "@/src/_interfaces/progressInterfaces"
 import useInstructorStore from "@/src/_store/instructorStore"
 import useProgressStore from "@/src/_store/progressStore"
-import { closestCorners, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, rectIntersection } from '@dnd-kit/core'
+import { closestCorners, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, rectIntersection, useSensor, useSensors } from '@dnd-kit/core'
 import { arrayMove } from "@dnd-kit/sortable"
 import { Box, Button } from "@mui/material"
 import { createPortal } from "react-dom"
@@ -13,16 +13,25 @@ const InstructorProgressPage = () => {
   const progressArray = useProgressStore((state) => state.progressArray)
   const setProgressArray = useProgressStore((state) => state.setProgressArray)
   const handleStatusChange = useProgressStore((state) => state.handleStatusChange)
-  
-  
+
+
   const activeProgress = useProgressStore((state) => state.activeProgress)
   const setActiveProgress = useProgressStore((state) => state.setActiveProgress)
   const updateProgress = useProgressStore((state) => state.updateProgress)
-  
+
   useAutoSaveProgress()
   useProgressGet()
 
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  });
+
+  const sensors = useSensors(mouseSensor)
+
   const handleDragStart = (event: DragStartEvent) => {
+    console.log("----started")
     const currentEventData = event.active.data.current
 
     if (currentEventData?.type === "KANBAN") {
@@ -71,7 +80,6 @@ const InstructorProgressPage = () => {
     }
   }
 
-
   const handleDragEnd = (event: DragEndEvent) => {
     setActiveProgress(null)
 
@@ -97,7 +105,7 @@ const InstructorProgressPage = () => {
   }
 
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} collisionDetection={rectIntersection}>
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} collisionDetection={rectIntersection}>
       <Box className="flex gap-3">
         {inProgressStatusArray.map((inProgressStatus) => <ProgressColumn key={inProgressStatus} inProgressStatus={inProgressStatus} />)}
       </Box>

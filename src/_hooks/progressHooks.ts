@@ -1,8 +1,9 @@
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import useProgressStore from "../_store/progressStore"
 import axios from "axios"
-import { ProgressData, StatusDict } from "../_interfaces/progressInterfaces"
+import { CompletedStatus, completedStatusArray, ProgressData, StatusDict } from "../_interfaces/progressInterfaces"
 import useInstructorStore from "../_store/instructorStore"
+import { findNextCompleted } from "../_utils/simpleUtils"
 
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 

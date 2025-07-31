@@ -12,7 +12,7 @@ const InstructorLayout = () => {
 
         <InstructorSidebar />
 
-        <Box className="flex-1 p-3">
+        <Box sx={{scrollbarColor: "oklch(0.5 0 0) transparent"}} className="flex-1 p-3 overflow-y-scroll">
           <Outlet />
         </Box>
       </Box>
