@@ -40,24 +40,6 @@ const useProgressStore = create<ProgressState>()((set) => ({
       return { initialStatusDict: { ...state.initialStatusDict, ...state.editedStatusDict }, editedStatusDict: {} }
     })
   },
-  // addToEditedStatusDict(progress) {
-  //   set((state) => {
-  //     const key = progress._id
-  //     const value = progress.inProgressStatus
-  //     if (state.editedStatusDict[key] === value) { return state }
-
-  //     return { editedStatusDict: { ...state.editedStatusDict, [key]: value } }
-  //   })
-  // },
-  // deleteFromEditedStatusDict(progress) {
-  //   set((state) => {
-  //     const key = progress._id
-  //     if (!state.editedStatusDict[key]) { return state }
-
-  //     const { [key]: _removedValue, ...rest } = state.editedStatusDict
-  //     return { editedStatusDict: rest }
-  //   })
-  // },
 
   activeProgress: null,
   setActiveProgress(activeProgress) { set({ activeProgress }) },
@@ -70,16 +52,6 @@ const useProgressStore = create<ProgressState>()((set) => ({
       return { progressArray: newProgressArray }
     })
   },
-
-  // editedProgressArray: [],
-  // updateOneEditedProgressArray(prevStatus, progress) {
-  //   set((state) => {
-  //     const excludedArray = state.editedProgressArray.filter((el) => el._id !== progress._id)
-  //     if (prevStatus !== progress.inProgressStatus) { excludedArray.push(progress) }
-
-  //     return { editedProgressArray: excludedArray }
-  //   })
-  // },
 }))
 
 export default useProgressStore
