@@ -1,6 +1,7 @@
-import { ProgressData, ProgressState } from "../_interfaces/progressInterfaces";
+import { CompletedDict, ProgressData, ProgressState } from "../_interfaces/progressInterfaces";
 import { create } from "zustand";
 import { findNextCompleted } from "../_utils/simpleUtils";
+// 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const useProgressStore = create<ProgressState>()((set) => ({
   progressArray: [],
@@ -8,32 +9,17 @@ const useProgressStore = create<ProgressState>()((set) => ({
 
   initialCompletedDict: {},
   setInitialCompletedDict(progressArray) {
-    const initialStatusDict = progressArray.reduce((acc, cur) => {
-      acc[cur._id] = cur.completed
-      return acc
-    }, {})
-    return { initialStatusDict }
+    set(() => {
+      const initialCompletedDict = progressArray.reduce((acc, cur) => {
+        acc[cur._id] = cur.completed
+        return acc
+      }, {})
+
+      return { initialCompletedDict: initialCompletedDict }
+    })
   },
 
   editedCompletedDict: {},
-  // handleCompletedChange(progress) {
-  //   set((state) => {
-  //     const key = progress._id
-  //     const value = progress.completed
-
-  //     // 이전 변경상태랑 달라지지 않았으니 유지
-  //     if (state.editedCompletedDict[key] === value) { return state }
-
-  //     // 최초로 돌아왔으면 변경 취소
-  //     if (state.initialCompletedDict[key] === value) {
-  //       const { [key]: _removedValue, ...rest } = state.editedCompletedDict
-  //       return { editedCompletedDict: rest }
-  //     }
-
-  //     // 최초랑 다르면 새로 추가
-  //     return { editedCompletedDict: { ...state.editedCompletedDict, [key]: value } }
-  //   })
-  // },
   mergeCompletedToInitial() {
     set((state) => {
       return { initialCompletedDict: { ...state.initialCompletedDict, ...state.editedCompletedDict }, editedCompletedDict: {} }
@@ -54,9 +40,11 @@ const useProgressStore = create<ProgressState>()((set) => ({
       const progressArray = state.progressArray.map((el) => el._id === progress._id ? newProgress : el)
 
       // 이전 변경상태랑 달라지지 않았으니 유지
-      if (state.editedCompletedDict[key] === value) { return { progressArray } }
+      if (state.editedCompletedDict[key] === value) {
+        return { progressArray }
+      }
 
-      // 최초로 돌아왔으면 변경 취소
+      // 최초로 돌아왔으면 edited에서 삭제
       if (state.initialCompletedDict[key] === value) {
         const { [key]: _removedValue, ...rest } = state.editedCompletedDict
         return { editedCompletedDict: rest, progressArray }

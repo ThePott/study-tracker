@@ -97,7 +97,6 @@ const useReviewCheckStore = create<ReviewCheckState>()(
     updateStatusArray() {
       set((state) => {
         if (!state.reviewCheckArray || state.reviewCheckArray.length === 0) {
-          // debugger
           return { statusArray: [] }
         }
 
@@ -105,7 +104,6 @@ const useReviewCheckStore = create<ReviewCheckState>()(
         const initialStatusArray = state.reviewCheckArray.map((reviewCheck) => reviewCheck.status)
 
         if (state.recentTwoIndexes.length === 0) {
-          // debugger
           return { statusArray: initialStatusArray }
         }
 
@@ -115,7 +113,6 @@ const useReviewCheckStore = create<ReviewCheckState>()(
         const spliceLength = Math.max(...state.recentTwoIndexes) - startIndex + 1
 
         copiedInitialStatusArray.splice(startIndex, spliceLength, ...Array(spliceLength).fill(state.changeTo))
-        // debugger
         return { statusArray: copiedInitialStatusArray }
       })
     },

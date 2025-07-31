@@ -13,18 +13,26 @@
 1. 칸반 열에서의 순서를 어떻게 데이터베이스에 저장할 수 있을까요?
     떠올려 본 방법
         (적어야)
+2. dnd kit에서 useSortable 기능을 사용하면 모두가 한 컨텍스트를 구독해서 하나만 상태 변경이 되어도 모두 업데이트가 된다
+    드래그 앤 드롭을 사용할 땐 감수해야 하는 부분?
+
 
 # ==== 한 것 ====
 1. dnd kit -> 칸반 이용해서 상태 바꾸기
     - checkbox 상태 변환 감지할 때 로직과 비교 설명
 2. 상태 변경 후 2초 딜레이 디바운스 -> 저장 요청
     - 요청 보내는 즉시 editedDict --(merge)--> initialDict
+3. 클릭하면 완료 상태 변경
+
 
 # ==== 할 것 ====
-1. 여기서 상태 변경 / 스토어 구성 완 / 
-
-in progress status 변경 반영, 추적하는 거랑 / completed로 그렇게 하는 거랑 방법이 다름
-completed는 handle change 말고 그냥 change라고 하자 그리고 내부에서 모든 로직 실행
+1. 완료 상태 저장
+2. progress 레이아웃 변경 (2열) / header fix
+3. summary에 필터된 것만 보여주기
+4. 프론트, 백 interface에 in class completed 추가하되, db에 저장된 자료는 유지하기
+5. 클릭 해서 in class completed change
+    아니야 어떻게 해야 할까.....
+    in class completed: 이걸 만들어서 보여줌 
 
 
 

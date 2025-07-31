@@ -5,6 +5,7 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Box } from '@mui/material';
 import ProgressBox from './ProgressBox';
 import React, { memo } from 'react';
+// 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const ProgressColumn = memo(({ inProgressStatus }: { inProgressStatus: InProgressStatus }) => {
   const progressArray = useProgressStore((state) => state.progressArray)

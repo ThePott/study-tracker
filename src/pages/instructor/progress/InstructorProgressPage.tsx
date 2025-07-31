@@ -1,13 +1,13 @@
-import { useAutoSaveProgress, useProgressGet } from "@/src/_hooks/progressHooks"
+import { useAutoSaveCompleted, useAutoSaveInProgressStatus, useProgressGet } from "@/src/_hooks/progressHooks"
 import { inProgressStatusArray } from "@/src/_interfaces/progressInterfaces"
-import useInstructorStore from "@/src/_store/instructorStore"
 import useProgressStore from "@/src/_store/progressStore"
-import { closestCorners, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, rectIntersection, useSensor, useSensors } from '@dnd-kit/core'
+import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, rectIntersection, useSensor, useSensors } from '@dnd-kit/core'
 import { arrayMove } from "@dnd-kit/sortable"
-import { Box, Button } from "@mui/material"
+import { Box } from "@mui/material"
 import { createPortal } from "react-dom"
 import ProgressBox from "./instructorProgressComponents/ProgressBox"
 import ProgressColumn from "./instructorProgressComponents/ProgressColumn"
+// 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const InstructorProgressPage = () => {
   const progressArray = useProgressStore((state) => state.progressArray)
@@ -19,7 +19,8 @@ const InstructorProgressPage = () => {
   const setActiveProgress = useProgressStore((state) => state.setActiveProgress)
   const updateProgress = useProgressStore((state) => state.updateProgress)
 
-  useAutoSaveProgress()
+  useAutoSaveInProgressStatus()
+  useAutoSaveCompleted()
   useProgressGet()
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -31,7 +32,6 @@ const InstructorProgressPage = () => {
   const sensors = useSensors(mouseSensor)
 
   const handleDragStart = (event: DragStartEvent) => {
-    console.log("----started")
     const currentEventData = event.active.data.current
 
     if (currentEventData?.type === "KANBAN") {
@@ -58,8 +58,6 @@ const InstructorProgressPage = () => {
         inProgressStatus: over.id
       }
       updateProgress(updatedProgress)
-
-      // updateProgress(currentData.kanban)
     }
 
     const isKanbanActive = currentData.type === "KANBAN"
@@ -105,18 +103,20 @@ const InstructorProgressPage = () => {
   }
 
   return (
-    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} collisionDetection={rectIntersection}>
-      <Box className="flex gap-3">
-        {inProgressStatusArray.map((inProgressStatus) => <ProgressColumn key={inProgressStatus} inProgressStatus={inProgressStatus} />)}
-      </Box>
+    <>
+      <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} collisionDetection={rectIntersection}>
+        <Box className="flex gap-3">
+          {inProgressStatusArray.map((inProgressStatus) => <ProgressColumn key={inProgressStatus} inProgressStatus={inProgressStatus} />)}
+        </Box>
 
-      {createPortal(
-        <DragOverlay>
-          {activeProgress && <ProgressBox progress={activeProgress} />}
-        </DragOverlay>,
-        document.body
-      )}
-    </DndContext>
+        {createPortal(
+          <DragOverlay>
+            {activeProgress && <ProgressBox progress={activeProgress} />}
+          </DragOverlay>,
+          document.body
+        )}
+      </DndContext>
+    </>
   )
 }
 

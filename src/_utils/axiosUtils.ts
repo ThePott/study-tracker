@@ -29,7 +29,6 @@ axios.interceptors.response.use(handleSuccess, handleFailure)
 const getStudentArray = async (): Promise<Student[]> => {
     const response = await axios.get("/student")
 
-    // debugger
     const studentArray: Student[] = response.data.reduce(
         (acc: Student[], cur: any) => {
             const { _id, ...rest } = cur;
