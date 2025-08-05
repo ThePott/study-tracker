@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import { ProgressData, ProgressState } from "../_interfaces/progressInterfaces";
+import { StateCreator } from "zustand";
+import { BoundState, ProgressData, ProgressSlice } from "../_interfaces";
 import { findNextCompleted } from "../shared/utils/simpleUtils";
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
-const useProgressStore = create<ProgressState>()((set) => ({
+const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (set) => ({
   progressArray: [],
   setProgressArray(progressArray) { set({ progressArray }) },
 
@@ -102,6 +102,6 @@ const useProgressStore = create<ProgressState>()((set) => ({
       return { progressArray: newProgressArray }
     })
   },
-}))
+})
 
-export default useProgressStore
+export default createProgressSlice

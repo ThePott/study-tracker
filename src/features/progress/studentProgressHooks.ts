@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { BookData } from "@/src/_interfaces/bookInterfaces"
-import { CompletedStatus } from "@/src/_interfaces/progressInterfaces"
+import { BookData } from "@/src/_interfaces/_bookInterfaces"
+import { CompletedStatus } from "@/src/_interfaces/_progressInterfaces"
 
 // Custom hook for API calls
 /** API  */

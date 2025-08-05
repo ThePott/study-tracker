@@ -1,9 +1,9 @@
-import { ApiResponse } from "./commonInterfaces";
+import { ApiResponse } from "./_apiInterfaces";
 
 const checkboxStatusArray = ["DONE", "PASS", "WRONG", "CORRECT", "NOT_SOLVED"] as const;
-type CheckboxStatus = typeof checkboxStatusArray[number]
+export type CheckboxStatus = typeof checkboxStatusArray[number]
 
-interface ReviewCheckData {
+export interface ReviewCheckData {
     _id: string;
     studentId: string;
 
@@ -28,18 +28,18 @@ interface ReviewCheckData {
     reviewedAt?: Date;    // When teacher marked as reviewed (optional)
 }
 
-interface CheckboxProps {
+export interface CheckboxProps {
     index: number;
     reviewCheckData: ReviewCheckData;
     status: CheckboxStatus;
 }
 
-interface EditedIdStatusDict {
+export interface EditedIdStatusDict {
     reviewCheckId: string;
     status: CheckboxStatus;
 }
 
-interface CheckboxSectionProps {
+export interface CheckboxSectionProps {
     studentId: string
 }
 // 서버에서 dto는 api와 같은 폴더에 
@@ -47,7 +47,7 @@ interface CheckboxSectionProps {
 // 화면에서 쓰이는 건 그 화면이랑 가깝게 
 // 여러 화면에서 사용하는 인터페이스는 관련된 훅 파일에 
 // 
-interface ReviewCheckState {
+export interface ReviewCheckSlice {
     // ---- fetch releated -----
     groupedBookObject: any,
     bookTitleArray: string[] | null,
@@ -85,13 +85,4 @@ interface ReviewCheckState {
     updateStatusArray: () => void,
     updateOneOfStatusArray: (index: number) => void,
     clearStatusArray: () => void,
-}
-
-export {
-    CheckboxStatus,
-    ReviewCheckData,
-    CheckboxProps,
-    EditedIdStatusDict,
-    CheckboxSectionProps,
-    ReviewCheckState
 }

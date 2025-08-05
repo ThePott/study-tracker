@@ -1,5 +1,5 @@
-import { ApiResponse } from '@/src/_interfaces/commonInterfaces';
-import useReviewCheckStore from '@/src/_store/reviewCheckStore';
+import { ApiResponse } from '@/src/_interfaces/_apiInterfaces';
+import useBoundStore from '@/src/_store';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import CircleIcon from '@mui/icons-material/Circle';
 import GradingIcon from '@mui/icons-material/Grading';
@@ -29,15 +29,15 @@ const getStatusColor = (response: ApiResponse): string => {
 
 /** 현재 문제---- store를 스위치에 바로 연결하면 너무 반응이 느려져서 useState을 중간에 끼워넣음. 그래서 업데이트가 두 번 일어남 */
 const Header = React.memo(() => {
-  const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)
-  const response = useReviewCheckStore((state) => state.response)
+  const setSelectedBookTitle = useBoundStore((state) => state.setSelectedBookTitle)
+  const response = useBoundStore((state) => state.response)
   const color = getStatusColor(response)
 
-  const isMultiSelelcting = useReviewCheckStore((state) => state.isMultiSelecting)
-  const setIsMultiSelecting = useReviewCheckStore((state) => state.setIsMultiSelecting)
-  const clearRecentTwoIndexes = useReviewCheckStore((state) => state.clearRecentTwoIndexes)
-  const setReviewCheckArray = useReviewCheckStore((state) => state.setReviewCheckArray)
-  const clearStatusArray = useReviewCheckStore((state) => state.clearStatusArray)
+  const isMultiSelelcting = useBoundStore((state) => state.isMultiSelecting)
+  const setIsMultiSelecting = useBoundStore((state) => state.setIsMultiSelecting)
+  const clearRecentTwoIndexes = useBoundStore((state) => state.clearRecentTwoIndexes)
+  const setReviewCheckArray = useBoundStore((state) => state.setReviewCheckArray)
+  const clearStatusArray = useBoundStore((state) => state.clearStatusArray)
 
 
   const handleSwitchChange = (_event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {

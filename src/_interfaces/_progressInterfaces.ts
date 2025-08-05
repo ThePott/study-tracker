@@ -25,7 +25,7 @@ export interface ProgressData {
 export type StatusDict = Record<string, InProgressStatus>
 export type CompletedDict = Record<string, CompletedStatus>
 
-export interface ProgressState {
+export interface ProgressSlice {
   progressArray: ProgressData[]
   setProgressArray: (progressArray: ProgressData[]) => void
 

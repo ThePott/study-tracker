@@ -1,8 +1,8 @@
-import { CheckboxProps, CheckboxStatus } from "@/src/_interfaces/reviewCheckInterfaces"
-import { Button } from "@mui/material"
-import React, { useCallback, useEffect, useRef } from "react"
 import { useCheckboxClickHandler } from "@/src/_hooks/reviewCheckHooks"
-import useReviewCheckStore from "@/src/_store/reviewCheckStore"
+import { CheckboxProps, CheckboxStatus } from "@/src/_interfaces/_reviewCheckInterfaces"
+import useBoundStore from "@/src/_store"
+import { Button } from "@mui/material"
+import React, { useEffect, useRef } from "react"
 
 const variantObject = {
     "CORRECT": { variant: "contained", color: "primary", sx: {} },
@@ -37,8 +37,8 @@ const Checkbox = React.memo(({
 
     const handleClick = useCheckboxClickHandler()
 
-    const updateOneEditedIdStatusDictArray = useReviewCheckStore((state) => state.updateOneEditedIdStatusDictArray)
-    const startResponseLoading = useReviewCheckStore((state) => state.startResponseLoading)
+    const updateOneEditedIdStatusDictArray = useBoundStore((state) => state.updateOneEditedIdStatusDictArray)
+    const startResponseLoading = useBoundStore((state) => state.startResponseLoading)
 
     /** status 바뀔 때마다 실행되는 함수 --> edited array를  업데이트 하기만 함 */
     const prevStausRef = useRef<CheckboxStatus>(status)

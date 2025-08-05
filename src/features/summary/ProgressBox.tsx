@@ -1,5 +1,5 @@
-import { ProgressData } from '@/src/_interfaces/progressInterfaces';
-import useProgressStore from '@/src/_store/progressStore';
+import { ProgressData } from '@/src/_interfaces/_progressInterfaces';
+import useBoundStore from '@/src/_store';
 import MemoCard from '@/src/shared/ui/MemoCard';
 import { colorStyle, fontStyle } from '@/src/shared/ui/styleConstants';
 import { useSortable } from '@dnd-kit/sortable';
@@ -15,7 +15,7 @@ const comletedStyle = {
 }
 
 const ProgressBox = memo(({ progress }: { progress: ProgressData }) => {
-  const changeCompleted = useProgressStore((state) => state.changeCompleted)
+  const changeCompleted = useBoundStore((state) => state.changeCompleted)
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: progress._id,

@@ -1,5 +1,5 @@
-import { InProgressStatus } from '@/src/_interfaces/progressInterfaces';
-import useProgressStore from '@/src/_store/progressStore';
+import { InProgressStatus } from '@/src/_interfaces/_progressInterfaces';
+import useBoundStore from '@/src/_store';
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Box } from '@mui/material';
@@ -8,7 +8,7 @@ import React, { memo } from 'react';
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const ProgressColumn = memo(({ inProgressStatus }: { inProgressStatus: InProgressStatus }) => {
-  const progressArray = useProgressStore((state) => state.progressArray)
+  const progressArray = useBoundStore((state) => state.progressArray)
 
   const filteredProgressArray = progressArray.filter((progress) => progress.inProgressStatus === inProgressStatus && progress.completed === "IN_PROGRESS")
   const idArray = filteredProgressArray.map((progress) => progress._id)

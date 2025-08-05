@@ -1,6 +1,6 @@
-import { ApiResponse } from '@/src/_interfaces/commonInterfaces'
-import { EditedIdStatusDict } from "@/src/_interfaces/reviewCheckInterfaces"
-import useReviewCheckStore from '@/src/_store/reviewCheckStore'
+import { ApiResponse } from '@/src/_interfaces/_apiInterfaces'
+import { EditedIdStatusDict } from "@/src/_interfaces/_reviewCheckInterfaces"
+import useBoundStore from '../_store'
 import axios from 'axios'
 import { MouseEventHandler, useCallback, useEffect } from 'react'
 
@@ -42,9 +42,9 @@ const getReviewCheckArray = async (
 
 /** API GET */
 const useReviewCheckApi = (studentId: string) => {
-    const setResponse = useReviewCheckStore((state) => state.setResponse)
-    const setGroupedBookObject = useReviewCheckStore((state) => state.setGroupedBookObject)
-    const setBookTitleArray = useReviewCheckStore((state) => state.setBookTitleArray)
+    const setResponse = useBoundStore((state) => state.setResponse)
+    const setGroupedBookObject = useBoundStore((state) => state.setGroupedBookObject)
+    const setBookTitleArray = useBoundStore((state) => state.setBookTitleArray)
 
     /** GET */
     useEffect(
@@ -110,9 +110,9 @@ const patchReviewCheckArray2 = async (
 
 /** selected book -> review check array 채움 */
 const useReviewCheckUpdate = () => {
-    const selectedBookTitle = useReviewCheckStore((state) => state.selectedBookTitle)
-    const groupedBookObject = useReviewCheckStore((state) => state.groupedBookObject)
-    const setReviewCheckArray = useReviewCheckStore((state) => state.setReviewCheckArray)
+    const selectedBookTitle = useBoundStore((state) => state.selectedBookTitle)
+    const groupedBookObject = useBoundStore((state) => state.groupedBookObject)
+    const setReviewCheckArray = useBoundStore((state) => state.setReviewCheckArray)
 
     useEffect(
         () => {
@@ -135,8 +135,8 @@ const useReviewCheckUpdate = () => {
 
 /** click event -> recent two indexes || single update on status array */
 const useCheckboxClickHandler = () => {
-    const appendToRecentTwoIndexes = useReviewCheckStore((state) => state.appendToRecentTwoIndexes)
-    const updateOneOfStatusArray = useReviewCheckStore((state) => state.updateOneOfStatusArray)
+    const appendToRecentTwoIndexes = useBoundStore((state) => state.appendToRecentTwoIndexes)
+    const updateOneOfStatusArray = useBoundStore((state) => state.updateOneOfStatusArray)
 
     return useCallback<MouseEventHandler<HTMLButtonElement>>(
         (event) => {
@@ -145,7 +145,7 @@ const useCheckboxClickHandler = () => {
 
             const index = Number(optionalIndex)
 
-            const isMultiSelecting = useReviewCheckStore.getState().isMultiSelecting
+            const isMultiSelecting = useBoundStore.getState().isMultiSelecting
 
             if (isMultiSelecting) {
                 appendToRecentTwoIndexes(index)
@@ -160,12 +160,12 @@ const useCheckboxClickHandler = () => {
 
 /** review check array || recent two indexes -> update status array  */
 const useUpdateStatusArray = () => {
-    const updateStatusArray = useReviewCheckStore((state) => state.updateStatusArray)
-    const reviewCheckArray = useReviewCheckStore((state) => state.reviewCheckArray)
-    const recentTwoIndexes = useReviewCheckStore((state) => state.recentTwoIndexes)
+    const updateStatusArray = useBoundStore((state) => state.updateStatusArray)
+    const reviewCheckArray = useBoundStore((state) => state.reviewCheckArray)
+    const recentTwoIndexes = useBoundStore((state) => state.recentTwoIndexes)
     useEffect(
         () => {
-            const isMultiSelecting = useReviewCheckStore.getState().isMultiSelecting
+            const isMultiSelecting = useBoundStore.getState().isMultiSelecting
             if (!isMultiSelecting) { return }
 
             updateStatusArray()
@@ -176,11 +176,11 @@ const useUpdateStatusArray = () => {
 
 /** edited array -> time out -> patch request */
 const useAutoSave = (studentId: string) => {
-    const updateReviewCheckArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
-    const setEditedIdStatusDictArray = useReviewCheckStore((state) => state.setEditedIdStatusDictArray)
-    const setResponse = useReviewCheckStore((state) => state.setResponse)
+    const updateReviewCheckArray = useBoundStore((state) => state.updateReviewCheckArray)
+    const setEditedIdStatusDictArray = useBoundStore((state) => state.setEditedIdStatusDictArray)
+    const setResponse = useBoundStore((state) => state.setResponse)
 
-    const editedIdStatusDictArray = useReviewCheckStore((state) => state.editedIdStatusDictArray)
+    const editedIdStatusDictArray = useBoundStore((state) => state.editedIdStatusDictArray)
 
     useEffect(
         () => {
@@ -196,15 +196,15 @@ const useAutoSave = (studentId: string) => {
 }
 
 const useManualPatchWhenUnmount = (studentId: string) => {
-    const updateReviewCheckArray = useReviewCheckStore((state) => state.updateReviewCheckArray)
-    const setEditedIdStatusDictArray = useReviewCheckStore((state) => state.setEditedIdStatusDictArray)
-    const setResponse = useReviewCheckStore((state) => state.setResponse)
+    const updateReviewCheckArray = useBoundStore((state) => state.updateReviewCheckArray)
+    const setEditedIdStatusDictArray = useBoundStore((state) => state.setEditedIdStatusDictArray)
+    const setResponse = useBoundStore((state) => state.setResponse)
 
 
     useEffect(
         () => {
             return () => {
-                const editedIdStatusDictArray = useReviewCheckStore.getState().editedIdStatusDictArray
+                const editedIdStatusDictArray = useBoundStore.getState().editedIdStatusDictArray
                 patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
                 console.log("---- manual patch when unmount")
             }

@@ -1,5 +1,5 @@
-import { CheckboxSectionProps } from '@/src/_interfaces/reviewCheckInterfaces'
-import useReviewCheckStore from '@/src/_store/reviewCheckStore'
+import { CheckboxSectionProps } from '@/src/_interfaces/_reviewCheckInterfaces'
+import useBoundStore from '@/src/_store'
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, IconButton, Snackbar } from '@mui/material'
 import { useCallback } from 'react'
@@ -11,10 +11,10 @@ import Header from './Header'
 const CheckboxSection = ({
   studentId,
 }: CheckboxSectionProps) => {
-  const hideResponseSnackbar = useCallback(useReviewCheckStore((state) => state.hideResponseSnackbar), [])
-  const response = useReviewCheckStore((state) => state.response)
-  const statusArray = useReviewCheckStore((state) => state.statusArray)
-  const reviewCheckArray = useReviewCheckStore((state) => state.reviewCheckArray)
+  const hideResponseSnackbar = useCallback(useBoundStore((state) => state.hideResponseSnackbar), [])
+  const response = useBoundStore((state) => state.response)
+  const statusArray = useBoundStore((state) => state.statusArray)
+  const reviewCheckArray = useBoundStore((state) => state.reviewCheckArray)
   console.log("---- status array length:", statusArray.length)
   
   // ---- call effect custom hooks

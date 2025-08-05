@@ -1,2 +1,13 @@
-// 여기서 다 묶어두고
-// 묶어서 한 번에 
+import { create } from "zustand";
+import { BoundState } from "../_interfaces";
+import createManagementSlice from "./managementStore";
+import createProgressSlice from "./progressStore";
+import createReviewCheckSlice from "./reviewCheckStore";
+
+const useBoundStore = create<BoundState>()((...a) => ({
+  ...createManagementSlice(...a),
+  ...createProgressSlice(...a),
+  ...createReviewCheckSlice(...a),
+}))
+
+export default useBoundStore

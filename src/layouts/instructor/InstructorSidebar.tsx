@@ -1,19 +1,17 @@
-import { Student } from '@/src/_interfaces/InstructorInterfaces';
-import useInstructorStore from '@/src/_store/instructorStore';
+import { Student } from '@/src/_interfaces/_instructorInterfaces';
+import useBoundStore from '@/src/_store';
 import { Box } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useEffect } from 'react';
-import { useLoaderData, useNavigate } from 'react-router';
+import { useLoaderData } from 'react-router';
 
 const InstructorSidebar = () => {
-  const navigate = useNavigate()
-
   const studentArray: Student[] = useLoaderData()
 
-  const setStudentArray = useInstructorStore((state) => state.setStudentArray)
-  const selectedStudent = useInstructorStore((state) => state.selectedStudent)
-  const setSelectedStudent = useInstructorStore((state) => state.setSelectedStudent)
+  const setStudentArray = useBoundStore((state) => state.setStudentArray)
+  const selectedStudent = useBoundStore((state) => state.selectedStudent)
+  const setSelectedStudent = useBoundStore((state) => state.setSelectedStudent)
 
   useEffect(() => {
     if (studentArray && studentArray.length !== 0) {

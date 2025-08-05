@@ -1,5 +1,5 @@
-import { CheckboxStatus } from "@/src/_interfaces/reviewCheckInterfaces"
-import useReviewCheckStore from "@/src/_store/reviewCheckStore"
+import { CheckboxStatus } from "@/src/_interfaces/_reviewCheckInterfaces"
+import useBoundStore from "@/src/_store";
 import { ToggleButton, ToggleButtonGroup, useTheme } from "@mui/material"
 
 const getSx = (changeTo: CheckboxStatus) => {
@@ -55,8 +55,8 @@ const getSx = (changeTo: CheckboxStatus) => {
 }
 
 const ChangeToButtonGroup = () => {
-    const changeTo = useReviewCheckStore((state) => state.changeTo)
-    const setChangeTo = useReviewCheckStore((state) => state.setChangeTo)
+    const changeTo = useBoundStore((state) => state.changeTo)
+    const setChangeTo = useBoundStore((state) => state.setChangeTo)
 
     const handleChange = (_event: React.MouseEvent<HTMLElement>, value: CheckboxStatus) => {
         if (value === null) { return }

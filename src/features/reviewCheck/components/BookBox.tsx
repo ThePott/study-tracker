@@ -1,4 +1,4 @@
-import useReviewCheckStore from '@/src/_store/reviewCheckStore'
+import useBoundStore from '@/src/_store'
 import { Button, Typography } from '@mui/material'
 import { useState } from 'react'
 
@@ -15,7 +15,7 @@ const BookBox = ({ bookTitle }: { bookTitle: string }) => {
   const [isSelected, setIsSelected] = useState<boolean>(false)
   const bg = isSelected ? "white" : "inherit"
 
-  const setSelectedBookTitle = useReviewCheckStore((state) => state.setSelectedBookTitle)
+  const setSelectedBookTitle = useBoundStore((state) => state.setSelectedBookTitle)
 
   const handleClick = () => {
     setIsSelected(true)

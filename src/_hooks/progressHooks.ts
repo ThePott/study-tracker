@@ -1,8 +1,9 @@
 import axios from "axios"
 import { useEffect } from "react"
-import { CompletedDict, ProgressData, StatusDict } from "../_interfaces/progressInterfaces"
-import useInstructorStore from "../_store/instructorStore"
-import useProgressStore from "../_store/progressStore"
+import { CompletedDict, ProgressData, StatusDict } from "../_interfaces/_progressInterfaces"
+// import useBoundStore from "../_store/managementStore"
+// import useBoundStore from "../_store/progressStore"
+import useBoundStore from "../_store"
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 
@@ -18,11 +19,11 @@ const getProgressArray = async (studentId: string, setProgressArray: (progressAr
 }
 
 export const useProgressGet = () => {
-  const student = useInstructorStore((state) => state.selectedStudent)
+  const student = useBoundStore((state) => state.selectedStudent)
   const studentId = student?.studentId
-  const setProgressArray = useProgressStore((state) => state.setProgressArray)
-  const setInitialStatusDict = useProgressStore((state) => state.setInitialStatusDict)
-  const setInitialCompletedDict = useProgressStore((state) => state.setInitialCompletedDict)
+  const setProgressArray = useBoundStore((state) => state.setProgressArray)
+  const setInitialStatusDict = useBoundStore((state) => state.setInitialStatusDict)
+  const setInitialCompletedDict = useBoundStore((state) => state.setInitialCompletedDict)
 
   useEffect(() => {
     if (!studentId) { return }
@@ -44,10 +45,10 @@ const patchProgressStatus = async (studentId: string, editedStatusDict: StatusDi
  * ---- 사실은 요약 페이지에서 사용돼야 함 ----
 */
 export const useAutoSaveInProgressStatus = () => {
-  const student = useInstructorStore((state) => state.selectedStudent)
+  const student = useBoundStore((state) => state.selectedStudent)
   const studentId = student?.studentId
-  const editedStatusDict = useProgressStore((state) => state.editedStatusDict)
-  const mergeStatusToInitial = useProgressStore((state) => state.mergeStatusToInitial)
+  const editedStatusDict = useBoundStore((state) => state.editedStatusDict)
+  const mergeStatusToInitial = useBoundStore((state) => state.mergeStatusToInitial)
 
   useEffect(() => {
     if (!studentId) { return }
@@ -74,10 +75,10 @@ const patchCompleted = async (studentId: string, editedCompletedDict: CompletedD
 
 /** MUST be called at ProgressPage ONLY */
 export const useAutoSaveCompleted = () => {
-  const student = useInstructorStore((state) => state.selectedStudent)
+  const student = useBoundStore((state) => state.selectedStudent)
   const studentId = student?.studentId
-  const editedCompletedDict = useProgressStore((state) => state.editedCompletedDict)
-  const mergeCompletedToInitial = useProgressStore((state) => state.mergeCompletedToInitial)
+  const editedCompletedDict = useBoundStore((state) => state.editedCompletedDict)
+  const mergeCompletedToInitial = useBoundStore((state) => state.mergeCompletedToInitial)
   
   useEffect(() => {
     if (!studentId) { return }

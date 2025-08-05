@@ -1,5 +1,5 @@
-import { inProgressStatusArray } from "@/src/_interfaces/progressInterfaces"
-import useProgressStore from "@/src/_store/progressStore"
+import { inProgressStatusArray } from "@/src/_interfaces/_progressInterfaces"
+import useBoundStore from "@/src/_store"
 import ProgressBox from "@/src/features/summary/ProgressBox"
 import ProgressColumn from "@/src/features/summary/ProgressColumn"
 import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, rectIntersection, useSensor, useSensors } from '@dnd-kit/core'
@@ -9,14 +9,14 @@ import { createPortal } from "react-dom"
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const InstructorProgressPage = () => {
-  const progressArray = useProgressStore((state) => state.progressArray)
-  const setProgressArray = useProgressStore((state) => state.setProgressArray)
-  const handleStatusChange = useProgressStore((state) => state.handleStatusChange)
+  const progressArray = useBoundStore((state) => state.progressArray)
+  const setProgressArray = useBoundStore((state) => state.setProgressArray)
+  const handleStatusChange = useBoundStore((state) => state.handleStatusChange)
 
 
-  const activeProgress = useProgressStore((state) => state.activeProgress)
-  const setActiveProgress = useProgressStore((state) => state.setActiveProgress)
-  const updateProgress = useProgressStore((state) => state.updateProgress)
+  const activeProgress = useBoundStore((state) => state.activeProgress)
+  const setActiveProgress = useBoundStore((state) => state.setActiveProgress)
+  const updateProgress = useBoundStore((state) => state.updateProgress)
 
 
   const mouseSensor = useSensor(MouseSensor, {

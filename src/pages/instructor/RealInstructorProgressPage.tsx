@@ -1,9 +1,9 @@
-import useProgressStore from "@/src/_store/progressStore"
+import useBoundStore from "@/src/_store"
 import { Box } from "@mui/material"
 import RealProgressColumn from "@/src/features/progress/RealProgressColumn"
 
 const RealInstructorProgressPage = () => {
-  const progressArray = useProgressStore((state) => state.progressArray)
+  const progressArray = useBoundStore((state) => state.progressArray)
 
   const groupedProgressArray = Object.groupBy(progressArray, (progress) => progress.bookId)
 

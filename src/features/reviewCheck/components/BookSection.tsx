@@ -1,6 +1,6 @@
 import { Box, Skeleton } from '@mui/material'
 import BookBox from './BookBox'
-import useReviewCheckStore from '@/src/_store/reviewCheckStore'
+import useBoundStore from '@/src/_store'
 
 const BookkSectionSkeleton = () => {
   return (
@@ -12,7 +12,7 @@ const BookkSectionSkeleton = () => {
 }
 
 const BookSection = ({ bookTitleArray }: { bookTitleArray: string[] }) => {
-  const response = useReviewCheckStore((state) => state.response)
+  const response = useBoundStore((state) => state.response)
   const isLoading = !response || response.status === "IS_LOADING"
 
   if (response && response.status === "ERROR") { return <div>Error: {response.message}</div> }
