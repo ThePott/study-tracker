@@ -2,7 +2,7 @@ import { QuestionGroup, Topic } from "@/src/_interfaces/bookInterfaces"
 import { completedStatusArray, CompletedStatus, ProgressData } from "@/src/_interfaces/progressInterfaces"
 import { useState } from 'react'
 
-import { useOneBook, useUpdateProgressCompleted } from './hooks'
+import { useOneBook, useUpdateProgressCompleted } from './studentProgressHooks'
 
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'

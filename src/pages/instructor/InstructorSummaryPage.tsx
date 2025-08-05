@@ -1,12 +1,11 @@
-import { useAutoSaveCompleted, useAutoSaveInProgressStatus, useProgressGet } from "@/src/_hooks/progressHooks"
 import { inProgressStatusArray } from "@/src/_interfaces/progressInterfaces"
 import useProgressStore from "@/src/_store/progressStore"
+import ProgressBox from "@/src/features/summary/ProgressBox"
+import ProgressColumn from "@/src/features/summary/ProgressColumn"
 import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, rectIntersection, useSensor, useSensors } from '@dnd-kit/core'
 import { arrayMove } from "@dnd-kit/sortable"
 import { Box } from "@mui/material"
 import { createPortal } from "react-dom"
-import ProgressBox from "./instructorProgressComponents/ProgressBox"
-import ProgressColumn from "./instructorProgressComponents/ProgressColumn"
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const InstructorProgressPage = () => {
@@ -19,9 +18,6 @@ const InstructorProgressPage = () => {
   const setActiveProgress = useProgressStore((state) => state.setActiveProgress)
   const updateProgress = useProgressStore((state) => state.updateProgress)
 
-  // useAutoSaveInProgressStatus()
-  // useAutoSaveCompleted()
-  // useProgressGet()
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {

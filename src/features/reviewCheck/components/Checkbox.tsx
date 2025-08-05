@@ -1,7 +1,7 @@
 import { CheckboxProps, CheckboxStatus } from "@/src/_interfaces/reviewCheckInterfaces"
 import { Button } from "@mui/material"
 import React, { useCallback, useEffect, useRef } from "react"
-import { useCheckboxClickHandler } from "../../../../_hooks/reviewCheckHooks"
+import { useCheckboxClickHandler } from "@/src/_hooks/reviewCheckHooks"
 import useReviewCheckStore from "@/src/_store/reviewCheckStore"
 
 const variantObject = {

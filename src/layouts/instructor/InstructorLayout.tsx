@@ -3,6 +3,7 @@ import { Outlet } from 'react-router'
 import InstructorHeader from './InstructorHeader'
 import InstructorSidebar from './InstructorSidebar'
 import { useAutoSaveInProgressStatus, useAutoSaveCompleted, useProgressGet } from '@/src/_hooks/progressHooks'
+import { colorStyle, fontStyle } from '@/src/shared/ui/styleConstants'
 
 const InstructorLayout = () => {
   useAutoSaveInProgressStatus()
@@ -10,7 +11,7 @@ const InstructorLayout = () => {
   useProgressGet()
   
   return (
-    <Box className="w-screen h-screen overflow-hidden flex flex-col">
+    <Box className={`w-screen h-screen overflow-hidden flex flex-col ${colorStyle.bgBack}`}>
       <InstructorHeader />
 
       <Box className="flex-1 flex overflow-hidden">

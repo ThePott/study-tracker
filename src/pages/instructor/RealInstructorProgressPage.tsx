@@ -1,6 +1,6 @@
 import useProgressStore from "@/src/_store/progressStore"
 import { Box } from "@mui/material"
-import RealProgressColumn from "./progressComponents/RealProgressColumn"
+import RealProgressColumn from "@/src/features/progress/RealProgressColumn"
 
 const RealInstructorProgressPage = () => {
   const progressArray = useProgressStore((state) => state.progressArray)

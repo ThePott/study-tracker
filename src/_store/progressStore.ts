@@ -1,6 +1,6 @@
-import { CompletedDict, ProgressData, ProgressState } from "../_interfaces/progressInterfaces";
 import { create } from "zustand";
-import { findNextCompleted } from "../_utils/simpleUtils";
+import { ProgressData, ProgressState } from "../_interfaces/progressInterfaces";
+import { findNextCompleted } from "../shared/utils/simpleUtils";
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const useProgressStore = create<ProgressState>()((set) => ({
