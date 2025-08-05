@@ -1,5 +1,5 @@
-import { ApiResponse } from '@/src/_interfaces/_apiInterfaces';
-import useBoundStore from '@/src/_store';
+import { ApiResponse } from '@/src/shared/interfaces/_apiInterfaces';
+import useBoundStore from '@/src/shared/store';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import CircleIcon from '@mui/icons-material/Circle';
 import GradingIcon from '@mui/icons-material/Grading';

@@ -1,4 +1,4 @@
-import useBoundStore from '@/src/_store'
+import useBoundStore from '@/src/shared/store'
 import { Button, Typography } from '@mui/material'
 import { useState } from 'react'
 

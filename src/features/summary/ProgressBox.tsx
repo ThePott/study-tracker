@@ -1,5 +1,5 @@
-import { ProgressData } from '@/src/_interfaces/_progressInterfaces';
-import useBoundStore from '@/src/_store';
+import { ProgressData } from '@/src/shared/interfaces/_progressInterfaces';
+import useBoundStore from '@/src/shared/store';
 import MemoCard from '@/src/shared/ui/MemoCard';
 import { colorStyle, fontStyle } from '@/src/shared/ui/styleConstants';
 import { useSortable } from '@dnd-kit/sortable';

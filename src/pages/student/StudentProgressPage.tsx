@@ -1,4 +1,4 @@
-import { ProgressData } from '@/src/_interfaces/_progressInterfaces'
+import { ProgressData } from '@/src/shared/interfaces/_progressInterfaces'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import ProgressInBook from '@/src/features/progress/StudentProgressInBook'

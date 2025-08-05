@@ -1,9 +1,9 @@
 import axios from "axios"
 import { useEffect } from "react"
-import { CompletedDict, ProgressData, StatusDict } from "../_interfaces/_progressInterfaces"
+import { CompletedDict, ProgressData, StatusDict } from "../shared/interfaces/_progressInterfaces"
 // import useBoundStore from "../_store/managementStore"
 // import useBoundStore from "../_store/progressStore"
-import useBoundStore from "../_store"
+import useBoundStore from "../shared/store"
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 

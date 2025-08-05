@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { BoundState, ManagementSlice } from "../_interfaces";
+import { BoundState, ManagementSlice } from "../interfaces";
 
 const createManagementSlice: StateCreator<BoundState, [], [], ManagementSlice> = (set) => ({
     studentArray: [],

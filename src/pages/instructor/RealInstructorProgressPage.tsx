@@ -1,4 +1,4 @@
-import useBoundStore from "@/src/_store"
+import useBoundStore from "@/src/shared/store"
 import { Box } from "@mui/material"
 import RealProgressColumn from "@/src/features/progress/RealProgressColumn"
 

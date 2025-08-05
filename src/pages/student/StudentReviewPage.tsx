@@ -1,6 +1,6 @@
-import useBoundStore from '@/src/_store';
-import BookSection from '@/src/features/reviewCheck/components/BookSection';
-import CheckboxSection from '@/src/features/reviewCheck/components/CheckboxSection';
+import useBoundStore from '@/src/shared/store';
+import BookSection from '@/src/features/reviewCheck/BookSection';
+import CheckboxSection from '@/src/features/reviewCheck/CheckboxSection';
 import { useReviewCheckApi, useReviewCheckUpdate } from '../../_hooks/reviewCheckHooks';
 
 const studentId = "68494394d9f33f23de4513c5"

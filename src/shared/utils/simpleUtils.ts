@@ -1,4 +1,4 @@
-import { CompletedStatus, completedStatusArray, ProgressData } from "../../_interfaces/_progressInterfaces";
+import { CompletedStatus, completedStatusArray, ProgressData } from "../interfaces/_progressInterfaces";
 
 export const findNextCompleted = (progress: ProgressData): CompletedStatus => {
     const currentCompleted = progress.completed

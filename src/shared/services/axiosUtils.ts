@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { Student } from "@/src/_interfaces/_instructorInterfaces";
+import { Student } from "@/src/shared/interfaces/_instructorInterfaces";
 // constants 폴더에 두는 게 더 좋을 것
 // env를 환경별로 만들어서 dev / build, env를 상황에 맞게 참조하도록 분리
 

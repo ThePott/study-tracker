@@ -1,6 +1,6 @@
 import { useCheckboxClickHandler } from "@/src/_hooks/reviewCheckHooks"
-import { CheckboxProps, CheckboxStatus } from "@/src/_interfaces/_reviewCheckInterfaces"
-import useBoundStore from "@/src/_store"
+import { CheckboxProps, CheckboxStatus } from "@/src/shared/interfaces/_reviewCheckInterfaces"
+import useBoundStore from "@/src/shared/store"
 import { Button } from "@mui/material"
 import React, { useEffect, useRef } from "react"
 

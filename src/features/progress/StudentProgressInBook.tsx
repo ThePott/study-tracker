@@ -1,5 +1,5 @@
-import { QuestionGroup, Topic } from "@/src/_interfaces/_bookInterfaces"
-import { completedStatusArray, CompletedStatus, ProgressData } from "@/src/_interfaces/_progressInterfaces"
+import { QuestionGroup, Topic } from "@/src/shared/interfaces/_bookInterfaces"
+import { completedStatusArray, CompletedStatus, ProgressData } from "@/src/shared/interfaces/_progressInterfaces"
 import { useState } from 'react'
 
 import { useOneBook, useUpdateProgressCompleted } from './studentProgressHooks'

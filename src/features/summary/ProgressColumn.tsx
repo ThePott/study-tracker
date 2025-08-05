@@ -1,5 +1,5 @@
-import { InProgressStatus } from '@/src/_interfaces/_progressInterfaces';
-import useBoundStore from '@/src/_store';
+import { InProgressStatus } from '@/src/shared/interfaces/_progressInterfaces';
+import useBoundStore from '@/src/shared/store';
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Box } from '@mui/material';

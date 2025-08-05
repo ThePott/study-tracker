@@ -1,5 +1,5 @@
-import { CheckboxSectionProps } from '@/src/_interfaces/_reviewCheckInterfaces'
-import useBoundStore from '@/src/_store'
+import { CheckboxSectionProps } from '@/src/shared/interfaces/_reviewCheckInterfaces'
+import useBoundStore from '@/src/shared/store'
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, IconButton, Snackbar } from '@mui/material'
 import { useCallback } from 'react'

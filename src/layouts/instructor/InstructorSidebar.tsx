@@ -1,5 +1,5 @@
-import { Student } from '@/src/_interfaces/_instructorInterfaces';
-import useBoundStore from '@/src/_store';
+import { Student } from '@/src/shared/interfaces/_instructorInterfaces';
+import useBoundStore from '@/src/shared/store';
 import { Box } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';

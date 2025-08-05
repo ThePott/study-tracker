@@ -1,5 +1,5 @@
-import { inProgressStatusArray } from "@/src/_interfaces/_progressInterfaces"
-import useBoundStore from "@/src/_store"
+import { inProgressStatusArray } from "@/src/shared/interfaces/_progressInterfaces"
+import useBoundStore from "@/src/shared/store"
 import ProgressBox from "@/src/features/summary/ProgressBox"
 import ProgressColumn from "@/src/features/summary/ProgressColumn"
 import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, rectIntersection, useSensor, useSensors } from '@dnd-kit/core'

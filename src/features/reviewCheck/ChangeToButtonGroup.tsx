@@ -1,5 +1,5 @@
-import { CheckboxStatus } from "@/src/_interfaces/_reviewCheckInterfaces"
-import useBoundStore from "@/src/_store";
+import { CheckboxStatus } from "@/src/shared/interfaces/_reviewCheckInterfaces"
+import useBoundStore from "@/src/shared/store";
 import { ToggleButton, ToggleButtonGroup, useTheme } from "@mui/material"
 
 const getSx = (changeTo: CheckboxStatus) => {

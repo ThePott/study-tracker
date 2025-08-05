@@ -1,5 +1,5 @@
 
-import { BoundState, ReviewCheckSlice } from "@/src/_interfaces"
+import { BoundState, ReviewCheckSlice } from "@/src/shared/interfaces"
 import { StateCreator } from "zustand"
 
 

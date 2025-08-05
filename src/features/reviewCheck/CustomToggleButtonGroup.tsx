@@ -6,8 +6,8 @@
 // 여기 코드 엉망이다
 // ---------------시간 날 때 할 것: 여기를 mui 없이 구현해보자. 그럼 훨씬 깔끔해질 거다. TODO
 
-import { CheckboxStatus } from '@/src/_interfaces/_reviewCheckInterfaces';
-import useBoundStore from '@/src/_store';
+import { CheckboxStatus } from '@/src/shared/interfaces/_reviewCheckInterfaces';
+import useBoundStore from '@/src/shared/store';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import React from 'react';
