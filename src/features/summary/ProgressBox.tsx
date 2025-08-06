@@ -4,7 +4,7 @@ import MemoCard from '@/src/shared/ui/MemoCard';
 import { colorStyle, fontStyle } from '@/src/shared/ui/styleConstants';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { memo } from 'react';
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 

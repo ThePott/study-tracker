@@ -7,7 +7,7 @@ const InstructorProgressPage = () => {
 
   return (
     <DndProvider>
-      <div className="flex gap-3">
+      <div className="grid grid-cols-3 h-full gap-3">
         {inProgressStatusArray.map((inProgressStatus) => <ProgressColumn key={inProgressStatus} inProgressStatus={inProgressStatus} />)}
       </div>
     </DndProvider>

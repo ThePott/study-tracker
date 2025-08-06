@@ -3,8 +3,9 @@ import useBoundStore from '@/src/shared/store';
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Box } from '@mui/material';
+import { memo } from 'react';
 import ProgressBox from './ProgressBox';
-import React, { memo } from 'react';
+import { colorStyle } from '@/src/shared/ui/styleConstants';
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const ProgressColumn = memo(({ inProgressStatus }: { inProgressStatus: InProgressStatus }) => {
@@ -13,7 +14,7 @@ const ProgressColumn = memo(({ inProgressStatus }: { inProgressStatus: InProgres
   const filteredProgressArray = progressArray.filter((progress) => progress.inProgressStatus === inProgressStatus && progress.completed === "IN_PROGRESS")
   const idArray = filteredProgressArray.map((progress) => progress._id)
 
-  const { isOver, setNodeRef } = useDroppable({
+  const { setNodeRef, isOver } = useDroppable({
     id: inProgressStatus,
     data: {
       type: "COLUMN",
@@ -22,10 +23,10 @@ const ProgressColumn = memo(({ inProgressStatus }: { inProgressStatus: InProgres
   })
 
   return (
-    <Box className="flex flex-col gap-3 flex-1" ref={setNodeRef}>
+    <Box className={`h-full flex flex-col gap-3 flex-1`} ref={setNodeRef}>
       <p className="text-xl font-semibold">{inProgressStatus}</p>
       <SortableContext items={idArray} strategy={verticalListSortingStrategy}>
-        {filteredProgressArray.map((progress) => <ProgressBox key={progress._id} progress={progress} />)}
+        {filteredProgressArray.map((progress, index) => <ProgressBox key={`${progress._id}`} progress={progress} />)}
       </SortableContext>
     </Box>
   )
