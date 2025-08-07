@@ -4,7 +4,7 @@ import MemoCard from '@/src/shared/ui/MemoCard';
 import { colorStyle, fontStyle } from '@/src/shared/ui/styleConstants';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { memo } from 'react';
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
@@ -25,16 +25,23 @@ const ProgressBox = memo(({ progress }: { progress: ProgressData }) => {
     }
   })
 
+  // const style = {
+  //   transform: CSS.Transform.toString(transform),
+  //   transition,
+  // }
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
     transition,
-  }
+    opacity: isDragging ? 0.3 : 1,
+    zIndex: isDragging ? 1000 : 1,
+  };
 
-  if (isDragging) return (
-    <MemoCard className='border-2 border-amber-400 rounded-3xl' children={undefined} />
-  )
+  // // ----------이것 삭제하니까 문제 해결! 이게 정확히 어떤 문제를 일으키는진 모르겠다 -----------
+  // if (isDragging) return (
+  //   <MemoCard className='border-2 border-amber-400 rounded-3xl' children={undefined} />
+  // )
 
-  const containerBaseStyle = `p-3 rounded-xl ${fontStyle.fontAccent}`
+  const containerBaseStyle = `p-3 ${fontStyle.fontAccent}`
   const containerCompletedStye = comletedStyle[progress.completed]
   const containerClassName = `${containerBaseStyle} ${containerCompletedStye}`
 

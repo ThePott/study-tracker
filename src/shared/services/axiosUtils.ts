@@ -16,7 +16,7 @@ const handleSuccess = (response: AxiosResponse<any, any>) => {
 
 
 const handleFailure = (error: any) => {
-    console.error("---- ERROR OCCURRED:", error.response.status)
+    console.error("---- ERROR OCCURRED:", error.response?.status ? error.response.status : error)
 
     return Promise.reject(error)
 }
