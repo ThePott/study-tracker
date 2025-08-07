@@ -116,12 +116,12 @@ const DndProvider = ({ children }: { children: JSX.Element }) => {
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} collisionDetection={closestCorners}>
       {children}
 
-      {createPortal(
         <DragOverlay>
           {activeProgress && <ProgressBox progress={activeProgress} />}
         </DragOverlay>,
+      {/* {createPortal(
         document.body
-      )}
+      )} */}
     </DndContext>
   )
 }
