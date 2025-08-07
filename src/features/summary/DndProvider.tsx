@@ -1,6 +1,6 @@
 import ProgressBox from "@/src/features/summary/ProgressBox"
 import useBoundStore from "@/src/shared/store"
-import { closestCorners, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'
+import { closestCorners, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, rectIntersection, useSensor, useSensors } from '@dnd-kit/core'
 import { arrayMove } from "@dnd-kit/sortable"
 import { JSX, useRef } from "react"
 import { createPortal } from "react-dom"
@@ -66,9 +66,9 @@ const DndProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     /** 여기에 걸리는 건 내 열 위애 있는 것 */
-    if (isOverColumn) { 
+    if (isOverColumn) {
       console.log("---- is over column:", overData.type, overData)
-      return 
+      return
     }
 
     /** 여기부터는 칸반 위 칸반 */
@@ -113,15 +113,12 @@ const DndProvider = ({ children }: { children: JSX.Element }) => {
   }
 
   return (
-    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} collisionDetection={closestCorners}>
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver} collisionDetection={rectIntersection}>
       {children}
 
-        <DragOverlay>
-          {activeProgress && <ProgressBox progress={activeProgress} />}
-        </DragOverlay>,
-      {/* {createPortal(
-        document.body
-      )} */}
+      <DragOverlay>
+        {activeProgress && <ProgressBox progress={activeProgress} />}
+      </DragOverlay>,
     </DndContext>
   )
 }

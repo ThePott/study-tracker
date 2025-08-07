@@ -19,3 +19,12 @@ export const fontStyle = {
     fontTitle: "text-2xl font-semibold",
     fontAccent: "text-xl font-semibold",
 }
+
+export const miniStyle = {
+    rounded: "rounded-md",
+    /** MUST sync with memoWidth */
+    memoGridCols: "grid-cols-[repeat(3,300px)]",
+    /** MUST sync with memoGridCols */
+    memoWidth: "w-[300px]",
+    memoHeight: "h-[200px]",
+}
