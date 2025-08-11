@@ -1,7 +1,8 @@
+import { styleClassName } from '@/src/shared/constants/style';
 import { ProgressData } from '@/src/shared/interfaces/_progressInterfaces';
 import useBoundStore from '@/src/shared/store';
-import MemoCard from '@/src/shared/ui/MemoCard';
-import { colorStyle, fontStyle } from '@/src/shared/ui/styleConstants';
+import MemoCard from '@/src/shared/components/MemoCard';
+// import { colorStyle, fontStyle } from '@/src/shared/ui/styleConstants';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Box } from '@mui/material';
@@ -9,8 +10,8 @@ import { memo } from 'react';
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const comletedStyle = {
-  "NOT_STARTED": colorStyle.bgGray,
-  "IN_PROGRESS": `${colorStyle.bgYellow} ${colorStyle.fontViVidInvert}`,
+  "NOT_STARTED": styleClassName.bgGray,
+  "IN_PROGRESS": `${styleClassName.bgYellow} ${styleClassName.fontVividInverted}`,
   "COMPLETED": "border-black text-zinc-600",
 }
 
@@ -41,7 +42,7 @@ const ProgressBox = memo(({ progress }: { progress: ProgressData }) => {
   //   <MemoCard className='border-2 border-amber-400 rounded-3xl' children={undefined} />
   // )
 
-  const containerBaseStyle = `p-3 ${fontStyle.fontAccent}`
+  const containerBaseStyle = `p-3 ${styleClassName.fontAccent}`
   const containerCompletedStye = comletedStyle[progress.completed]
   const containerClassName = `${containerBaseStyle} ${containerCompletedStye}`
 

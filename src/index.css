@@ -1,19 +1,5 @@
 @import "tailwindcss";
-
-@theme {
-  --color-yellow-in-light: oklch(0.4057 0.108 89.07);
-  --color-yellow-in-light-accent: oklch(0.3057 0.108 89.07);
-
-  --color-yellow-in-dark: oklch(0.8057 0.108 89.07);
-  --color-yellow-in-dark-accent: oklch(0.7057 0.108 89.07);
-
-
-  --color-blue-in-light: oklch(0.4057 0.108 235.45);
-  --color-blue-in-light-accent: oklch(0.3057 0.108 235.45);
-
-  --color-blue-in-dark: oklch(0.8057 0.108 235.45);
-  --color-blue-in-dark-accent: oklch(0.7057 0.108 235.45);
-}
+@import "./shared/constants/style/customColors.css";
 
 * {
   box-sizing: border-box;
