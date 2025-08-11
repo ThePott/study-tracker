@@ -1,66 +1,41 @@
-import InstructorReviewAssignmentPage from '@/src/pages/instructor/InstructorReviewCheckPage.js'
-import InstructorProgressPage from '@/src/pages/instructor/InstructorSummaryPage.js'
 import Workbench from '@/src/pages/workbench/Workbench.js'
-import { Skeleton, ThemeProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/material'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
-import { getStudentArray } from '@/src/shared/services/axiosUtils.js'
-import App from './App.jsx'
+import AppLayout from './features/layouts/AppLayout'
 import './index.css'
-import InstructorLayout from './layouts/instructor/InstructorLayout.js'
-import StudentLayout from './layouts/student/StudentLayout.js'
-import InstructorManagePage from './pages/instructor/InstructorManagePage.js'
-import RealInstructorProgressPage from './pages/instructor/RealInstructorProgressPage.js'
-import StdProgressPage from './pages/student/StudentProgressPage.js'
-import StdReviewCheckPage from './pages/student/StudentReviewPage.js'
-import StdSummary from './pages/student/summary/page.js'
+import MainPage from './pages/MainPage'
+import ManagePage from './pages/ManagePage'
+import ProgressPage from './pages/ProgressPage'
+import ReviewCheckPage from './pages/ReviewCheckPage'
+import SummaryPage from './pages/SummaryPage'
 import theme from './theme.js'
 
+/** loader: getStudentArray, <<< 이거 대신할 거 채워 넣어야 함 */
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <MainPage />
   },
   {
-    path: "/instructor",
-    element: <InstructorLayout />,
-    loader: getStudentArray,
-    hydrateFallbackElement: <Skeleton />,
+    element: <AppLayout />,
     children: [
       {
-        path: "manage",
-        element: <InstructorManagePage />
+        path: "/manage",
+        element: <ManagePage/>
       },
       {
-        path: "summary",
-        element: <InstructorProgressPage />
+        path: "/summary",
+        element: <SummaryPage />
       },
       {
-        path: "progress",
-        element: <RealInstructorProgressPage />
+        path: "/progress",
+        element: <ProgressPage />
       },
       {
-        path: "review-assignment",
-        element: <InstructorReviewAssignmentPage />
+        path: "/review-check",
+        element: <ReviewCheckPage />
       },
-    ]
-  },
-  {
-    path: "/student",
-    element: <StudentLayout />,
-    children: [
-      {
-        path: "summary",
-        element: <StdSummary />
-      },
-      {
-        path: "progress",
-        element: <StdProgressPage />
-      },
-      {
-        path: "review-check",
-        element: <StdReviewCheckPage />
-      }
     ]
   },
   {

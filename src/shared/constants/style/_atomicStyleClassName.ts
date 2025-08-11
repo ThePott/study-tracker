@@ -23,12 +23,15 @@ export const fontClassName = {
 }
 
 export const displayClassName = {
+    flex: "flex gap-3",
     flexCol: "flex flex-col gap-3",
     memoGrid: "grid-cols-[repeat(3,300px)]",
 }
 
 export const sizeClassName = {
-    fullScreen: "w-screen h-screen overflow-hidden",
+    fullScreen: "w-screen h-screen overflow-hidden pt-3 px-3",
+    flex1Fixed: "flex-1 overflow-hidden ",
+    flex1YScroll: "flex-1 overflow-x-hidden overflow-y-scroll",
     
     memoWidth: "w-[300px]",
     memoHeight: "h-[200px]",
