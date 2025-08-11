@@ -2,16 +2,16 @@ import GeneralLayout from '@/src/shared/components/GeneralLayout'
 import useBoundStore from '@/src/shared/store'
 import { Outlet } from 'react-router'
 import SidebarStudentList from '../manage/SidebarStudentList'
-import TabHeader from './tabHeader/TabHeader'
+import TabHeaderSkeleton from './tabHeader/TabHeaderSkeleton'
 
-const AppLayout = () => {
+const AppLayoutSkeleton = () => {
   const user = useBoundStore((state) => state.user)
   const doNeedSidebar = user?.role === "INSTRUCTOR"
 
   return (
     <GeneralLayout>
       <GeneralLayout.Header>
-        <TabHeader />
+        <TabHeaderSkeleton />
       </GeneralLayout.Header>
       <GeneralLayout.Body>
         {doNeedSidebar && <SidebarStudentList />}
@@ -23,4 +23,4 @@ const AppLayout = () => {
   )
 }
 
-export default AppLayout
+export default AppLayoutSkeleton

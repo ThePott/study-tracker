@@ -34,8 +34,11 @@ export const sizeClassName = {
     flex1Fixed: "flex-1 overflow-hidden ",
     flex1YScroll: "flex-1 overflow-x-hidden overflow-y-scroll",
 
+    grow: "grow",
+
     memoWidth: "w-[300px]",
     memoHeight: "h-[200px]",
+    siebarWidth: "w-[132px]",
 }
 
 export const shapeClassName = {

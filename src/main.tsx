@@ -1,43 +1,67 @@
+/** DO NOT LAZY Workbench */
 import Workbench from '@/src/pages/workbench/Workbench.js'
 import { ThemeProvider } from '@mui/material'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import AppLayout from './features/layouts/AppLayout'
+import AppLayoutSkeleton from './features/layouts/AppLayoutSkeleton'
 import './index.css'
-import MainPage from './pages/MainPage'
-import ManagePage from './pages/ManagePage'
-import ProgressPage from './pages/ProgressPage'
-import ReviewCheckPage from './pages/ReviewCheckPage'
-import SummaryPage from './pages/SummaryPage'
 import theme from './theme.js'
+import { lazy, Suspense } from 'react'
+
+const MainPage = lazy(() => import('./pages/MainPage'))
+const ManagePage = lazy(() => import('./pages/ManagePage'))
+const ProgressPage = lazy(() => import('./pages/ProgressPage'))
+const ReviewCheckPage = lazy(() => import('./pages/ReviewCheckPage'))
+const SummaryPage = lazy(() => import('./pages/SummaryPage'))
 
 /** loader: getStudentArray, <<< 이거 대신할 거 채워 넣어야 함 */
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage />
+    element:
+      <Suspense>
+        <MainPage />
+      </Suspense>
   },
   {
-    element: <AppLayout />,
+    element:
+      <Suspense fallback={<AppLayoutSkeleton />}>
+        <AppLayout />
+      </Suspense>,
+
     children: [
       {
         path: "/manage",
-        element: <ManagePage/>
+        element:
+          <Suspense>
+            <ManagePage />
+          </Suspense>
       },
       {
         path: "/summary",
-        element: <SummaryPage />
+        element:
+          <Suspense>
+            <SummaryPage />
+          </Suspense>
       },
       {
         path: "/progress",
-        element: <ProgressPage />
+        element:
+          <Suspense>
+            <ProgressPage />
+          </Suspense>
       },
       {
         path: "/review-check",
-        element: <ReviewCheckPage />
+        element:
+          <Suspense>
+            <ReviewCheckPage />
+          </Suspense>
       },
     ]
   },
+  /** DO NOT SUSPENSE IT */
   {
     path: "/workbench",
     element: <Workbench />
