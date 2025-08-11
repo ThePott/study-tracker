@@ -1,15 +1,19 @@
 import axios from "axios"
 import { useEffect } from "react"
 import { CompletedDict, ProgressData, StatusDict } from "../shared/interfaces/_progressInterfaces"
-// import useBoundStore from "../_store/managementStore"
-// import useBoundStore from "../_store/progressStore"
 import useBoundStore from "../shared/store"
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 
-const getProgressArray = async (studentId: string, setProgressArray: (progressArray: ProgressData[]) => void, setInitialStatusDict: (progressArray: ProgressData[]) => void, setInitialCompletedDict: (progressArray: ProgressData[]) => void) => {
+const getProgressArray = async (
+  studentId: string,
+  setProgressArray: (progressArray: ProgressData[]) => void,
+  setInitialStatusDict: (progressArray: ProgressData[]) => void,
+  setInitialCompletedDict: (progressArray: ProgressData[]) => void
+) => {
   if (!studentId) { return }
-  const url = `/student/${studentId}/progress`
+  // const url = `/student/${studentId}/progress`
+  const url = `/progress/student/${studentId}`
   const response = await axios.get(url)
 
   const progressArray = response.data
@@ -79,7 +83,7 @@ export const useAutoSaveCompleted = () => {
   const studentId = student?.studentId
   const editedCompletedDict = useBoundStore((state) => state.editedCompletedDict)
   const mergeCompletedToInitial = useBoundStore((state) => state.mergeCompletedToInitial)
-  
+
   useEffect(() => {
     if (!studentId) { return }
     if (Object.values(editedCompletedDict).length === 0) { return }
