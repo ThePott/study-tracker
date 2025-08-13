@@ -1,6 +1,9 @@
 export const colorClassName = {
-    borderVivid: "transition border-1 border-black/30 dark:border-white/30 ",
-    borderMuted: "transition border-1 border-black/10 hover:border-black/30 dark:border-white/10 dark:hover:border-white/30",
+    borderVivid: "transition border-1 border-black/30 dark:border-white/30",
+    borderMuted: "transition border-1 border-black/10 dark:border-white/10",
+
+    borderMutedHover: "hover:border-black/30 dark:hover:border-white/30",
+
 
     fontVivid: "text-black/90 dark:text-white/90",
     fontMuted: "text-black/60 dark:text-white/60",
@@ -62,12 +65,13 @@ border--black/0 hover:border-black/30 active:bg-black/30
 dark:border-white/0 dark:hover:border-white/30 dark:active:bg-white/30`
 const vividButtonColorOn = `${vividButtonColorBase} ${colorClassName.fontVividInverted} ${colorClassName.bgInverted}`
 
-
-
 export const boxClassName = {
-    button: ``,
-    buttonNeutral: `${paddingMarginClassName.pTight} ${colorClassName.fontVividInverted} ${fontClassName.fontJustBold} ${colorClassName.bgNeutral} ${shapeClassName.rounded}`,
-    buttonNeutralOn: ``,
+    button: `${paddingMarginClassName.pTight} transition border-1`,
+    
+    buttonNeutral: `${shapeClassName.rounded} ${fontClassName.fontJustBold}`,
+    buttonNeutralOn: `${colorClassName.fontVividInverted}  ${colorClassName.bgNeutral}`,
+    buttonNeutralOff: `${colorClassName.borderMuted} ${colorClassName.borderMutedHover}`,
+    
     buttonRounded: ``,
     buttonPill: ``,
 
