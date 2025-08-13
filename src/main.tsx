@@ -1,68 +1,67 @@
-import InstructorReviewAssignmentPage from '@/src/pages/instructor/InstructorReviewCheckPage.js'
-import InstructorProgressPage from '@/src/pages/instructor/InstructorSummaryPage.js'
+/** DO NOT LAZY Workbench */
 import Workbench from '@/src/pages/workbench/Workbench.js'
-import { Skeleton, ThemeProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/material'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
-import { getStudentArray } from '@/src/shared/services/axiosUtils.js'
-import App from './App.jsx'
+import AppLayout from './features/layouts/AppLayout'
+import AppLayoutSkeleton from './features/layouts/AppLayoutSkeleton'
 import './index.css'
-import InstructorLayout from './layouts/instructor/InstructorLayout.js'
-import StudentLayout from './layouts/student/StudentLayout.js'
-import InstructorManagePage from './pages/instructor/InstructorManagePage.js'
-import RealInstructorProgressPage from './pages/instructor/RealInstructorProgressPage.js'
-import StdProgressPage from './pages/student/StudentProgressPage.js'
-import StdReviewCheckPage from './pages/student/StudentReviewPage.js'
-import StdSummary from './pages/student/summary/page.js'
 import theme from './theme.js'
+import { lazy, Suspense } from 'react'
 
+const MainPage = lazy(() => import('./pages/MainPage'))
+const ManagePage = lazy(() => import('./pages/ManagePage'))
+const ProgressPage = lazy(() => import('./pages/ProgressPage'))
+const ReviewCheckPage = lazy(() => import('./pages/ReviewCheckPage'))
+const SummaryPage = lazy(() => import('./pages/SummaryPage'))
+
+/** loader: getStudentArray, <<< 이거 대신할 거 채워 넣어야 함 */
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element:
+      <Suspense>
+        <MainPage />
+      </Suspense>
   },
   {
-    path: "/instructor",
-    element: <InstructorLayout />,
-    loader: getStudentArray,
-    hydrateFallbackElement: <Skeleton />,
+    element:
+      <Suspense fallback={<AppLayoutSkeleton />}>
+        <AppLayout />
+      </Suspense>,
+
     children: [
       {
-        path: "manage",
-        element: <InstructorManagePage />
+        path: "/manage",
+        element:
+          <Suspense>
+            <ManagePage />
+          </Suspense>
       },
       {
-        path: "summary",
-        element: <InstructorProgressPage />
+        path: "/summary",
+        element:
+          <Suspense>
+            <SummaryPage />
+          </Suspense>
       },
       {
-        path: "progress",
-        element: <RealInstructorProgressPage />
+        path: "/progress",
+        element:
+          <Suspense>
+            <ProgressPage />
+          </Suspense>
       },
       {
-        path: "review-assignment",
-        element: <InstructorReviewAssignmentPage />
+        path: "/review-check",
+        element:
+          <Suspense>
+            <ReviewCheckPage />
+          </Suspense>
       },
     ]
   },
-  {
-    path: "/student",
-    element: <StudentLayout />,
-    children: [
-      {
-        path: "summary",
-        element: <StdSummary />
-      },
-      {
-        path: "progress",
-        element: <StdProgressPage />
-      },
-      {
-        path: "review-check",
-        element: <StdReviewCheckPage />
-      }
-    ]
-  },
+  /** DO NOT SUSPENSE IT */
   {
     path: "/workbench",
     element: <Workbench />

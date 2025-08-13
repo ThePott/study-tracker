@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand";
 import { BoundState, ProgressData, ProgressSlice } from "../interfaces";
-import { findNextCompleted } from "../utils/simpleUtils";
+import { findNextCompleted } from "../utils";
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (set) => ({

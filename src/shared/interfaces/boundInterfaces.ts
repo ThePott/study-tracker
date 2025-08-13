@@ -4,5 +4,6 @@
 import type { ManagementSlice } from './_instructorInterfaces'
 import type { ProgressSlice } from './_progressInterfaces'
 import type { ReviewCheckSlice } from './_reviewCheckInterfaces'
+import type { LoginSlice } from './_loginInterfaces'
 
-export type BoundState = ManagementSlice & ProgressSlice & ReviewCheckSlice
+export type BoundState = ManagementSlice & ProgressSlice & ReviewCheckSlice & LoginSlice
