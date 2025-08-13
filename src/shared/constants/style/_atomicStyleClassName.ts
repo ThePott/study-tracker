@@ -1,12 +1,16 @@
 export const colorClassName = {
-    borderVivid: "border-1 border-black/30 dark:border-white/30 ",
-    borderMuted: "border-1 border-black/10 dark:border-white/10",
+    borderVivid: "transition border-1 border-black/30 dark:border-white/30",
+    borderMuted: "transition border-1 border-black/10 dark:border-white/10",
+
+    borderMutedHover: "hover:border-black/30 dark:hover:border-white/30",
+
 
     fontVivid: "text-black/90 dark:text-white/90",
     fontMuted: "text-black/60 dark:text-white/60",
     fontVividInverted: "text-white/90 dark:text-black/90",
 
     bg: "bg-white dark:bg-black",
+    bgInverted: "bg-black dark:bg-white",
     bgMuted: "bg-black/5 dark:bg-white/5",
     bgNeutral: "transition bg-black/75 hover:bg-black/60 active:bg-black/45 dark:bg-white/70 dark:hover:bg-white/75 dark:active:bg-white/80",
 
@@ -24,9 +28,17 @@ export const fontClassName = {
 
 export const displayClassName = {
     flex: "flex gap-3",
+    flexWide: "flex gap-6",
     flexCol: "flex flex-col gap-3",
     memoGrid: "grid-cols-[repeat(3,300px)]",
     center: "flex justify-center items-center"
+}
+
+export const paddingMarginClassName = {
+    pTight: "py-1 px-3",
+    pAll: "p-3",
+    px: "px-3",
+    pExceptB: "pt-3 px-3"
 }
 
 export const sizeClassName = {
@@ -43,16 +55,30 @@ export const sizeClassName = {
 
 export const shapeClassName = {
     rounded: "rounded-md",
+    roundedFull: "rounded-full",
 }
 
 /** 얘는 위의 것들 사용함. 위에는 아래 것을 사용 못 함 */
-export const boxClassName = {
-    // border-black/15 bg-black/5 hover:border-black/30 hover:bg-black/10 active:border-black/45
-    button: `py-2 px-3 ${shapeClassName.rounded} border-1 
-    ${colorClassName.fontVividInverted} ${colorClassName.bgNeutral} ${fontClassName.fontJustBold} 
-    `,
+const vividButtonColorBase = `${paddingMarginClassName.pTight} transition rounded-full border-1`
+const vividButtonColorOff = `${vividButtonColorBase} ${colorClassName.fontVivid} 
+border--black/0 hover:border-black/30 active:bg-black/30
+dark:border-white/0 dark:hover:border-white/30 dark:active:bg-white/30`
+const vividButtonColorOn = `${vividButtonColorBase} ${colorClassName.fontVividInverted} ${colorClassName.bgInverted}`
 
-    groupByBorder: `p-3 ${colorClassName.borderMuted} ${displayClassName.flexCol} ${shapeClassName.rounded}`
+export const boxClassName = {
+    button: `${paddingMarginClassName.pTight} transition border-1`,
+    
+    buttonNeutral: `${shapeClassName.rounded} ${fontClassName.fontJustBold}`,
+    buttonNeutralOn: `${colorClassName.fontVividInverted}  ${colorClassName.bgNeutral}`,
+    buttonNeutralOff: `${colorClassName.borderMuted} ${colorClassName.borderMutedHover}`,
+    
+    buttonRounded: ``,
+    buttonPill: ``,
+
+    buttonVividPillOff: `${vividButtonColorOff} `,
+    buttonVividPillOn: `${vividButtonColorOn} `,
+
+    groupByBorder: `${paddingMarginClassName.pAll} ${colorClassName.borderMuted} ${displayClassName.flexCol} ${shapeClassName.rounded}`
 }
 
 export const sx = {

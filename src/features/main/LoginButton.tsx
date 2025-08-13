@@ -38,8 +38,9 @@ const LoginButton = ({ role }: { role: Role }) => {
     navigate("/summary")
   }
 
+  const className = `${styleClassName.button} ${styleClassName.buttonNeutral} ${styleClassName.buttonNeutralOff}`
   return (
-    <button onClick={handleClick} className={styleClassName.button}>{label}</button>
+    <button onClick={handleClick} className={className}>{label}</button>
   )
 }
 
