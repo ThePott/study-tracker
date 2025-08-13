@@ -39,7 +39,7 @@ const LoginButton = ({ role }: { role: Role }) => {
   }
 
   return (
-    <button onClick={handleClick} className={styleClassName.button}>{label}</button>
+    <button onClick={handleClick} className={styleClassName.buttonNeutral}>{label}</button>
   )
 }
 

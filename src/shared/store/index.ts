@@ -4,12 +4,23 @@ import createManagementSlice from "./_managementSlice";
 import createProgressSlice from "./_progressSlice";
 import createReviewCheckSlice from "./_reviewCheckSlice";
 import { createLoginSlice } from "./_loginSlice";
+import { persist, createJSONStorage } from 'zustand/middleware'
 
-const useBoundStore = create<BoundState>()((...a) => ({
-  ...createManagementSlice(...a),
-  ...createProgressSlice(...a),
-  ...createReviewCheckSlice(...a),
-  ...createLoginSlice(...a),
-}))
+const useBoundStore = create<BoundState>()(
+  persist(
+    (...a) => ({
+      ...createManagementSlice(...a),
+      ...createProgressSlice(...a),
+      ...createReviewCheckSlice(...a),
+      ...createLoginSlice(...a),
+    }),
+    {
+      name: 'study-tracker-storage', // name of the item in the storage (must be unique)
+      storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
+      partialize(state) {
+        return { user: state.user }
+      }
+    },
+  ))
 
 export default useBoundStore

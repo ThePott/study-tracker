@@ -1,5 +1,4 @@
 export type Role = "INSTRUCTOR" | "STUDENT"
-// export type Role = "ADMIN" | "INSTRUCTOR" | "STUDENT"
 
 export interface User {
     id: number
