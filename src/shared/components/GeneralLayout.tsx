@@ -1,13 +1,14 @@
-import { styleClassName } from "@/src/shared/constants/style"
+import { scrollbarStyle, styleClassName } from "@/src/shared/constants/style"
 
-const GeneralLayoutSidebar = ({ children }: { children: React.ReactNode }) => {
+const GeneralLayoutSidebar = ({ doFix = false, children }: { doFix?: boolean, children: React.ReactNode }) => {
   return (
-    <div className={`${styleClassName.flexCol} ${styleClassName.siebarWidth} overflow-hidden border-r-1 border-black/30 dark:border-white/30 pt-3 pl-3`}>
+    <div style={scrollbarStyle} className={`${styleClassName.flexCol} ${styleClassName.siebarWidth} ${doFix ? "overflow-hidden pr-3" : "overflow-x-hidden overflow-y-scroll"}  border-r-1 border-black/30 dark:border-white/30 pt-3 pl-3`}>
       {children}
     </div>
   )
 }
 
+/** SKELETON: 패딩 빼고 콘텐트 높이만 */
 const GeneralLayoutHeader = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className={`${styleClassName.flexWide} ${styleClassName.center} border-b-1 border-black/30 dark:border-white/30 p-2`}>

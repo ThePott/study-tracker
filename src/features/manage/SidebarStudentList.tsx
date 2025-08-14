@@ -22,9 +22,11 @@ const SidebarStudentList = () => {
   const isOnArray = userArray.map((user) => user.id === selectedUser?.id)
 
   return (
-    <div style={scrollbarStyle} className={`${styleClassName.flexCol} overflow-x-hidden overflow-y-scroll`}>
+    // <div style={scrollbarStyle} className={`${styleClassName.flexCol} overflow-x-hidden overflow-y-scroll`}>
+    <>
       {userArray.map((user, index) => <UserButton key={user.id} user={user} isOn={isOnArray[index]} />)}
-    </div>
+    </>
+    // </div>
   )
 }
 

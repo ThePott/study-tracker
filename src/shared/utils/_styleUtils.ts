@@ -28,6 +28,11 @@ export const makeSkeletonSizeStyle = (
         return sizeStyle
     }
 
+    if (!heightInPixel && !widthInPixel) { 
+        sizeStyle.flexGrow = 1
+        return sizeStyle
+     }
+
     sizeStyle.width = widthInPixel ? `${widthInPixel}px` : "100%"
     sizeStyle.height = heightInPixel ? `${heightInPixel}px` : "100%"
     return sizeStyle
