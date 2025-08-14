@@ -1,12 +1,20 @@
+import { User } from "./_loginInterfaces"
+
 export interface Student {
   studentId: string
   name: string
 }
 
-export interface ManagementSlice {
-  studentArray: Student[]
-  setStudentArray: (studentArray: Student[]) => void
+export interface ManageSlice {
+  userArray: User[],
+  setUserArray: (userArray: User[]) => void
 
-  selectedStudent: Student
-  setSelectedStudent: (selectedStudent: Student | null) => void
+  selectedUser: User | null
+  setSelectedUser: (selectedUser: User | null) => void
+  
+  // studentArray: Student[]
+  // setStudentArray: (studentArray: Student[]) => void
+
+  // selectedStudent: Student
+  // setSelectedStudent: (selectedStudent: Student | null) => void
 }

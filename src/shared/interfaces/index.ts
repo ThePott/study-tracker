@@ -3,6 +3,8 @@ export * from './_bookInterfaces'
 export * from './_instructorInterfaces'
 export * from './_progressInterfaces'
 export * from './_reviewCheckInterfaces'
-export * from "./boundInterfaces"
 export * from "./_styleInterfaces"
+export * from "./_loginInterfaces"
+
+export * from "./boundInterfaces"
 

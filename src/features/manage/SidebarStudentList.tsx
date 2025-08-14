@@ -1,20 +1,29 @@
 import NeutralButton from "@/src/shared/components/NeutralButton";
 import { scrollbarStyle, styleClassName } from "@/src/shared/constants/style";
-import { Student } from "@/src/shared/interfaces";
+import { User } from "@/src/shared/interfaces";
+import useBoundStore from "@/src/shared/store";
+import { memo } from "react";
 import { useLoaderData } from "react-router";
 
-const StudentButton = ({ student }: { student: Student }) => {
+const UserButton = memo(({ user, isOn }: { user: User, isOn: boolean }) => {
+  const setSelectedUser = useBoundStore((state) => state.setSelectedUser)
+
+  const handleClick = () => {
+    setSelectedUser(user)
+  }
   return (
-    <NeutralButton label={student.name} variant={"NEAUTRUAL"} />
+    <NeutralButton isOn={isOn} onClick={handleClick} label={user.name} variant={"NEUTRAL"} />
   )
-}
+})
 
 const SidebarStudentList = () => {
-  const studentArray = useLoaderData<Student[]>()
+  const userArray = useLoaderData<User[]>()
+  const selectedUser = useBoundStore((state) => state.selectedUser)
+  const isOnArray = userArray.map((user) => user.id === selectedUser?.id)
 
   return (
     <div style={scrollbarStyle} className={`${styleClassName.flexCol} overflow-x-hidden overflow-y-scroll`}>
-      {studentArray.map((student) => <StudentButton student={student} />)}
+      {userArray.map((user, index) => <UserButton key={user.id} user={user} isOn={isOnArray[index]} />)}
     </div>
   )
 }

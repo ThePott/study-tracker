@@ -10,9 +10,9 @@ export const colorClassName = {
     fontVividInverted: "text-white/90 dark:text-black/90",
 
     bg: "bg-white dark:bg-black",
-    bgInverted: "bg-black dark:bg-white",
+    bgInverted: "bg-black/90 dark:bg-white/90",
     bgMuted: "bg-black/5 dark:bg-white/5",
-    bgNeutral: "transition bg-black/75 hover:bg-black/60 active:bg-black/45 dark:bg-white/70 dark:hover:bg-white/75 dark:active:bg-white/80",
+    bgNeutral: "transition bg-black/100 hover:bg-black/90 active:bg-black/80 dark:bg-white/100 dark:hover:bg-white/90 dark:active:bg-white/80",
 
     bgYellow: "bg-yellow-in-light dark:bg-yellow-in-dark",
     bgBlue: "bg-blue-in-light dark:bg-blue-in-dark",
@@ -59,7 +59,7 @@ export const shapeClassName = {
 }
 
 /** 얘는 위의 것들 사용함. 위에는 아래 것을 사용 못 함 */
-const vividButtonColorBase = `${paddingMarginClassName.pTight} transition rounded-full border-1`
+const vividButtonColorBase = `${paddingMarginClassName.pTight} transition rounded-full border-1 font-semibold`
 const vividButtonColorOff = `${vividButtonColorBase} ${colorClassName.fontVivid} 
 border--black/0 hover:border-black/30 active:bg-black/30
 dark:border-white/0 dark:hover:border-white/30 dark:active:bg-white/30`

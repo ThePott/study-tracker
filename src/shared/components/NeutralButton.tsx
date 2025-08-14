@@ -1,7 +1,7 @@
 import React from 'react'
 import { styleClassName } from '../constants/style'
 
-type ButtonVariant = "NEAUTRUAL" | "VIVID_PILL"
+type ButtonVariant = "NEUTRAL" | "VIVID_PILL"
 
 interface AdditionalProps {
     label: string
@@ -14,7 +14,7 @@ type NeutralButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTM
 const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean) => {
     const classNameArray: string[] = [styleClassName.button]
 
-    if (variant === "NEAUTRUAL") {
+    if (variant === "NEUTRAL") {
         classNameArray.push(styleClassName.buttonNeutral)
         classNameArray.push(isOn ? styleClassName.buttonNeutralOn : styleClassName.buttonNeutralOff)
         const className = classNameArray.join(" ")

@@ -5,7 +5,7 @@ const LogoutButton = () => {
   const setUser = useBoundStore((state) => state.setUser)
 
   return (
-    <NeutralButton onClick={() => setUser(null)} label='로그아웃' variant={'NEAUTRUAL'} />
+    <NeutralButton onClick={() => setUser(null)} label='로그아웃' variant={'NEUTRAL'} />
   )
 }
 
