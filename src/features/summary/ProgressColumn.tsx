@@ -17,7 +17,6 @@ const makeColumnName = (inProgressStatus: InProgressStatus): string => {
     default:
       console.error("---- shouldn't fall back here")
       throw new Error("---- No match of in progress status")
-      debugger
   }
 }
 

@@ -1,0 +1,1 @@
+export type SkeletonVariant = "BOX" | "SHORT_TEXT"

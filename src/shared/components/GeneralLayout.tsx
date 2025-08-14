@@ -54,7 +54,7 @@ const GeneralLayoutOutlet = ({ children }: { children: React.ReactNode }) => {
 
 const GeneralLayoutBody = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={styleClassName.flex}>
+    <div className={`${styleClassName.flex1Fixed} ${styleClassName.flex}`}>
       {children}
     </div>
   )
