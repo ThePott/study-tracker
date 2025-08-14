@@ -13,12 +13,21 @@ const AppLayout = () => {
       <GeneralLayout.Header>
         <TabHeader />
       </GeneralLayout.Header>
+      
       <GeneralLayout.Body>
-        {doNeedSidebar && <SidebarStudentList />}
+      
+        {doNeedSidebar &&
+          <GeneralLayout.Sidebar>
+            <SidebarStudentList />
+          </GeneralLayout.Sidebar>
+        }
+      
         <GeneralLayout.Outlet>
           <Outlet />
         </GeneralLayout.Outlet>
+      
       </GeneralLayout.Body>
+
     </GeneralLayout>
   )
 }

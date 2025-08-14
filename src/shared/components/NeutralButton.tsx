@@ -12,8 +12,13 @@ interface AdditionalProps {
 type NeutralButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & AdditionalProps
 
 const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean) => {
+    const classNameArray: string[] = [styleClassName.button]
+
     if (variant === "NEAUTRUAL") {
-        return styleClassName.buttonNeutral
+        classNameArray.push(styleClassName.buttonNeutral)
+        classNameArray.push(isOn ? styleClassName.buttonNeutralOn : styleClassName.buttonNeutralOff)
+        const className = classNameArray.join(" ")
+        return className
     }
 
     if (!isOn) {
@@ -27,7 +32,7 @@ const NeutralButton = (props: NeutralButtonProps) => {
     const { label, variant, isOn, ...defaultProps } = props
 
     const className = makeButtonClassName(variant, isOn)
-    
+
     return (
         <button {...defaultProps} className={className}>{label}</button>
     )
