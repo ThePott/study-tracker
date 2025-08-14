@@ -1,5 +1,2 @@
-import axios from "axios"
+import axiosNeon from "./neon";
 
-// const axiosNeon  = axios.create({
-
-// })

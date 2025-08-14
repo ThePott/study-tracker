@@ -9,13 +9,13 @@ import { Student } from "@/src/shared/interfaces/_instructorInterfaces";
 axios.defaults.baseURL = 'http://localhost:3030';
 
 /** do nothing */
-const handleSuccess = (response: AxiosResponse<any, any>) => {
+export const handleSuccess = (response: AxiosResponse<any, any>) => {
     console.log("---- SUCCESS data:", response.data.length)
     return response
 }
 
 
-const handleFailure = (error: any) => {
+export const handleFailure = (error: any) => {
     console.error("---- ERROR OCCURRED:", error.response?.status ? error.response.status : error)
 
     return Promise.reject(error)
