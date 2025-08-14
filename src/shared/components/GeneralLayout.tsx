@@ -1,44 +1,17 @@
-import { styleClassName } from "@/src/shared/constants/style"
-import { Children, createContext, useContext } from "react"
+import { scrollbarStyle, styleClassName } from "@/src/shared/constants/style"
 
-// interface GeneralLayoutContent {
-//   skeleton: boolean
-// }
-
-/** CONTAINS: skeleton */
-// const GeneralLayoutContext = createContext<GeneralLayoutContent>({ skeleton: false })
-
-// const useGeneralLayoutContext = () => {
-//   const context = useContext(GeneralLayoutContext)
-//   if (!context) {
-//     throw new Error("---- CONTEXT FAILED")
-//   }
-//   return context
-// }
-
-const GeneralLayoutSidebar = ({ children }: { children: React.ReactNode }) => {
+const GeneralLayoutSidebar = ({ doFix = false, children }: { doFix?: boolean, children: React.ReactNode }) => {
   return (
-    <div className={`${styleClassName.flexCol} ${styleClassName.siebarWidth} ${styleClassName.flex1YScroll}`}>
+    <div style={scrollbarStyle} className={`${styleClassName.flexCol} ${styleClassName.siebarWidth} ${doFix ? "overflow-hidden pr-3" : "overflow-x-hidden overflow-y-scroll"}  border-r-1 border-black/30 dark:border-white/30 pt-3 pl-3`}>
       {children}
     </div>
   )
 }
 
-// const GeneralLayoutHeaderItem = ({ children, isForSidebar = false }: { children: React.ReactNode, isForSidebar?: boolean }) => {
-//   const { skeleton } = useGeneralLayoutContext()
-
-//   if (skeleton) { return children }
-
-//   return (
-//     <div className={`${styleClassName.groupByBorder} ${styleClassName.center} ${isForSidebar ? styleClassName.siebarWidth : styleClassName.grow}`}>
-//       {children}
-//     </div>
-//   )
-// }
-
+/** SKELETON: 패딩 빼고 콘텐트 높이만 */
 const GeneralLayoutHeader = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={`${styleClassName.flexWide} ${styleClassName.center}`}>
+    <div className={`${styleClassName.flexWide} ${styleClassName.center} border-b-1 border-black/30 dark:border-white/30 p-2`}>
       {children}
     </div>
   )
@@ -46,7 +19,7 @@ const GeneralLayoutHeader = ({ children }: { children: React.ReactNode }) => {
 
 const GeneralLayoutOutlet = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={styleClassName.flex1Fixed}>
+    <div className={`${styleClassName.flex1Fixed}  ${styleClassName.pExceptB}`}>
       {children}
     </div>
   )
@@ -54,7 +27,7 @@ const GeneralLayoutOutlet = ({ children }: { children: React.ReactNode }) => {
 
 const GeneralLayoutBody = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={styleClassName.flex}>
+    <div className={`${styleClassName.flex1Fixed} flex`}>
       {children}
     </div>
   )
@@ -62,7 +35,7 @@ const GeneralLayoutBody = ({ children }: { children: React.ReactNode }) => {
 
 const GeneralLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={`${styleClassName.flexCol} ${styleClassName.fullScreen} `}>
+    <div className={`flex flex-col w-screen h-screen `}>
       {children}
     </div>
   )
@@ -70,7 +43,6 @@ const GeneralLayout = ({ children }: { children: React.ReactNode }) => {
 
 GeneralLayout.Sidebar = GeneralLayoutSidebar
 GeneralLayout.Header = GeneralLayoutHeader
-// GeneralLayout.HeaderItem = GeneralLayoutHeaderItem
 GeneralLayout.Outlet = GeneralLayoutOutlet
 GeneralLayout.Body = GeneralLayoutBody
 

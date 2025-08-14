@@ -1,31 +1,25 @@
 import { styleClassName } from "../constants/style"
-import { convertFontSizeToPixel, type FontVariant } from "../utils"
+import { SkeletonVariant } from "../interfaces"
+import { makeSkeletonSizeStyle, type FontVariant } from "../utils"
 
-type SkeletonVariant = "box" | "shortText"
 
-const BaseSkeleton = ({ sx }: { sx: any }) => {
+interface SkeletonProps {
+    skeletonVariant?: SkeletonVariant
+    fontVariant?: FontVariant
+
+    heightInPixel?: number
+    widthInPixel?: number
+
+    isPill?: boolean
+}
+
+const Skeleton = ({ skeletonVariant = "BOX", fontVariant, heightInPixel, widthInPixel, isPill = false }: SkeletonProps) => {
+    const sizeStyle = makeSkeletonSizeStyle(skeletonVariant, fontVariant, heightInPixel, widthInPixel)
     return (
-        <div style={sx} className={`${styleClassName.borderMuted} ${styleClassName.bgMuted} ${styleClassName.rounded}`}>
+        <div style={sizeStyle} className={`${styleClassName.borderMuted} ${styleClassName.bgMuted} ${isPill ? styleClassName.roundedFull : styleClassName.rounded} shrink-0`}>
 
         </div>
     )
-}
-
-const Skeleton = ({ skeletonVariant, fontVariant, heightInPixel }: { skeletonVariant: SkeletonVariant, fontVariant?: FontVariant, heightInPixel?: number }) => {
-    switch (skeletonVariant) {
-        /** IGNORES fontVariant */
-        case "box":
-            return <BaseSkeleton sx={{ height: `${heightInPixel}px` }} />
-
-        /** IGNORES heightInPixel */
-        case "shortText":
-            if (!fontVariant) { throw new Error("---- MUST SPECIFY: fontVariant") }
-            const lineHeight = convertFontSizeToPixel(fontVariant) * 1.5
-            return <BaseSkeleton sx={{ height: `${lineHeight}px`, width: "100px" }} />
-        
-        default:
-            throw new Error("---- UN-HANDLED CASE of skeleton type")
-    }
 }
 
 export default Skeleton

@@ -7,6 +7,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import AppLayout from './features/layouts/AppLayout'
 import './index.css'
 import theme from './theme.js'
+import { loadStudentArray } from './shared/services/loaders'
+import AppLayoutSkeleton from './features/layouts/AppLayoutSkeleton'
+import { testNeverEndingLoader } from './shared/utils'
 
 const MainPage = lazy(() => import('./pages/MainPage'))
 const ManagePage = lazy(() => import('./pages/ManagePage'))
@@ -26,6 +29,9 @@ const router = createBrowserRouter([
   {
     element:
       <AppLayout />,
+    loader: loadStudentArray,
+    // loader: testNeverEndingLoader,
+    hydrateFallbackElement: <AppLayoutSkeleton />,
     children: [
       {
         path: "/manage",

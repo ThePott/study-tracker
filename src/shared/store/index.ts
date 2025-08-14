@@ -1,18 +1,21 @@
 import { create } from "zustand";
 import { BoundState } from "../interfaces";
-import createManagementSlice from "./_managementSlice";
+import createManageSlice from "./_manageSlice";
 import createProgressSlice from "./_progressSlice";
 import createReviewCheckSlice from "./_reviewCheckSlice";
-import { createLoginSlice } from "./_loginSlice";
+import createLoginSlice from "./_loginSlice";
 import { persist, createJSONStorage } from 'zustand/middleware'
+import createApiSlice from "./_apiSlice";
+
 
 const useBoundStore = create<BoundState>()(
   persist(
     (...a) => ({
-      ...createManagementSlice(...a),
+      ...createManageSlice(...a),
       ...createProgressSlice(...a),
       ...createReviewCheckSlice(...a),
       ...createLoginSlice(...a),
+      ...createApiSlice(...a),
     }),
     {
       name: 'study-tracker-storage', // name of the item in the storage (must be unique)

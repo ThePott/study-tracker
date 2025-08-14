@@ -6,3 +6,17 @@ export interface ApiResponse {
     message: string | null
     doOpenSnackbar: boolean
 }
+
+type ApiMethod = "GET" | "POST" | "PATCH" | "DELETE"
+
+export interface ApiInfo {
+    additionalUrl: string
+    method: ApiMethod
+    // body?: any
+    body?: any
+}
+
+export interface ApiSlice {
+    apiInfo: ApiInfo | null
+    setApiInfo: (apiInfo: ApiInfo | null) => void
+}

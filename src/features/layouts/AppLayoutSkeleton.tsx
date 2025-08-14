@@ -1,26 +1,37 @@
-// import GeneralLayout from '@/src/shared/components/GeneralLayout'
-// import useBoundStore from '@/src/shared/store'
-// import { Outlet } from 'react-router'
-// import SidebarStudentList from '../manage/SidebarStudentList'
-// import TabHeaderSkeleton from './tabHeader/TabHeaderSkeleton'
+import GeneralLayout from "@/src/shared/components/GeneralLayout"
+import Skeleton from "@/src/shared/components/Skeleton"
+import { styleClassName } from "@/src/shared/constants/style"
+import useBoundStore from "@/src/shared/store"
 
-// const AppLayoutSkeleton = () => {
-//   const user = useBoundStore((state) => state.user)
-//   const doNeedSidebar = user?.role === "INSTRUCTOR"
+const AppLayoutSkeleton = () => {
+    const user = useBoundStore((state) => state.user)
+    const doNeedSidebar = user?.role === "INSTRUCTOR"
 
-//   return (
-//     <GeneralLayout>
-//       <GeneralLayout.Header>
-//         <TabHeaderSkeleton />
-//       </GeneralLayout.Header>
-//       <GeneralLayout.Body>
-//         {doNeedSidebar && <SidebarStudentList />}
-//         <GeneralLayout.Outlet>
-//           <Outlet />
-//         </GeneralLayout.Outlet>
-//       </GeneralLayout.Body>
-//     </GeneralLayout>
-//   )
-// }
+    return (
+        <GeneralLayout>
+            <GeneralLayout.Header>
+                {doNeedSidebar && <Skeleton isPill heightInPixel={33.6} widthInPixel={84.9} />}
+                <Skeleton isPill heightInPixel={33.6} widthInPixel={53.29} />
+                <Skeleton isPill heightInPixel={33.6} widthInPixel={67.13} />
+                <Skeleton isPill heightInPixel={33.6} widthInPixel={84.9} />
+            </GeneralLayout.Header>
+            <GeneralLayout.Body>
+                {doNeedSidebar &&
+                    <GeneralLayout.Sidebar doFix={true}>
+                        {Object.keys([...Array(100)]).map((el, index) => <Skeleton key={index} skeletonVariant="BOX" heightInPixel={33.6} />)}
+                    </GeneralLayout.Sidebar>
+                }
 
-// export default AppLayoutSkeleton
+                <GeneralLayout.Outlet>
+                    <div className={`${styleClassName.flex} h-full`}>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </div>
+                </GeneralLayout.Outlet>
+            </GeneralLayout.Body>
+        </GeneralLayout>
+    )
+}
+
+export default AppLayoutSkeleton
