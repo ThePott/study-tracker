@@ -4,7 +4,7 @@ export type CompletedStatus = typeof completedStatusArray[number]
 export const inProgressStatusArray = ["PREV_HOMEWROK", "TODAY_WORK", "NEXT_HOMEWORK"] as const
 export type InProgressStatus = typeof inProgressStatusArray[number]
 
-
+/** DEPRECATED: use `Progress` instead */
 export interface ProgressData {
   _id: string
   studentId: string
@@ -18,37 +18,49 @@ export interface ProgressData {
   doNeedToAsk: boolean
 }
 
+export interface Progress {
+  id: number
+  bookTitle: string
+  topicTitle: string
+  stepTitle: string
+  questionGroupDescription: string
+  completed: CompletedStatus
+  doNeedToAsk: boolean
+  inProgressStatus: InProgressStatus
+}
 
-/** id -> status 
- * 
- * KEY: progress Id, VALUE: in progress status */
-export type StatusDict = Record<string, InProgressStatus>
-export type CompletedDict = Record<string, CompletedStatus>
+
+/** progress.id: InProgressStatus */
+export type StatusDict = Record<number, InProgressStatus>
+/** progress.id: CompletedStatus */
+export type CompletedDict = Record<number, CompletedStatus>
+/** progress.bookTitle: Progress[] */
+export type ProgressArrayInDict = Record<string, Progress[]>
 
 export interface ProgressSlice {
-  progressArray: ProgressData[]
-  setProgressArray: (progressArray: ProgressData[]) => void
+  progressArrayInDict: ProgressArrayInDict
+  setProgressArrayInDict: (progressArrayInDict: ProgressArrayInDict) => void
 
   initialCompletedDict: CompletedDict
-  setInitialCompletedDict: (progressArray: ProgressData[]) => void
+  setInitialCompletedDict: (progressArrayInDict: ProgressArrayInDict) => void
 
   editedCompletedDict: CompletedDict
-  // handleCompletedChange: (progress: ProgressData) => void
+  // handleCompletedChange: (progress: Progress) => void
   mergeCompletedToInitial: () => void
 
-  changeCompleted: (progress: ProgressData) => void
+  changeCompleted: (progress: Progress) => void
 
   initialStatusDict: StatusDict
-  setInitialStatusDict: (progressArray: ProgressData[]) => void
+  setInitialStatusDict: (progressArrayInDict: ProgressArrayInDict) => void
 
   editedStatusDict: StatusDict
-  handleStatusChange: (progress: ProgressData) => void
+  handleStatusChange: (progress: Progress) => void
   mergeStatusToInitial: () => void
 
   /** 칸반 */
-  activeProgress: ProgressData | null
+  activeProgress: Progress | null
   /** 칸반 */
-  setActiveProgress: (activeProgress: ProgressData | null) => void
+  setActiveProgress: (activeProgress: Progress | null) => void
   /** 칸반 */
-  updateProgress: (progress: ProgressData) => void
+  updateProgress: (progress: Progress) => void
 }

@@ -1,17 +1,19 @@
 import { StateCreator } from "zustand";
-import { BoundState, ProgressData, ProgressSlice } from "../interfaces";
+import { BoundState, Progress, ProgressSlice } from "../interfaces";
 import { findNextCompleted } from "../utils";
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다
 
 const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (set) => ({
-  progressArray: [],
-  setProgressArray(progressArray) { set({ progressArray }) },
+  progressArrayInDict: {},
+  /** const groupedProgressArray = Object.groupBy(progressArray, (progress) => progress.bookTitle) */
+  setProgressArrayInDict(progressArrayInDict) { set({ progressArrayInDict }) },
 
   initialCompletedDict: {},
-  setInitialCompletedDict(progressArray) {
+  setInitialCompletedDict(progressArrayInDict) {
     set(() => {
-      const initialCompletedDict = progressArray.reduce((acc, cur) => {
-        acc[cur._id] = cur.completed
+      const flatArray = Object.values(progressArrayInDict).flat()
+      const initialCompletedDict = flatArray.reduce((acc, cur) => {
+        acc[cur.id] = cur.completed
         return acc
       }, {})
 
@@ -33,33 +35,45 @@ const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (se
    */
   changeCompleted(progress) {
     set((state) => {
-      const key = progress._id
+      const key = progress.id
       const value = findNextCompleted(progress)
 
-      const newProgress = { ...progress, completed: value } as ProgressData
-      const progressArray = state.progressArray.map((el) => el._id === progress._id ? newProgress : el)
+      // const newDict = { ...state.progressArrayInDict }
+      // const targetArray = newDict[progress.bookTitle]
+
+      // if (!targetArray) { throw new Error("---- ERROR TO PARSE DICT BY PROGRESS!!!!") }
+      // newDict[progress.bookTitle] = newDict[progress.bookTitle].map((el) => el.id === progress.id ? progress : el)
+
+      // return { progressArrayInDict: newDict }
+
+
+      const newProgress = { ...progress, completed: value } as Progress
+      const progressArrayInDict = { ...state.progressArrayInDict }
+      progressArrayInDict[progress.bookTitle] = progressArrayInDict[progress.bookTitle].map((el) => el.id === progress.id ? progress : el)
+      // const progressArray = state.progressArray.map((el) => el.id === progress.id ? newProgress : el)
 
       // 이전 변경상태랑 달라지지 않았으니 유지
       if (state.editedCompletedDict[key] === value) {
-        return { progressArray }
+        return { progressArrayInDict }
       }
 
       // 최초로 돌아왔으면 edited에서 삭제
       if (state.initialCompletedDict[key] === value) {
         const { [key]: _removedValue, ...rest } = state.editedCompletedDict
-        return { editedCompletedDict: rest, progressArray }
+        return { editedCompletedDict: rest, progressArrayInDict }
       }
 
       // 최초랑 다르면 새로 추가
-      return { editedCompletedDict: { ...state.editedCompletedDict, [key]: value }, progressArray }
+      return { editedCompletedDict: { ...state.editedCompletedDict, [key]: value }, progressArrayInDict }
     })
   },
 
   initialStatusDict: {},
-  setInitialStatusDict(progressArray) {
+  setInitialStatusDict(progressArrayInDict) {
     set(() => {
-      const initialStatusDict = progressArray.reduce((acc, cur) => {
-        acc[cur._id] = cur.inProgressStatus
+      const flatArray = Object.values(progressArrayInDict).flat()
+      const initialStatusDict = flatArray.reduce((acc, cur) => {
+        acc[cur.id] = cur.inProgressStatus
         return acc
       }, {})
       return { initialStatusDict }
@@ -69,7 +83,7 @@ const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (se
   editedStatusDict: {},
   handleStatusChange(progress) {
     set((state) => {
-      const key = progress._id
+      const key = progress.id
       const value = progress.inProgressStatus
 
       // 이전 변경상태랑 달라지지 않았으니 유지
@@ -96,10 +110,13 @@ const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (se
 
   updateProgress(progress) {
     set((state) => {
+      const newDict = { ...state.progressArrayInDict }
+      const targetArray = newDict[progress.bookTitle]
 
-      const newProgressArray = state.progressArray.map(
-        (el) => el._id === progress._id ? progress : el)
-      return { progressArray: newProgressArray }
+      if (!targetArray) { throw new Error("---- ERROR TO PARSE DICT BY PROGRESS!!!!") }
+      newDict[progress.bookTitle] = newDict[progress.bookTitle].map((el) => el.id === progress.id ? progress : el)
+
+      return { progressArrayInDict: newDict }
     })
   },
 })

@@ -4,7 +4,7 @@ import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Box } from '@mui/material';
 import { memo } from 'react';
-import ProgressBox from './ProgressBox';
+import ProgressBox from '../progress/ProgressBox';
 import { styleClassName } from '@/src/shared/constants/style';
 // import { colorStyle, miniStyle } from '@/src/shared/ui/styleConstants';
 // 기능이 더 구현되어야 어떻게 분리할지가 뚜렷해질 것. 우선 구현이 먼저다

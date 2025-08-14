@@ -10,7 +10,11 @@ axios.defaults.baseURL = 'http://localhost:3030';
 
 /** do nothing */
 export const handleSuccess = (response: AxiosResponse<any, any>) => {
-    console.log("---- SUCCESS data:", response.data.length)
+    if (response.data.length === undefined) {
+        console.log("---- SUCCESS data:", Object.keys(response.data).length)
+    } else {
+        console.log("---- SUCCESS data:", response.data.length)
+    }
     return response
 }
 

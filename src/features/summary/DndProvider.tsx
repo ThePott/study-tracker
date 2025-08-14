@@ -1,4 +1,4 @@
-import ProgressBox from "@/src/features/summary/ProgressBox"
+import ProgressBox from "@/src/features/progress/ProgressBox"
 import useBoundStore from "@/src/shared/store"
 import { closestCorners, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, rectIntersection, useSensor, useSensors } from '@dnd-kit/core'
 import { arrayMove } from "@dnd-kit/sortable"
@@ -8,7 +8,7 @@ import { createPortal } from "react-dom"
 
 const DndProvider = ({ children }: { children: JSX.Element }) => {
   const progressArray = useBoundStore((state) => state.progressArray)
-  const setProgressArray = useBoundStore((state) => state.setProgressArray)
+  const setProgressArrayFromDict = useBoundStore((state) => state.setProgressArrayFromDict)
   const handleStatusChange = useBoundStore((state) => state.handleStatusChange)
 
 
@@ -83,7 +83,7 @@ const DndProvider = ({ children }: { children: JSX.Element }) => {
 
     const newArray = arrayMove(copiedArray, oldIndex, newIndex)
     console.log("... re-ordering progress")
-    setProgressArray(newArray)
+    setProgressArrayFromDict(newArray)
 
 
   }
@@ -106,7 +106,7 @@ const DndProvider = ({ children }: { children: JSX.Element }) => {
 
       const newArray = arrayMove(progressArray, oldIndex, newIndex)
 
-      setProgressArray(newArray)
+      setProgressArrayFromDict(newArray)
 
       handleStatusChange(progressArray[oldIndex])
     }

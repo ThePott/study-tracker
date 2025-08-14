@@ -7,7 +7,7 @@ import useBoundStore from "../shared/store"
 
 const getProgressArray = async (
   studentId: string,
-  setProgressArray: (progressArray: ProgressData[]) => void,
+  setProgressArrayFromDict: (progressArray: ProgressData[]) => void,
   setInitialStatusDict: (progressArray: ProgressData[]) => void,
   setInitialCompletedDict: (progressArray: ProgressData[]) => void
 ) => {
@@ -17,7 +17,7 @@ const getProgressArray = async (
   const response = await axios.get(url)
 
   const progressArray = response.data
-  setProgressArray(progressArray)
+  setProgressArrayFromDict(progressArray)
   setInitialStatusDict(progressArray)
   setInitialCompletedDict(progressArray)
 }
@@ -25,13 +25,13 @@ const getProgressArray = async (
 export const useProgressGet = () => {
   const student = useBoundStore((state) => state.selectedStudent)
   const studentId = student?.studentId
-  const setProgressArray = useBoundStore((state) => state.setProgressArray)
+  const setProgressArrayFromDict = useBoundStore((state) => state.setProgressArrayFromDict)
   const setInitialStatusDict = useBoundStore((state) => state.setInitialStatusDict)
   const setInitialCompletedDict = useBoundStore((state) => state.setInitialCompletedDict)
 
   useEffect(() => {
     if (!studentId) { return }
-    getProgressArray(studentId, setProgressArray, setInitialStatusDict, setInitialCompletedDict)
+    getProgressArray(studentId, setProgressArrayFromDict, setInitialStatusDict, setInitialCompletedDict)
   }, [student])
 }
 
