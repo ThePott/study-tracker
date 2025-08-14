@@ -3,7 +3,7 @@ import axiosNeon from "./neon";
 
 export const requestThenResponse = async (
     apiInfo: ApiInfo,
-    setRequestInfo: (apiInfo: ApiInfo | null) => void,
+    setApiInfo: (apiInfo: ApiInfo | null) => void,
     storeFunction?: any,
 ) => {
     try {
@@ -26,7 +26,7 @@ export const requestThenResponse = async (
             default:
                 throw new Error("---- UN-HANDLED METHOD!")
         }
-        setRequestInfo(null)
+        setApiInfo(null)
     } catch (error) {
         console.error({ error })
     }

@@ -2,7 +2,7 @@ import NeutralButton from "@/src/shared/components/NeutralButton";
 import { scrollbarStyle, styleClassName } from "@/src/shared/constants/style";
 import { User } from "@/src/shared/interfaces";
 import useBoundStore from "@/src/shared/store";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useLoaderData } from "react-router";
 
 const UserButton = memo(({ user, isOn }: { user: User, isOn: boolean }) => {
@@ -19,7 +19,13 @@ const UserButton = memo(({ user, isOn }: { user: User, isOn: boolean }) => {
 const SidebarStudentList = () => {
   const userArray = useLoaderData<User[]>()
   const selectedUser = useBoundStore((state) => state.selectedUser)
+  const setSelectedUser = useBoundStore((state) => state.setSelectedUser)
   const isOnArray = userArray.map((user) => user.id === selectedUser?.id)
+
+  useEffect(() => {
+    if (selectedUser || userArray.length === 0) { return }
+    setSelectedUser(userArray[0])
+  }, [selectedUser])
 
   return (
     // <div style={scrollbarStyle} className={`${styleClassName.flexCol} overflow-x-hidden overflow-y-scroll`}>
