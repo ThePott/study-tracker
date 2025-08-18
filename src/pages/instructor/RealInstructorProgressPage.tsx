@@ -3,17 +3,17 @@ import { Box } from "@mui/material"
 import RealProgressColumn from "@/src/features/progress/RealProgressColumn"
 
 const RealInstructorProgressPage = () => {
-  const progressArray = useBoundStore((state) => state.progressArray)
+  // const progressArray = useBoundStore((state) => state.progressArray)
 
-  const groupedProgressArray = Object.groupBy(progressArray, (progress) => progress.bookId)
+  // const groupedProgressArray = Object.groupBy(progressArray, (progress) => progress.bookId)
 
-  const entryArray = Object.entries(groupedProgressArray)
-  const bookIdArray = Object.keys(groupedProgressArray)
+  // const entryArray = Object.entries(groupedProgressArray)
+  // const bookIdArray = Object.keys(groupedProgressArray)
 
   return (
-    <Box className="flex gap-6">
-      {bookIdArray.map((bookId) => <RealProgressColumn key={bookId} bookId={bookId} />)}
-    </Box>
+    // <Box className="flex gap-6">
+    //   {bookIdArray.map((bookId) => <RealProgressColumn key={bookId} bookId={bookId} />)}
+    // </Box>
   )
 }
 

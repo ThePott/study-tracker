@@ -4,15 +4,19 @@ import axiosNeon from "./neon";
 export const requestThenResponse = async (
     apiInfo: ApiInfo,
     setApiInfo: (apiInfo: ApiInfo | null) => void,
-    storeFunction?: any,
 ) => {
     try {
         if (!apiInfo) { throw new Error("---- CANNOT REQUEST WITHOUT INFO") }
+        // if (apiInfo.loadingSetter) {apiInfo.loadingSetter(true)}
+        apiInfo.loadingSetter?.(true)
+
+        let result: any = null
         switch (apiInfo.method) {
             case "GET":
                 const responseGet = await axiosNeon.get(apiInfo.additionalUrl)
-                const result = responseGet.data
-                storeFunction(result)
+                result = responseGet.data
+
+                // storeFunction(result)
                 break
             case "POST":
                 const responsePost = await axiosNeon.post(apiInfo.additionalUrl, apiInfo.body)
@@ -26,8 +30,12 @@ export const requestThenResponse = async (
             default:
                 throw new Error("---- UN-HANDLED METHOD!")
         }
-        setApiInfo(null)
+
+        apiInfo.responseHandler?.(result)
     } catch (error) {
         console.error({ error })
+    } finally {
+        setApiInfo(null)
+        // apiInfo.loadingSetter?.(false)
     }
 }

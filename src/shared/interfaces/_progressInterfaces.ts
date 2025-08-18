@@ -63,4 +63,7 @@ export interface ProgressSlice {
   setActiveProgress: (activeProgress: Progress | null) => void
   /** 칸반 */
   updateProgress: (progress: Progress) => void
+
+  doShowSkeleton: boolean
+  setDoShowSkeleton: (doShowSkeleton: boolean) => void
 }

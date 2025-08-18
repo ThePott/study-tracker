@@ -9,7 +9,9 @@ interface AdditionalProps {
     isOn?: boolean
 }
 
-type NeutralButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & AdditionalProps
+type NeutralButtonProps =
+    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+    & AdditionalProps
 
 const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean) => {
     const classNameArray: string[] = [styleClassName.button]

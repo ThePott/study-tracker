@@ -33,7 +33,8 @@ export const displayClassName = {
     memoGrid: "grid-cols-[repeat(3,300px)]",
     center: "flex justify-center items-center"
 }
-
+// pt-[var(basic-padding)]
+// 코드가 코드를 생성하게 하는 게 좋음 (하드코딩보단)
 export const paddingMarginClassName = {
     pTight: "py-1 px-3",
     pAll: "p-3",
@@ -42,6 +43,7 @@ export const paddingMarginClassName = {
 }
 
 export const sizeClassName = {
+    // 변수 붙여서 유동적을 쓸 수 있게
     fullScreen: "w-screen h-screen overflow-hidden pt-3 px-3",
     flex1Fixed: "flex-1 overflow-hidden ",
     flex1YScroll: "flex-1 overflow-x-hidden overflow-y-scroll",

@@ -7,9 +7,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import AppLayout from './features/layouts/AppLayout'
 import './index.css'
 import theme from './theme.js'
-import { loadStudentArray } from './shared/services/loaders'
+import { loadProgress, loadStudentArray } from './shared/services/loaders'
 import AppLayoutSkeleton from './features/layouts/AppLayoutSkeleton'
 import { testNeverEndingLoader } from './shared/utils'
+import ProgressSkeleton from './features/layouts/ProgressSkeleton'
 
 const MainPage = lazy(() => import('./pages/MainPage'))
 const ManagePage = lazy(() => import('./pages/ManagePage'))
@@ -36,14 +37,14 @@ const router = createBrowserRouter([
       {
         path: "/manage",
         element:
-          <Suspense>
+          <Suspense fallback={<h2>하하하하 아직 안 했지롱</h2>}>
             <ManagePage />
           </Suspense>
       },
       {
         path: "/summary",
         element:
-          <Suspense>
+          <Suspense fallback={<h2>하하하하 아직 안 했지롱</h2>}>
             <SummaryPage />
           </Suspense>
       },
@@ -51,13 +52,14 @@ const router = createBrowserRouter([
         path: "/progress",
         element:
           <Suspense>
+          {/* <Suspense fallback={<ProgressSkeleton />}> */}
             <ProgressPage />
-          </Suspense>
+          </Suspense>,
       },
       {
         path: "/review-check",
         element:
-          <Suspense>
+          <Suspense fallback={<h2>하하하하 아직 안 했지롱</h2>}>
             <ReviewCheckPage />
           </Suspense>
       },

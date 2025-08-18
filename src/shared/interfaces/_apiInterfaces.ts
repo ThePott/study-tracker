@@ -12,8 +12,9 @@ type ApiMethod = "GET" | "POST" | "PATCH" | "DELETE"
 export interface ApiInfo {
     additionalUrl: string
     method: ApiMethod
-    // body?: any
     body?: any
+    responseHandler?: (...args: any[]) => any
+    loadingSetter?: (...args: any[]) => any
 }
 
 export interface ApiSlice {

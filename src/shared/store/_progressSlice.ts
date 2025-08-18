@@ -119,6 +119,9 @@ const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (se
       return { progressArrayInDict: newDict }
     })
   },
+
+  doShowSkeleton: false,
+  setDoShowSkeleton(doShowSkeleton) { set({ doShowSkeleton }) },
 })
 
 export default createProgressSlice

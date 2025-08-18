@@ -1,16 +1,14 @@
-import { useValidateUser } from '../_hooks/miniHooks'
-import ProgressInstructorContent from '../features/progress/ProgressInstructorContent'
-import ProgressStudentContent from '../features/progress/ProgressStudentContent'
+import ProgressSkeleton from '../features/layouts/ProgressSkeleton'
+import ProgressContent from '../features/progress/ProgressContent'
+import useBoundStore from '../shared/store'
 
 const ProgressPage = () => {
-  const { user } = useValidateUser()
-  if (!user) { return null }
+  const doShowSkeleton = useBoundStore((state) => state.doShowSkeleton)
+  console.log({doShowSkeleton})
+  // if (doShowSkeleton) { return <p>로딩중이지롱</p> }
+  if (doShowSkeleton) { return <ProgressSkeleton /> }
 
-  switch (user.role) {
-    case "STUDENT": return <ProgressStudentContent />
-    case "INSTRUCTOR": return <ProgressInstructorContent />
-    default: throw new Error("---- Un-handled role user logged in")
-  }
+  return <ProgressContent />
 }
 
 export default ProgressPage
