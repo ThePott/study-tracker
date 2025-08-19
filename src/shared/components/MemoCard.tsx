@@ -1,9 +1,14 @@
-import { JSX } from 'react'
 import { styleClassName } from '../constants/style'
 
-const MemoCard = ({ children, className = "" }: { children: JSX.Element, className?: string }) => {
+interface AdditionalProps {
+  className: string
+}
+type MemoCardProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & AdditionalProps
+
+const MemoCard = (props: MemoCardProps) => {
+  const { className, children, ...rest } = props
   return (
-    <div className={`p-6 ${styleClassName.memoWidth}  ${styleClassName.rounded} ${className}`}>
+    <div {...rest} className={`p-6 ${styleClassName.memoWidth}  ${styleClassName.rounded} ${className}`}>
       {children}
     </div>
   )
