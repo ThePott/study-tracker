@@ -7,7 +7,6 @@ import useBoundStore from '../shared/store'
 
 const ProgressPage = () => {
   const doShowSkeleton = useBoundStore((state) => state.doShowSkeleton)
-  console.log({ doShowSkeleton })
 
   const selectedUser = useBoundStore((state) => state.selectedUser)
   const setApiInfo = useBoundStore((state) => state.setApiInfo)
@@ -33,7 +32,6 @@ const ProgressPage = () => {
     requestThenResponse(apiInfo, setApiInfo)
   }, [selectedUser])
 
-  console.log("---- progress page re-render") 
   const skeletonCondition = doShowSkeleton || (Object.entries(progressArrayInDict).length === 0 && !isRespomseEmpty)
   if (skeletonCondition) { return <ProgressSkeleton /> }
   return <ProgressContent />

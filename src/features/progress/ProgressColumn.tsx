@@ -11,10 +11,10 @@ const ProgressColumn = ({ bookTitle, progressArray }: { bookTitle: string, progr
         <div className={`${styleClassName.memoWidth} flex flex-col gap-3`}>
             <h2 className={`${styleClassName.fontVivid} text-center ${styleClassName.fontJustBold}`}>{bookTitle}</h2>
             {groupedEntryArray.map((entry) => (
-                <>
+                <div key={`${entry[0]}`} className="flex flex-col gap-2">
                     <h2 className={`${styleClassName.fontMuted} `}>{entry[0]}</h2>
                     {entry[1].map((progress) => <ProgressBox key={progress.id} progress={progress} />)}
-                </>
+                </div>
             ))}
         </div>
     )
