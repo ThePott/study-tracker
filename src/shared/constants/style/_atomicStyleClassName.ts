@@ -8,6 +8,7 @@ export const colorClassName = {
     fontVivid: "text-black/90 dark:text-white/90",
     fontMuted: "text-black/60 dark:text-white/60",
     fontVividInverted: "text-white/90 dark:text-black/90",
+    fontMutedInverted: "text-white/60 dark:text-black/60",
 
     bg: "bg-white dark:bg-black",
     bgInverted: "bg-black/90 dark:bg-white/90",

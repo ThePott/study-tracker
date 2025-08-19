@@ -41,7 +41,6 @@ const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (se
       const newProgress = { ...progress, completed: value } as Progress
       const progressArrayInDict = { ...state.progressArrayInDict }
       progressArrayInDict[progress.bookTitle] = progressArrayInDict[progress.bookTitle].map((el) => el.id === progress.id ? newProgress : el)
-      // const progressArray = state.progressArray.map((el) => el.id === progress.id ? newProgress : el)
 
       // 이전 변경상태랑 달라지지 않았으니 유지
       if (state.editedCompletedDict[key] === value) {
