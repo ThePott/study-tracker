@@ -38,18 +38,9 @@ const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (se
       const key = progress.id
       const value = findNextCompleted(progress)
 
-      // const newDict = { ...state.progressArrayInDict }
-      // const targetArray = newDict[progress.bookTitle]
-
-      // if (!targetArray) { throw new Error("---- ERROR TO PARSE DICT BY PROGRESS!!!!") }
-      // newDict[progress.bookTitle] = newDict[progress.bookTitle].map((el) => el.id === progress.id ? progress : el)
-
-      // return { progressArrayInDict: newDict }
-
-
       const newProgress = { ...progress, completed: value } as Progress
       const progressArrayInDict = { ...state.progressArrayInDict }
-      progressArrayInDict[progress.bookTitle] = progressArrayInDict[progress.bookTitle].map((el) => el.id === progress.id ? progress : el)
+      progressArrayInDict[progress.bookTitle] = progressArrayInDict[progress.bookTitle].map((el) => el.id === progress.id ? newProgress : el)
       // const progressArray = state.progressArray.map((el) => el.id === progress.id ? newProgress : el)
 
       // 이전 변경상태랑 달라지지 않았으니 유지
