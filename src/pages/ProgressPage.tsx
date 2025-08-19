@@ -4,6 +4,7 @@ import ProgressContent from '../features/progress/ProgressContent'
 import { ApiInfo } from '../shared/interfaces'
 import { requestThenResponse } from '../shared/services/services'
 import useBoundStore from '../shared/store'
+import { useAutoSave } from '../_hooks/autosave'
 
 const ProgressPage = () => {
   const doShowSkeleton = useBoundStore((state) => state.doShowSkeleton)
@@ -16,6 +17,8 @@ const ProgressPage = () => {
   const setDoShowSkeleton = useBoundStore((state) => state.setDoShowSkeleton)
   const isRespomseEmpty = useBoundStore((state) => state.isResponseEmpty)
   const setIsResponseEmpty = useBoundStore((state) => state.setIsResponseEmpty)
+  const editedCompltedDict = useBoundStore((state) => state.editedCompletedDict)
+  const mergeCompletedToInitial = useBoundStore((state) => state.mergeCompletedToInitial)
   bookTitleArray.sort()
 
   useEffect(() => {
@@ -31,6 +34,8 @@ const ProgressPage = () => {
     console.log({ selectedUser })
     requestThenResponse(apiInfo, setApiInfo)
   }, [selectedUser])
+
+  useAutoSave("completed", editedCompltedDict, mergeCompletedToInitial)
 
   const skeletonCondition = doShowSkeleton || (Object.entries(progressArrayInDict).length === 0 && !isRespomseEmpty)
   if (skeletonCondition) { return <ProgressSkeleton /> }
