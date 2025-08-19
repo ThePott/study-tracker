@@ -1,3 +1,4 @@
+import { scrollbarStyle } from "@/src/shared/constants/style"
 import useBoundStore from "@/src/shared/store"
 import { memo } from "react"
 import ProgressColumn from "./ProgressColumn"
@@ -10,8 +11,7 @@ const ProgressContent = memo(() => {
   
 
   return (
-    <div>
-      <div>Progress __Instructor __Content</div>
+    <div style={scrollbarStyle} className={`flex gap-3 justify-center h-full overflow-x-hidden overflow-y-scroll`}>
       {bookTitleArray.map((bookTitle) => <ProgressColumn key={bookTitle} bookTitle={bookTitle} progressArray={progressArrayInDict[bookTitle]} />)}
     </div>
   )

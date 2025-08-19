@@ -19,8 +19,6 @@ const ProgressPage = () => {
   const setIsResponseEmpty = useBoundStore((state) => state.setIsResponseEmpty)
   bookTitleArray.sort()
 
-  // setDoShowSkeleton(true)
-
   useEffect(() => {
     if (!selectedUser) { return }
 
