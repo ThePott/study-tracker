@@ -28,6 +28,8 @@ const SidebarStudentList = () => {
     setSelectedUser(userArray[0])
   }, [selectedUser])
 
+
+  console.log("---- sidebar re-render")
   return (
     // <div style={scrollbarStyle} className={`${styleClassName.flexCol} overflow-x-hidden overflow-y-scroll`}>
     <>

@@ -7,7 +7,7 @@ import TabHeader from './tabHeader/TabHeader'
 const AppLayout = () => {
   const user = useBoundStore((state) => state.user)
   const doNeedSidebar = user?.role === "INSTRUCTOR"
-
+  console.log("---- app layout re-render")
   return (
     <GeneralLayout>
       <GeneralLayout.Header>

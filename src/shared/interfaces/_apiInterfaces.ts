@@ -15,9 +15,13 @@ export interface ApiInfo {
     body?: any
     responseHandler?: (...args: any[]) => any
     loadingSetter?: (...args: any[]) => any
+    setIsResponseEmpty?: (isResponseEmpty: boolean) => void
 }
 
 export interface ApiSlice {
     apiInfo: ApiInfo | null
     setApiInfo: (apiInfo: ApiInfo | null) => void
+
+    isResponseEmpty: boolean
+    setIsResponseEmpty: (isResponseEmpty: boolean) => void
 }

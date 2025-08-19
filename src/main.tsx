@@ -5,12 +5,10 @@ import { lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import AppLayout from './features/layouts/AppLayout'
-import './index.css'
-import theme from './theme.js'
-import { loadProgress, loadStudentArray } from './shared/services/loaders'
 import AppLayoutSkeleton from './features/layouts/AppLayoutSkeleton'
-import { testNeverEndingLoader } from './shared/utils'
-import ProgressSkeleton from './features/layouts/ProgressSkeleton'
+import './index.css'
+import { loadStudentArray } from './shared/services/loaders'
+import theme from './theme.js'
 
 const MainPage = lazy(() => import('./pages/MainPage'))
 const ManagePage = lazy(() => import('./pages/ManagePage'))
