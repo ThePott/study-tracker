@@ -10,10 +10,15 @@ const bgClassNameDict = {
   "IN_PROGRESS": `${styleClassName.borderVivid} ${styleClassName.bgYellow}`,
   "COMPLETED": `${styleClassName.borderMuted}  opacity-60`,
 }
-const fontClassNameDict = {
+const plainFontClassNameDict = {
   "NOT_STARTED": `${styleClassName.fontMuted}`,
   "IN_PROGRESS": `${styleClassName.fontMutedInverted}`,
   "COMPLETED": `${styleClassName.fontMuted}`,
+}
+const accentFontClassNameDict = {
+  "NOT_STARTED": `${styleClassName.fontMuted}`,
+  "IN_PROGRESS": `${styleClassName.fontVividInverted}`,
+  "COMPLETED": `${styleClassName.fontVivid}`,
 }
 
 const completedInKorean = {
@@ -40,10 +45,10 @@ const ProgressBox = memo(({ progress }: { progress: Progress }) => {
     <div onClick={handleClick}>
       <MemoCard className={memoClassName}>
         <>
-          <p className={`break-keep ${fontClassNameDict[progress.completed]}`}>{progress.stepTitle}</p>
+          <p className={`break-keep ${plainFontClassNameDict[progress.completed]}`}>{progress.stepTitle}</p>
           <div className="flex justify-between">
-            <p className={`break-keep ${styleClassName.fontJustBold} ${fontClassNameDict[progress.completed]}`}>{progress.questionGroupDescription}</p>
-            {progress.completed !== "NOT_STARTED" && <p className={`self-end ${fontClassNameDict[progress.completed]}`}>{completedInKorean[progress.completed]}</p>}
+            <p className={`break-keep ${styleClassName.fontJustBold} ${accentFontClassNameDict[progress.completed]}`}>{progress.questionGroupDescription}</p>
+            {progress.completed !== "NOT_STARTED" && <p className={`self-end ${plainFontClassNameDict[progress.completed]}`}>{completedInKorean[progress.completed]}</p>}
           </div>
         </>
       </MemoCard>
