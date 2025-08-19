@@ -29,7 +29,6 @@ const SidebarStudentList = () => {
   }, [selectedUser])
 
 
-  console.log("---- sidebar re-render")
   return (
     // <div style={scrollbarStyle} className={`${styleClassName.flexCol} overflow-x-hidden overflow-y-scroll`}>
     <>

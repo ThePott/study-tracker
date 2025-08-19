@@ -1,30 +1,30 @@
-import { Box } from '@mui/material'
-import { Outlet } from 'react-router'
-import InstructorHeader from './InstructorHeader'
-import InstructorSidebar from './InstructorSidebar'
-import { useAutoSaveInProgressStatus, useAutoSaveCompleted, useProgressGet } from '@/src/_hooks/progressHooks'
-import { styleClassName } from '@/src/shared/constants/style'
+// import { Box } from '@mui/material'
+// import { Outlet } from 'react-router'
+// import InstructorHeader from './InstructorHeader'
+// import InstructorSidebar from './InstructorSidebar'
+// import { useAutoSaveInProgressStatus, useAutoSaveCompleted, useProgressGet } from '@/src/_hooks/progressHooks'
+// import { styleClassName } from '@/src/shared/constants/style'
 
-const InstructorLayout = () => {
-  useAutoSaveInProgressStatus()
-  useAutoSaveCompleted()
-  useProgressGet()
+// const InstructorLayout = () => {
+//   useAutoSaveInProgressStatus()
+//   useAutoSaveCompleted()
+//   useProgressGet()
   
-  return (
-    <Box className={`w-screen h-screen overflow-hidden flex flex-col ${styleClassName.bg}`}>
-      <InstructorHeader />
+//   return (
+//     <Box className={`w-screen h-screen overflow-hidden flex flex-col ${styleClassName.bg}`}>
+//       <InstructorHeader />
 
-      <Box className="flex-1 flex overflow-hidden">
+//       <Box className="flex-1 flex overflow-hidden">
 
-        <InstructorSidebar />
+//         <InstructorSidebar />
 
-        <Box sx={{scrollbarColor: "oklch(0.5 0 0) transparent"}} className="flex-1 pt-3 px-3 overflow-y-scroll flex flex-col items-center">
-          <Outlet />
-        </Box>
-      </Box>
+//         <Box sx={{scrollbarColor: "oklch(0.5 0 0) transparent"}} className="flex-1 pt-3 px-3 overflow-y-scroll flex flex-col items-center">
+//           <Outlet />
+//         </Box>
+//       </Box>
 
-    </Box>
-  )
-}
+//     </Box>
+//   )
+// }
 
-export default InstructorLayout
+// export default InstructorLayout

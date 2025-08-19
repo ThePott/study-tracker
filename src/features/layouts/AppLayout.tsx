@@ -1,13 +1,12 @@
 import GeneralLayout from '@/src/shared/components/GeneralLayout'
 import useBoundStore from '@/src/shared/store'
 import { Outlet } from 'react-router'
-import SidebarStudentList from '../manage/SidebarStudentList'
+import SidebarStudentList from './SidebarStudentList'
 import TabHeader from './tabHeader/TabHeader'
 
 const AppLayout = () => {
   const user = useBoundStore((state) => state.user)
   const doNeedSidebar = user?.role === "INSTRUCTOR"
-  console.log("---- app layout re-render")
   return (
     <GeneralLayout>
       <GeneralLayout.Header>

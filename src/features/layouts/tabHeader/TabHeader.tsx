@@ -9,7 +9,6 @@ const TabHeader = () => {
     const user = useBoundStore((state) => state.user)
     if (!user) { return null }
 
-    console.log("---- tab header re-render")
     return (
         // 라벨도 프롭 라벨은 받지 않고 칠드런으로 받는 게 더 자연스러울 것
         // isOn -> active 가 더 자연스러울 것

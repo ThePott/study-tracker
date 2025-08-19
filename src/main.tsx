@@ -1,6 +1,5 @@
 /** DO NOT LAZY Workbench */
 import Workbench from '@/src/pages/workbench/Workbench.js'
-import { ThemeProvider } from '@mui/material'
 import { lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
@@ -8,7 +7,6 @@ import AppLayout from './features/layouts/AppLayout'
 import AppLayoutSkeleton from './features/layouts/AppLayoutSkeleton'
 import './index.css'
 import { loadStudentArray } from './shared/services/loaders'
-import theme from './theme.js'
 
 const MainPage = lazy(() => import('./pages/MainPage'))
 const ManagePage = lazy(() => import('./pages/ManagePage'))
@@ -71,7 +69,5 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')!).render(
-  <ThemeProvider theme={theme}>
     <RouterProvider router={router} />
-  </ThemeProvider>
 )
