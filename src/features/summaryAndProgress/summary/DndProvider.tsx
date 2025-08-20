@@ -63,8 +63,15 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
     const { active, over } = event;
 
     if (!over) {
-      setActiveId(null);
-      return;
+      setActiveId(null)
+      console.log("---- no over at end")
+      return
+    }
+
+    if (over.id === active.id || !over.data?.current?.inProgressStatus) {
+      console.log("---- nothing to log")
+      setActiveId(null)
+      return
     }
 
     // 드래그 중인 항목 찾기
@@ -72,37 +79,39 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
 
     // 다른 보드로 항목 이동 (예: todo -> inprogress)
     // over.data?.current?.type은 드롭된 보드의 타입을 나타냄 (useDroppable에서 data로 설정한 값)
-    if (
-      over.data?.current?.inProgressStatus &&
-      activeItem.inProgressStatus !== over.data.current.inProgressStatus
-    ) {
+    if (activeItem.inProgressStatus !== over.data.current.inProgressStatus) {
       // 항목의 타입을 변경하여 다른 보드로 이동
-      // ---- 이거 굳이 필요하나???
+      // ---- 이거 굳이 필요하나??? 근데 반 공간이 아니라 칸반 위로 하면 여기로 온다.
       updateInProgressStatus(activeItem.bookTitle, activeItem.id, over.data?.current?.inProgressStatus)
-    } else if (over.id !== active.id) {
-      // 동일 보드 내에서 항목 순서 변경
-      // 드래그한 항목과 드롭 위치 항목의 인덱스 찾기
-
-      const activeArray = progressArrayInDict[activeBookTitle]
-      if (!activeArray) {
-        debugger
-        throw new Error("---- WHY NO ACTIVE ARRAY?")
-      }
-      const activeIndex = activeArray.findIndex((progress) => progress.id === active.id)
-      const overIndex = activeArray.findIndex((progress) => progress.id === over.id,)
-
-      if (activeIndex === -1 || overIndex === -1) {
-        debugger
-        throw new Error("---- WHY NO INDEXES?")
-      }
-      // arrayMove: dnd-kit이 제공하는 배열 재정렬 유틸리티 함수
-      // 배열 내에서 항목의 위치를 변경합니다
-      // 재정렬된 항목들로 상태 업데이트
-      const newActiveArray = arrayMove(activeArray, activeIndex, overIndex)
-      const newProgressArrayInDict = { ...progressArrayInDict }
-      newProgressArrayInDict[activeBookTitle] = newActiveArray
-      setProgressArrayInDict(newProgressArrayInDict)
+      setActiveId(null)
+      console.log("---- diff col")
+      return
     }
+    // 동일 보드 내에서 항목 순서 변경
+    // 드래그한 항목과 드롭 위치 항목의 인덱스 찾기
+
+    const activeArray = progressArrayInDict[activeBookTitle]
+    if (!activeArray) {
+      debugger
+      throw new Error("---- WHY NO ACTIVE ARRAY?")
+    }
+    const activeIndex = activeArray.findIndex((progress) => progress.id === active.id)
+    const overIndex = activeArray.findIndex((progress) => progress.id === over.id,)
+
+    if (activeIndex === -1 || overIndex === -1) {
+      debugger
+      throw new Error("---- WHY NO INDEXES?")
+      // return
+    }
+    // arrayMove: dnd-kit이 제공하는 배열 재정렬 유틸리티 함수
+    // 배열 내에서 항목의 위치를 변경합니다
+    // 재정렬된 항목들로 상태 업데이트
+    const newActiveArray = arrayMove(activeArray, activeIndex, overIndex)
+    debugger
+    const newProgressArrayInDict = { ...progressArrayInDict }
+    newProgressArrayInDict[activeBookTitle] = newActiveArray
+    setProgressArrayInDict(newProgressArrayInDict)
+
 
     setActiveId(null);
   };
