@@ -52,7 +52,7 @@ export const sizeClassName = {
 
     grow: "grow",
 
-    memoWidth: "w-[300px]", 
+    memoWidth: "w-[300px] min-w-[300px]", 
     memoHeight: "h-[125px]",
     siebarWidth: "w-[132px]",
 }
