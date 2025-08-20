@@ -17,6 +17,7 @@ export const colorClassName = {
 
     bgYellow: "bg-yellow-in-light dark:bg-yellow-in-dark",
     bgBlue: "bg-blue-in-light dark:bg-blue-in-dark",
+    bgRed: "bg-red-in-light dark:bg-red-in-dark",
     bgGray: "bg-zinc-300 dark:bg-zinc-900",
 }
 

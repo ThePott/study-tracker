@@ -1,4 +1,4 @@
-import ProgressBox from "@/src/features/progress/ProgressBox"
+import ProgressBox from "@/src/features/summaryAndProgress/progress/ProgressBox"
 import useBoundStore from "@/src/shared/store"
 import { closestCorners, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, MouseSensor, rectIntersection, useSensor, useSensors } from '@dnd-kit/core'
 import { arrayMove } from "@dnd-kit/sortable"

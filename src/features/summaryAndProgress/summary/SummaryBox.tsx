@@ -1,0 +1,51 @@
+import MemoCard from "@/src/shared/components/MemoCard"
+import { styleClassName } from "@/src/shared/constants/style"
+import { Progress } from "@/src/shared/interfaces"
+import { useSortable } from "@dnd-kit/sortable"
+
+const SummaryBox = ({ progress }: { progress: Progress }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({
+    id: progress.id,
+    data: {
+      type: "KANBAN",
+      bookTitle: progress.bookTitle,
+      inProgressStatus: progress.inProgressStatus
+    }
+  })
+
+  // 드래그 중일 때의 스타일
+  const style = {
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    transition,
+    opacity: isDragging ? 0.3 : 1,
+    zIndex: isDragging ? 1000 : 1,
+  }
+
+  return (
+    <MemoCard
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className={`${styleClassName.pTight} ${styleClassName.bgRed}`}>
+
+      <p className={`break-keep ${styleClassName.fontJustBold}`}>{progress.bookTitle}</p>
+      <p className={`break-keep `}>{progress.stepTitle}</p>
+      <div className="flex justify-between">
+        <p className={`break-keep ${styleClassName.fontJustBold}`}>{progress.questionGroupDescription}</p>
+        <p className={`self-end`}>{progress.inProgressStatus}</p>
+      </div>
+      
+    </MemoCard>
+  )
+}
+
+export default SummaryBox
+

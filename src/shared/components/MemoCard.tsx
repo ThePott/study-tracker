@@ -1,7 +1,7 @@
 import { styleClassName } from '../constants/style'
 
 interface AdditionalProps {
-  className: string
+  className?: string
 }
 type MemoCardProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & AdditionalProps
 

@@ -1,15 +1,21 @@
 /** IMPORTED BY index.css */
 @theme {
-  --color-yellow-in-light: oklch(0.4 0.108 89.08);
-  --color-yellow-in-light-accent: oklch(0.3 0.108 89.08);
+  --color-yellow-in-light: oklch(0.3 0.108 89.08);
+  --color-yellow-in-light-accent: oklch(0.2 0.108 89.08);
 
   --color-yellow-in-dark: oklch(0.8 0.108 89.08);
   --color-yellow-in-dark-accent: oklch(0.9 0.108 89.08);
 
 
-  --color-blue-in-light: oklch(0.4 0.108 235.45);
-  --color-blue-in-light-accent: oklch(0.3 0.108 235.45);
+  --color-blue-in-light: oklch(0.3 0.108 235.45);
+  --color-blue-in-light-accent: oklch(0.2 0.108 235.45);
 
-  --color-blue-in-dark: oklch(0.7 0.108 235.45);
-  --color-blue-in-dark-accent: oklch(0.8 0.108 235.45);
+  --color-blue-in-dark: oklch(0.8 0.108 235.45);
+  --color-blue-in-dark-accent: oklch(0.9 0.108 235.45);
+
+  --color-red-in-light: oklch(0.3 0.108 0);
+  --color-red-in-light-accent: oklch(0.2 0.108 0);
+
+  --color-red-in-dark: oklch(0.8 0.108 0);
+  --color-red-in-dark-accent: oklch(0.9 0.108 0);
 }

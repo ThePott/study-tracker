@@ -1,7 +1,7 @@
 import { ProgressData } from '@/src/shared/interfaces/_progressInterfaces'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import ProgressInBook from '@/src/features/progress/StudentProgressInBook'
+import ProgressInBook from '@/src/features/summaryAndProgress/progress/StudentProgressInBook'
 
 // Custom hook for API calls
 const useStudentProgress = (studentId: string) => {

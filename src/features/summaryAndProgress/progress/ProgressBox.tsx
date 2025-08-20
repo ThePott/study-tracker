@@ -27,9 +27,6 @@ const completedInKorean = {
   "COMPLETED": "완료",
 }
 
-
-
-
 const ProgressBox = memo(({ progress }: { progress: Progress }) => {
   const changeCompleted = useBoundStore((state) => state.changeCompleted)
 
@@ -41,19 +38,13 @@ const ProgressBox = memo(({ progress }: { progress: Progress }) => {
   const memoClassName = `${memoBaseClassName} ${bgClassNameDict[progress.completed]}`
 
   return (
-
-    <div onClick={handleClick}>
-      <MemoCard className={memoClassName}>
-        <>
-          <p className={`break-keep ${plainFontClassNameDict[progress.completed]}`}>{progress.stepTitle}</p>
-          <div className="flex justify-between">
-            <p className={`break-keep ${styleClassName.fontJustBold} ${accentFontClassNameDict[progress.completed]}`}>{progress.questionGroupDescription}</p>
-            {progress.completed !== "NOT_STARTED" && <p className={`self-end ${plainFontClassNameDict[progress.completed]}`}>{completedInKorean[progress.completed]}</p>}
-          </div>
-        </>
-      </MemoCard>
-    </div>
-
+    <MemoCard onClick={handleClick} className={memoClassName}>
+      <p className={`break-keep ${plainFontClassNameDict[progress.completed]}`}>{progress.stepTitle}</p>
+      <div className="flex justify-between">
+        <p className={`break-keep ${styleClassName.fontJustBold} ${accentFontClassNameDict[progress.completed]}`}>{progress.questionGroupDescription}</p>
+        {progress.completed !== "NOT_STARTED" && <p className={`self-end ${plainFontClassNameDict[progress.completed]}`}>{completedInKorean[progress.completed]}</p>}
+      </div>
+    </MemoCard>
   )
 })
 

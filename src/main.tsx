@@ -11,11 +11,7 @@ import { loadStudentArray } from './shared/services/loaders'
 
 const MainPage = lazy(() => import('./pages/MainPage'))
 const ManagePage = lazy(() => import('./pages/ManagePage'))
-const ProgressPage = lazy(() => 
-  import('./pages/ProgressPage').then(module => 
-    new Promise<typeof module>(resolve => setTimeout(() => resolve(module), 5000))
-  )
-);
+const ProgressPage = lazy(() => import("./pages/ProgressPage"))
 const ReviewCheckPage = lazy(() => import('./pages/ReviewCheckPage'))
 const SummaryPage = lazy(() => import('./pages/SummaryPage'))
 
