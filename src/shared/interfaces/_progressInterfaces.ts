@@ -54,7 +54,7 @@ export interface ProgressSlice {
   setInitialStatusDict: (progressArrayInDict: ProgressArrayInDict) => void
 
   editedStatusDict: StatusDict
-  handleStatusChange: (progress: Progress) => void
+  updateInProgressStatus: (bookTitle: string, id: number, inProgressStatus: InProgressStatus) => void
   mergeStatusToInitial: () => void
 
   /** 칸반 */

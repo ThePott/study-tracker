@@ -71,22 +71,12 @@ const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (se
   },
 
   editedStatusDict: {},
-  handleStatusChange(progress) {
+  updateInProgressStatus(bookTitle, id, inProgressStatus) {
     set((state) => {
-      const key = progress.id
-      const value = progress.inProgressStatus
+      const progressArrayInDict = { ...state.progressArrayInDict }
+      progressArrayInDict[bookTitle] = progressArrayInDict[bookTitle].map((el) => el.id === id ? { ...el, inProgressStatus } : el)
 
-      // 이전 변경상태랑 달라지지 않았으니 유지
-      if (state.editedStatusDict[key] === value) { return state }
-
-      // 최초로 돌아왔으면 변경 취소
-      if (state.initialStatusDict[key] === value) {
-        const { [key]: _removedValue, ...rest } = state.editedStatusDict
-        return { editedStatusDict: rest }
-      }
-
-      // 최초랑 다르면 새로 추가
-      return { editedStatusDict: { ...state.editedStatusDict, [key]: value } }
+      return { progressArrayInDict }
     })
   },
   mergeStatusToInitial() {
