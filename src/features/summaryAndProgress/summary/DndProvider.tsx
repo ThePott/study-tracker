@@ -1,6 +1,7 @@
 import { inProgressStatusArray } from '@/src/shared/interfaces';
 import useBoundStore from '@/src/shared/store';
 import { DndContext, DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
 import { ReactNode, useCallback, useState } from 'react';
 
 const DndProvider = ({ children }: { children: ReactNode }) => {
@@ -57,57 +58,60 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
     updateInProgressStatus(activeItem.bookTitle, activeItem.id, overData.inProgressStatus)
   }
 
-  // // 드래그 종료 시 호출
-  // const handleDragEnd = (event: DragEndEvent) => {
-  //   const { active, over } = event;
+  // 드래그 종료 시 호출
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
 
-  //   if (!over) {
-  //     setActiveId(null);
-  //     return;
-  //   }
+    if (!over) {
+      setActiveId(null);
+      return;
+    }
 
-  //   // 드래그 중인 항목 찾기
-  //   const activeItem = kanbanArray.find((kanban) => kanban.id === active.id);
-  //   if (!activeItem) {
-  //     setActiveId(null);
-  //     return;
-  //   }
+    // 드래그 중인 항목 찾기
+    const activeItem = findActiveItem()
 
-  //   // 다른 보드로 항목 이동 (예: todo -> inprogress)
-  //   // over.data?.current?.type은 드롭된 보드의 타입을 나타냄 (useDroppable에서 data로 설정한 값)
-  //   if (
-  //     over.data?.current?.completed &&
-  //     activeItem.completed !== over.data.current.completed
-  //   ) {
-  //     // 항목의 타입을 변경하여 다른 보드로 이동
-  //     updateBoardCompleted(Number(active.id), over.data.current.completed);
-  //   } else if (over.id !== active.id) {
-  //     // 동일 보드 내에서 항목 순서 변경
-  //     // 드래그한 항목과 드롭 위치 항목의 인덱스 찾기
-  //     const activeIndex = kanbanArray.findIndex(
-  //       (kanban) => kanban.id === active.id,
-  //     );
-  //     const overIndex = kanbanArray.findIndex(
-  //       (kanban) => kanban.id === over.id,
-  //     );
+    // 다른 보드로 항목 이동 (예: todo -> inprogress)
+    // over.data?.current?.type은 드롭된 보드의 타입을 나타냄 (useDroppable에서 data로 설정한 값)
+    if (
+      over.data?.current?.inProgressStatus &&
+      activeItem.inProgressStatus !== over.data.current.inProgressStatus
+    ) {
+      // 항목의 타입을 변경하여 다른 보드로 이동
+      // ---- 이거 굳이 필요하나???
+      updateInProgressStatus(activeItem.bookTitle, activeItem.id, over.data?.current?.inProgressStatus)
+    } else if (over.id !== active.id) {
+      // 동일 보드 내에서 항목 순서 변경
+      // 드래그한 항목과 드롭 위치 항목의 인덱스 찾기
 
-  //     if (activeIndex !== -1 && overIndex !== -1) {
-  //       // arrayMove: dnd-kit이 제공하는 배열 재정렬 유틸리티 함수
-  //       // 배열 내에서 항목의 위치를 변경합니다
-  //       const newKanbanArray = arrayMove(kanbanArray, activeIndex, overIndex);
-  //       // 재정렬된 항목들로 상태 업데이트
-  //       reorderKanbanArray(newKanbanArray);
-  //     }
-  //   }
+      const activeArray = progressArrayInDict[activeBookTitle]
+      if (!activeArray) {
+        debugger
+        throw new Error("---- WHY NO ACTIVE ARRAY?")
+      }
+      const activeIndex = activeArray.findIndex((progress) => progress.id === active.id)
+      const overIndex = activeArray.findIndex((progress) => progress.id === over.id,)
 
-  //   setActiveId(null);
-  // };
+      if (activeIndex === -1 || overIndex === -1) {
+        debugger
+        throw new Error("---- WHY NO INDEXES?")
+      }
+      // arrayMove: dnd-kit이 제공하는 배열 재정렬 유틸리티 함수
+      // 배열 내에서 항목의 위치를 변경합니다
+      // 재정렬된 항목들로 상태 업데이트
+      const newActiveArray = arrayMove(activeArray, activeIndex, overIndex)
+      const newProgressArrayInDict = { ...progressArrayInDict }
+      newProgressArrayInDict[activeBookTitle] = newActiveArray
+      setProgressArrayInDict(newProgressArrayInDict)
+    }
+
+    setActiveId(null);
+  };
 
   return (
     <DndContext
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
-    // onDragEnd={handleDragEnd}
+      onDragEnd={handleDragEnd}
     >
       {children}
     </DndContext>
