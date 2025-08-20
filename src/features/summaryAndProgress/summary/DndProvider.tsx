@@ -14,7 +14,6 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
   const findActiveItem = useCallback(() => {
     if (!activeId) { return null }
     const activeItem = progressArrayInDict[activeBookTitle].find((progress) => progress.id === activeId)
-    console.log({ array: progressArrayInDict[activeBookTitle] })
 
     return activeItem
   }, [activeId])
@@ -34,28 +33,28 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
   const handleDragOver = (event: DragOverEvent) => {
     const { active, over } = event;
 
-    if (!active || !over) return;
-    if (active.id === over.id) return;
+    if (!active || !over) { return }
+    if (active.id === over.id) { return }
 
-    const overData = over.data?.current;
-    if (!overData) {
-      return;
-    }
+    const overData = over.data?.current
+    if (!overData) { return }
 
     const activeItem = findActiveItem()
-    if (!activeItem) {
-      // debugger;
-      return;
-    }
+    if (!activeItem) { return }
 
     // 다른 보드 위로 드래그 중일 때
     // 시각적 피드백을 위해 임시로 타입 변경 (실제 데이터는 handleDragEnd에서 변경됨)
-    if (activeItem.inProgressStatus === overData.inProgressStatus) { return }
+    if (activeItem.inProgressStatus === overData.inProgressStatus) {
+      console.log("---- same status return")
+      return
+    }
+
     if (!inProgressStatusArray.includes(overData.inProgressStatus)) {
       debugger
       throw new Error("---- KANBAN ERROR: no over data in progress status")
     }
     updateInProgressStatus(activeItem.bookTitle, activeItem.id, overData.inProgressStatus)
+    console.log("---- diff status:", activeItem.inProgressStatus, overData.inProgressStatus)
   }
 
   // 드래그 종료 시 호출
@@ -96,18 +95,19 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
       throw new Error("---- WHY NO ACTIVE ARRAY?")
     }
     const activeIndex = activeArray.findIndex((progress) => progress.id === active.id)
-    const overIndex = activeArray.findIndex((progress) => progress.id === over.id,)
+    let overIndex = activeArray.findIndex((progress) => progress.id === over.id,)
 
-    if (activeIndex === -1 || overIndex === -1) {
+    if (activeIndex === -1) {
       debugger
       throw new Error("---- WHY NO INDEXES?")
       // return
     }
-    // arrayMove: dnd-kit이 제공하는 배열 재정렬 유틸리티 함수
-    // 배열 내에서 항목의 위치를 변경합니다
-    // 재정렬된 항목들로 상태 업데이트
+    if (overIndex === -1) {
+      overIndex = activeArray.length - 1
+    }
+
+    if (activeIndex === overIndex) { return }
     const newActiveArray = arrayMove(activeArray, activeIndex, overIndex)
-    debugger
     const newProgressArrayInDict = { ...progressArrayInDict }
     newProgressArrayInDict[activeBookTitle] = newActiveArray
     setProgressArrayInDict(newProgressArrayInDict)
