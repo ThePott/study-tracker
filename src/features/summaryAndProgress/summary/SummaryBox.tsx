@@ -24,9 +24,12 @@ const SummaryBox = ({ progress }: { progress: Progress }) => {
   const style = {
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
     transition,
-    opacity: isDragging ? 0.3 : 1,
     zIndex: isDragging ? 1000 : 1,
   }
+
+  const baseClassName = `${styleClassName.pTight}`
+  const isDraggingClassName = isDragging ? `border-2 border-white` : `${styleClassName.bgRed}`
+  const className = `${baseClassName} ${isDraggingClassName}`
 
   return (
     <MemoCard
@@ -34,15 +37,19 @@ const SummaryBox = ({ progress }: { progress: Progress }) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`${styleClassName.pTight} ${styleClassName.bgRed}`}>
+      className={className}>
 
-      <p className={`break-keep ${styleClassName.fontJustBold}`}>{progress.bookTitle}</p>
-      <p className={`break-keep `}>{progress.stepTitle}</p>
-      <div className="flex justify-between">
-        <p className={`break-keep ${styleClassName.fontJustBold}`}>{progress.questionGroupDescription}</p>
-        <p className={`self-end`}>{progress.inProgressStatus}</p>
+
+      <div className={isDragging && "opacity-0"}>
+        <p className={`break-keep ${styleClassName.fontJustBold}`}>{progress.bookTitle}</p>
+        <p className={`break-keep `}>{progress.stepTitle}</p>
+
+        <div className="flex justify-between">
+          <p className={`break-keep ${styleClassName.fontJustBold}`}>{progress.questionGroupDescription}</p>
+          <p className={`self-end`}>{progress.inProgressStatus}</p>
+        </div>
       </div>
-      
+
     </MemoCard>
   )
 }

@@ -28,7 +28,7 @@ const SummaryColumn = memo(({ inProgressStatus }: { inProgressStatus: InProgress
     });
 
     return (
-        <div ref={setNodeRef} className={`flex flex-col gap-2 ${styleClassName.memoWidth} bg-amber-300`}>
+        <div ref={setNodeRef} className={`flex flex-col gap-2 ${styleClassName.memoWidth}`}>
 
             <p className="text-center">{inProgressStatusToKorean[inProgressStatus]}</p>
 
