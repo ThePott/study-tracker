@@ -1,8 +1,11 @@
 import { InProgressStatus } from '@/src/shared/interfaces'
 import useBoundStore from '@/src/shared/store'
 import SummaryBox from './SummaryBox'
+import { styleClassName } from '@/src/shared/constants/style'
+import { useDroppable } from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
-const inProgressStatusToKoreanDict: Record<InProgressStatus, string> = {
+const inProgressStatusToKorean: Record<InProgressStatus, string> = {
     PREV_HOMEWROK: "전 숙제",
     TODAY_WORK: "할당",
     NEXT_HOMEWORK: "새 숙제"
@@ -14,10 +17,23 @@ const SummaryColumn = ({ inProgressStatus }: { inProgressStatus: InProgressStatu
     const flattenedArray = valueArray.flat()
     const filteredArray = flattenedArray.filter((progress) => progress.completed === "IN_PROGRESS" && progress.inProgressStatus === inProgressStatus)
 
+    const { setNodeRef, isOver } = useDroppable({
+        id: inProgressStatus,
+        data: {
+            type: "COLUMN",
+            inProgressStatus
+        }
+    });
+
     return (
-        <div className="flex flex-col gap-2">
-            <p className="text-center">{inProgressStatusToKoreanDict[inProgressStatus]}</p>
-            {filteredArray.map((progress) => <SummaryBox progress={progress} />)}
+        <div ref={setNodeRef} className={`flex flex-col gap-2 ${styleClassName.memoWidth}`}>
+
+            <p className="text-center">{inProgressStatusToKorean[inProgressStatus]}</p>
+
+            <SortableContext items={filteredArray} strategy={verticalListSortingStrategy}>
+                {filteredArray.map((progress) => <SummaryBox progress={progress} />)}
+            </SortableContext>
+            
         </div>
     )
 }

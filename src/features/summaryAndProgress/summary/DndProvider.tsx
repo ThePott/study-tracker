@@ -51,7 +51,7 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
     // 다른 보드 위로 드래그 중일 때
     // 시각적 피드백을 위해 임시로 타입 변경 (실제 데이터는 handleDragEnd에서 변경됨)
     if (activeItem.inProgressStatus === overData.inProgressStatus) { return }
-    if (inProgressStatusArray.includes(overData.inProgressStatus)) {
+    if (!inProgressStatusArray.includes(overData.inProgressStatus)) {
       debugger
       throw new Error("---- KANBAN ERROR: no over data in progress status")
     }
