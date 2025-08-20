@@ -16,7 +16,7 @@ const plainFontClassNameDict = {
   "COMPLETED": `${styleClassName.fontMuted}`,
 }
 const accentFontClassNameDict = {
-  "NOT_STARTED": `${styleClassName.fontMuted}`,
+  "NOT_STARTED": `${styleClassName.fontVivid}`,
   "IN_PROGRESS": `${styleClassName.fontVividInverted}`,
   "COMPLETED": `${styleClassName.fontVivid}`,
 }

@@ -5,12 +5,17 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import AppLayout from './features/layouts/AppLayout'
 import AppLayoutSkeleton from './features/layouts/AppLayoutSkeleton'
+import ProgressSkeleton from './features/layouts/ProgressSkeleton'
 import './index.css'
 import { loadStudentArray } from './shared/services/loaders'
 
 const MainPage = lazy(() => import('./pages/MainPage'))
 const ManagePage = lazy(() => import('./pages/ManagePage'))
-const ProgressPage = lazy(() => import('./pages/ProgressPage'))
+const ProgressPage = lazy(() => 
+  import('./pages/ProgressPage').then(module => 
+    new Promise<typeof module>(resolve => setTimeout(() => resolve(module), 5000))
+  )
+);
 const ReviewCheckPage = lazy(() => import('./pages/ReviewCheckPage'))
 const SummaryPage = lazy(() => import('./pages/SummaryPage'))
 
@@ -19,7 +24,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element:
-      <Suspense>
+      <Suspense key="main-page">
         <MainPage />
       </Suspense>
   },
@@ -33,29 +38,28 @@ const router = createBrowserRouter([
       {
         path: "/manage",
         element:
-          <Suspense fallback={<h2>하하하하 아직 안 했지롱</h2>}>
+          <Suspense key="manage-page" fallback={<h2>하하하하 아직 안 했지롱</h2>}>
             <ManagePage />
           </Suspense>
       },
       {
         path: "/summary",
         element:
-          <Suspense fallback={<h2>하하하하 아직 안 했지롱</h2>}>
+          <Suspense key="summary-page" fallback={<h2>하하하하 아직 안 했지롱</h2>}>
             <SummaryPage />
           </Suspense>
       },
       {
         path: "/progress",
         element:
-          <Suspense>
-          {/* <Suspense fallback={<ProgressSkeleton />}> */}
+          <Suspense fallback={<ProgressSkeleton />}>
             <ProgressPage />
           </Suspense>,
       },
       {
         path: "/review-check",
         element:
-          <Suspense fallback={<h2>하하하하 아직 안 했지롱</h2>}>
+          <Suspense key="review-check-page" fallback={<h2>하하하하 아직 안 했지롱</h2>}>
             <ReviewCheckPage />
           </Suspense>
       },

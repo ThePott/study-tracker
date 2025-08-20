@@ -19,7 +19,7 @@ const GeneralLayoutHeader = ({ children }: { children: React.ReactNode }) => {
 
 const GeneralLayoutOutlet = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={`${styleClassName.flex1Fixed}  ${styleClassName.pExceptB}`}>
+    <div className={`${styleClassName.flex1Fixed} pt-3 pl-3`}>
       {children}
     </div>
   )

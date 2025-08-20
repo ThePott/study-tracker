@@ -4,7 +4,7 @@ import ProgressContent from '../features/progress/ProgressContent'
 import { ApiInfo } from '../shared/interfaces'
 import { requestThenResponse } from '../shared/services/services'
 import useBoundStore from '../shared/store'
-import { useAutoSave } from '../_hooks/autosave'
+import { useAutoSave } from '../shared/services/autosave'
 
 const ProgressPage = () => {
   const doShowSkeleton = useBoundStore((state) => state.doShowSkeleton)
