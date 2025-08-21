@@ -1,4 +1,4 @@
-import Skeleton from "@/src/shared/components/Skeleton"
+import Skeleton from "@/src/features/skeletons/Skeleton"
 import { styleClassName } from "@/src/shared/constants/style"
 
 const ColumnSkeleton = () => {

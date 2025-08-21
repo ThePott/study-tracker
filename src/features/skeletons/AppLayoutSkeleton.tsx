@@ -1,7 +1,8 @@
 import GeneralLayout from "@/src/shared/components/GeneralLayout"
-import Skeleton from "@/src/shared/components/Skeleton"
+import Skeleton from "@/src/features/skeletons/Skeleton"
 import { styleClassName } from "@/src/shared/constants/style"
 import useBoundStore from "@/src/shared/store"
+import SummarySkeleton from "./SummarySkeleton"
 
 const AppLayoutSkeleton = () => {
     const user = useBoundStore((state) => state.user)
@@ -22,12 +23,14 @@ const AppLayoutSkeleton = () => {
                     </GeneralLayout.Sidebar>
                 }
 
+
                 <GeneralLayout.Outlet>
-                    <div className={`${styleClassName.flex} h-full`}>
+                    <SummarySkeleton />
+                    {/* <div className={`${styleClassName.flex} h-full`}>
                         <Skeleton />
                         <Skeleton />
                         <Skeleton />
-                    </div>
+                    </div> */}
                 </GeneralLayout.Outlet>
             </GeneralLayout.Body>
         </GeneralLayout>

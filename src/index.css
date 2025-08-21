@@ -18,6 +18,18 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --skeleton-vivid: oklch(0 0 0 / 0.05);
+  --skeleton-muted: oklch(0 0 0 / 0.03);
+  --skeleton-highlight: var(--skeleton-vivid);
+  --skeleton-bg: var(--skeleton-muted);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --skeleton-vivid: oklch(1 0 0 / 0.07);
+    --skeleton-muted: oklch(1 0 0 / 0.05);
+  }
 }
 
 #root {

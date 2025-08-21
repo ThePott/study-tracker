@@ -1,7 +1,7 @@
-import { styleClassName } from "../constants/style"
-import { SkeletonVariant } from "../interfaces"
-import { makeSkeletonSizeStyle, type FontVariant } from "../utils"
-
+import { styleClassName } from "../../shared/constants/style"
+import { SkeletonVariant } from "../../shared/interfaces"
+import { makeSkeletonSizeStyle, type FontVariant } from "../../shared/utils"
+import "./skeletonBgAnimation.css"
 
 interface SkeletonProps {
     skeletonVariant?: SkeletonVariant
@@ -20,7 +20,8 @@ interface SkeletonProps {
 const Skeleton = ({ skeletonVariant = "BOX", fontVariant, heightInPixel, widthInPixel, isPill = false }: SkeletonProps) => {
     const sizeStyle = makeSkeletonSizeStyle(skeletonVariant, fontVariant, heightInPixel, widthInPixel)
     return (
-        <div style={sizeStyle} className={`${styleClassName.borderMuted} ${styleClassName.bgMuted} ${isPill ? styleClassName.roundedFull : styleClassName.rounded} shrink-0`}>
+        <div style={sizeStyle} className={`skeleton ${styleClassName.bgMuted} ${isPill ? styleClassName.roundedFull : styleClassName.rounded} shrink-0`}>
+        {/* <div style={sizeStyle} className={`${styleClassName.borderMuted} ${styleClassName.bgMuted} ${isPill ? styleClassName.roundedFull : styleClassName.rounded} shrink-0`}> */}
 
         </div>
     )

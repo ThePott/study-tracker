@@ -9,6 +9,7 @@ import ProgressSkeleton from './features/skeletons/ProgressSkeleton'
 import './index.css'
 import { loadStudentArray } from './shared/services/loaders'
 import SummarySkeleton from './features/skeletons/SummarySkeleton'
+import { testNeverEndingLoader } from './shared/utils'
 
 const MainPage = lazy(() => import('./pages/MainPage'))
 const ManagePage = lazy(() => import('./pages/ManagePage'))
