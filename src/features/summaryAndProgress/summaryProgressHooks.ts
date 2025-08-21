@@ -2,7 +2,7 @@ import { ApiInfo } from "@/src/shared/interfaces"
 import { useAutoSave } from "@/src/shared/services/autosave"
 import { requestThenResponse } from "@/src/shared/services/services"
 import useBoundStore from "@/src/shared/store"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 export const useGetProgressAfterMount = () => {
     const selectedUser = useBoundStore((state) => state.selectedUser)
@@ -14,11 +14,12 @@ export const useGetProgressAfterMount = () => {
     const setIsResponseEmpty = useBoundStore((state) => state.setIsResponseEmpty)
     const editedCompltedDict = useBoundStore((state) => state.editedCompletedDict)
     const mergeCompletedToInitial = useBoundStore((state) => state.mergeCompletedToInitial)
+    const userIdRef = useRef<number>(null)
     bookTitleArray.sort()
 
     useEffect(() => {
         if (!selectedUser) { return }
-        if (Object.values(progressArrayInDict).length !== 0) { return }
+        if (Object.values(progressArrayInDict).length !== 0 && userIdRef.current === selectedUser.id) { return }
 
         const apiInfo: ApiInfo = {
             additionalUrl: `/progress/student/${selectedUser.id}`,
@@ -29,6 +30,7 @@ export const useGetProgressAfterMount = () => {
         }
         console.log({ selectedUser })
         requestThenResponse(apiInfo, setApiInfo)
+        userIdRef.current = selectedUser.id
     }, [selectedUser])
 
     useAutoSave("completed", editedCompltedDict, mergeCompletedToInitial)
