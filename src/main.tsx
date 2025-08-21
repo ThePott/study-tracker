@@ -8,6 +8,7 @@ import AppLayoutSkeleton from './features/skeletons/AppLayoutSkeleton'
 import ProgressSkeleton from './features/skeletons/ProgressSkeleton'
 import './index.css'
 import { loadStudentArray } from './shared/services/loaders'
+import SummarySkeleton from './features/skeletons/SummarySkeleton'
 
 const MainPage = lazy(() => import('./pages/MainPage'))
 const ManagePage = lazy(() => import('./pages/ManagePage'))
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
       {
         path: "/summary",
         element:
-          <Suspense key="summary-page" fallback={<h2>하하하하 아직 안 했지롱</h2>}>
+          <Suspense key="summary-page" fallback={<SummarySkeleton /> }>
             <SummaryPage />
           </Suspense>
       },

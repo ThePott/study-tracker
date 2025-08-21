@@ -1,8 +1,8 @@
-import { useGetProgressAfterMount } from "../features/summaryAndProgress/summaryProgressHooks"
+import SummarySkeleton from "../features/skeletons/SummarySkeleton"
 import SummaryContent from "../features/summaryAndProgress/summary/SummaryContent"
-import useBoundStore from "../shared/store"
+import { useGetProgressAfterMount } from "../features/summaryAndProgress/summaryProgressHooks"
 import { useAutoSave } from "../shared/services/autosave"
-import ProgressSkeleton from "../features/skeletons/ProgressSkeleton"
+import useBoundStore from "../shared/store"
 
 
 const SummaryPage = () => {
@@ -16,7 +16,7 @@ const SummaryPage = () => {
   useAutoSave("in_progress_status", editedStatusDict, mergeStatusToInitial)
 
   const skeletonCondition = doShowSkeleton || (Object.entries(progressArrayInDict).length === 0 && !isResponseEmpty)
-  if (skeletonCondition) { return <ProgressSkeleton /> }
+  if (skeletonCondition) { return <SummarySkeleton /> }
   return (
     <SummaryContent />
   )
