@@ -1,4 +1,4 @@
-import ProgressSkeleton from '../features/layouts/ProgressSkeleton'
+import ProgressSkeleton from '../features/skeletons/ProgressSkeleton'
 import { useGetProgressAfterMount } from '../features/summaryAndProgress/summaryProgressHooks'
 import ProgressContent from '../features/summaryAndProgress/progress/ProgressContent'
 import useBoundStore from '../shared/store'
