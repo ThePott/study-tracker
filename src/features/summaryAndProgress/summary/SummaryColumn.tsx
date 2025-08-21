@@ -19,7 +19,7 @@ const SummaryColumn = memo(({ inProgressStatus }: { inProgressStatus: InProgress
     const flattenedArray = valueArray.flat()
     const filteredArray = flattenedArray.filter((progress) => progress.completed === "IN_PROGRESS" && progress.inProgressStatus === inProgressStatus)
 
-    const { setNodeRef, isOver } = useDroppable({
+    const { setNodeRef } = useDroppable({
         id: inProgressStatus,
         data: {
             type: "COLUMN",
