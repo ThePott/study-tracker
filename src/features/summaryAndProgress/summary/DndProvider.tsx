@@ -1,8 +1,11 @@
+import MemoCard from '@/src/shared/components/MemoCard';
+import { styleClassName } from '@/src/shared/constants/style';
 import { inProgressStatusArray } from '@/src/shared/interfaces';
 import useBoundStore from '@/src/shared/store';
-import { DndContext, DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import { ReactNode, useCallback, useState } from 'react';
+import { inProgressStatusToBg } from './SummaryClassNameDict';
 
 const DndProvider = ({ children }: { children: ReactNode }) => {
   const [activeBookTitle, setActiveBookTitle] = useState<string | null>(null)
@@ -17,6 +20,8 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
 
     return activeItem
   }, [activeId])
+
+  const activeItem = findActiveItem()
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
@@ -96,6 +101,19 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
       onDragEnd={handleDragEnd}
     >
       {children}
+
+      <DragOverlay>
+        <MemoCard className={inProgressStatusToBg[activeItem?.inProgressStatus]}>
+            <p className={`break-keep ${styleClassName.fontJustBold}`}>{activeItem?.bookTitle}</p>
+            <p className={`break-keep `}>{activeItem?.stepTitle}</p>
+
+            <div className="flex justify-between">
+              <p className={`break-keep ${styleClassName.fontJustBold}`}>{activeItem?.questionGroupDescription}</p>
+              <p className={`self-end`}>{activeItem?.inProgressStatus}</p>
+            </div>
+        </MemoCard>
+      </DragOverlay>
+
     </DndContext>
   )
 }

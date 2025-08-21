@@ -34,7 +34,7 @@ const ProgressBox = memo(({ progress }: { progress: Progress }) => {
     changeCompleted(progress)
   }
 
-  const memoBaseClassName = `${styleClassName.pTight} flex flex-col`
+  const memoBaseClassName = `flex flex-col`
   const memoClassName = `${memoBaseClassName} ${bgClassNameDict[progress.completed]}`
 
   return (

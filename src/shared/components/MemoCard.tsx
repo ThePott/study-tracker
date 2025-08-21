@@ -8,7 +8,7 @@ type MemoCardProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement
 const MemoCard = (props: MemoCardProps) => {
   const { className, children, ...rest } = props
   return (
-    <div {...rest} className={`p-6 ${styleClassName.memoWidth}  ${styleClassName.rounded} ${className}`}>
+    <div {...rest} className={`${styleClassName.pTight}  ${styleClassName.memoWidth}  ${styleClassName.rounded} ${className}`}>
       {children}
     </div>
   )
