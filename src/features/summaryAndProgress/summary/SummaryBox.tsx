@@ -2,6 +2,7 @@ import MemoCard from "@/src/shared/components/MemoCard"
 import { styleClassName } from "@/src/shared/constants/style"
 import { Progress } from "@/src/shared/interfaces"
 import { useSortable } from "@dnd-kit/sortable"
+import { inProgressStatusToBg } from "./SummaryClassNameDict"
 
 const SummaryBox = ({ progress }: { progress: Progress }) => {
   const {
@@ -19,7 +20,7 @@ const SummaryBox = ({ progress }: { progress: Progress }) => {
       inProgressStatus: progress.inProgressStatus
     }
   })
-
+  console.log({transition})
   // 드래그 중일 때의 스타일
   const style = {
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
@@ -28,7 +29,7 @@ const SummaryBox = ({ progress }: { progress: Progress }) => {
   }
 
   const baseClassName = `${styleClassName.pTight}`
-  const isDraggingClassName = isDragging ? `border-2 border-white` : `${styleClassName.bgRed}`
+  const isDraggingClassName = isDragging ? `border-2 border-white` : `${inProgressStatusToBg[progress.inProgressStatus]}`
   const className = `${baseClassName} ${isDraggingClassName}`
 
   return (
