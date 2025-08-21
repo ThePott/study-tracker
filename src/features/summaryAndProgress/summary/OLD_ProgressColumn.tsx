@@ -11,7 +11,7 @@ import { styleClassName } from '@/src/shared/constants/style';
 
 const makeColumnName = (inProgressStatus: InProgressStatus): string => {
   switch (inProgressStatus) {
-    case 'PREV_HOMEWROK': return "전 숙제"
+    case 'PREV_HOMEWORK': return "전 숙제"
     case 'TODAY_WORK': return "할당"
     case 'NEXT_HOMEWORK': return "새 숙제"
     default:

@@ -7,7 +7,7 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { memo } from 'react'
 
 const inProgressStatusToKorean: Record<InProgressStatus, string> = {
-    PREV_HOMEWROK: "전 숙제",
+    PREV_HOMEWORK: "전 숙제",
     TODAY_WORK: "할당",
     NEXT_HOMEWORK: "새 숙제"
 }

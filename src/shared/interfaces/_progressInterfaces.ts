@@ -1,7 +1,7 @@
 export const completedStatusArray = ["NOT_STARTED", "IN_PROGRESS", "COMPLETED"] as const;
 export type CompletedStatus = typeof completedStatusArray[number]
 
-export const inProgressStatusArray = ["PREV_HOMEWROK", "TODAY_WORK", "NEXT_HOMEWORK"] as const
+export const inProgressStatusArray = ["PREV_HOMEWORK", "TODAY_WORK", "NEXT_HOMEWORK"] as const
 export type InProgressStatus = typeof inProgressStatusArray[number]
 
 /** DEPRECATED: use `Progress` instead */

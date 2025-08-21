@@ -76,7 +76,19 @@ const createProgressSlice: StateCreator<BoundState, [], [], ProgressSlice> = (se
       const progressArrayInDict = { ...state.progressArrayInDict }
       progressArrayInDict[bookTitle] = progressArrayInDict[bookTitle].map((el) => el.id === id ? { ...el, inProgressStatus } : el)
 
-      return { progressArrayInDict }
+      // 이전 변경상태랑 달라지지 않았으니 유지
+      if (state.editedStatusDict[id] === inProgressStatus) {
+        return { progressArrayInDict }
+      }
+
+      // 최초로 돌아왔으면 edited에서 삭제
+      if (state.initialStatusDict[id] === inProgressStatus) {
+        const { [id]: _removedValue, ...rest } = state.editedStatusDict
+        return { editedStatusDict: rest, progressArrayInDict }
+      }
+
+      // 최초랑 다르면 새로 추가
+      return { editedStatusDict: { ...state.editedStatusDict, [id]: inProgressStatus }, progressArrayInDict }
     })
   },
   mergeStatusToInitial() {
