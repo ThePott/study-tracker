@@ -31,4 +31,4 @@ jobs:
               run: aws s3 cp ./dist s3://dev-study-tracker --recursive
 
             - name: cloudfront 캐시 무효화
-              run: aws cloudfront create-invalidation --distribution-id E1161UDEKTHD9S --path "/*"
+              run: aws cloudfront create-invalidation --distribution-id E1XMUGJRMP58OX --path "/*"
