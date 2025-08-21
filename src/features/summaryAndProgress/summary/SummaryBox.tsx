@@ -20,7 +20,6 @@ const SummaryBox = ({ progress }: { progress: Progress }) => {
       inProgressStatus: progress.inProgressStatus
     }
   })
-  console.log({transition})
   // 드래그 중일 때의 스타일
   const style = {
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
@@ -41,13 +40,13 @@ const SummaryBox = ({ progress }: { progress: Progress }) => {
       className={className}>
 
 
-      <div className={isDragging && "opacity-0"}>
-        <p className={`break-keep ${styleClassName.fontJustBold}`}>{progress.bookTitle}</p>
-        <p className={`break-keep `}>{progress.stepTitle}</p>
+      <div className={isDragging ? "opacity-0" : ""}>
+        <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{progress.bookTitle}</p>
+        <p className={`break-keep ${styleClassName.fontMutedInverted}`}>{progress.stepTitle}</p>
 
         <div className="flex justify-between">
-          <p className={`break-keep ${styleClassName.fontJustBold}`}>{progress.questionGroupDescription}</p>
-          <p className={`self-end`}>{progress.inProgressStatus}</p>
+          <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{progress.questionGroupDescription}</p>
+          <p className={`self-end ${styleClassName.fontMutedInverted}`}>{progress.inProgressStatus}</p>
         </div>
       </div>
 

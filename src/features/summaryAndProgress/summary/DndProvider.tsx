@@ -42,7 +42,6 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
     if (!activeItem) { return }
 
     if (activeItem.inProgressStatus === overData.inProgressStatus) {
-      console.log("---- same status return")
       return
     }
 
@@ -51,7 +50,6 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
       throw new Error("---- KANBAN ERROR: no over data in progress status")
     }
     updateInProgressStatus(activeItem.bookTitle, activeItem.id, overData.inProgressStatus)
-    console.log("---- diff status:", activeItem.inProgressStatus, overData.inProgressStatus)
   }
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -59,12 +57,10 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
 
     if (!over) {
       setActiveId(null)
-      console.log("---- no over at end")
       return
     }
 
     if (over.id === active.id || !over.data?.current?.inProgressStatus) {
-      console.log("---- nothing to log")
       setActiveId(null)
       return
     }
@@ -104,13 +100,13 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
 
       <DragOverlay>
         <MemoCard className={`${inProgressStatusToBg[activeItem?.inProgressStatus]} z-20`}>
-            <p className={`break-keep ${styleClassName.fontJustBold}`}>{activeItem?.bookTitle}</p>
-            <p className={`break-keep `}>{activeItem?.stepTitle}</p>
+          <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{activeItem?.bookTitle}</p>
+          <p className={`break-keep ${styleClassName.fontMutedInverted}`}>{activeItem?.stepTitle}</p>
 
-            <div className="flex justify-between">
-              <p className={`break-keep ${styleClassName.fontJustBold}`}>{activeItem?.questionGroupDescription}</p>
-              <p className={`self-end`}>{activeItem?.inProgressStatus}</p>
-            </div>
+          <div className="flex justify-between">
+            <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{activeItem?.questionGroupDescription}</p>
+            <p className={`self-end ${styleClassName.fontMutedInverted}`}>{activeItem?.inProgressStatus}</p>
+          </div>
         </MemoCard>
       </DragOverlay>
 
