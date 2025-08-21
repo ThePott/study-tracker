@@ -6,6 +6,7 @@ import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent } 
 import { arrayMove } from '@dnd-kit/sortable';
 import { ReactNode, useCallback, useState } from 'react';
 import { inProgressStatusToBg } from './SummaryClassNameDict';
+import { SummaryBoxContent } from './SummaryBox';
 
 const DndProvider = ({ children }: { children: ReactNode }) => {
   const [activeBookTitle, setActiveBookTitle] = useState<string | null>(null)
@@ -100,13 +101,7 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
 
       <DragOverlay>
         <MemoCard className={`${inProgressStatusToBg[activeItem?.inProgressStatus]} z-20`}>
-          <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{activeItem?.bookTitle}</p>
-          <p className={`break-keep ${styleClassName.fontMutedInverted}`}>{activeItem?.stepTitle}</p>
-
-          <div className="flex justify-between">
-            <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{activeItem?.questionGroupDescription}</p>
-            <p className={`self-end ${styleClassName.fontMutedInverted}`}>{activeItem?.inProgressStatus}</p>
-          </div>
+          <SummaryBoxContent progress={activeItem} />
         </MemoCard>
       </DragOverlay>
 

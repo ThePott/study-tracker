@@ -4,6 +4,20 @@ import { Progress } from "@/src/shared/interfaces"
 import { useSortable } from "@dnd-kit/sortable"
 import { inProgressStatusToBg } from "./SummaryClassNameDict"
 
+export const SummaryBoxContent = ({ progress }: { progress: Progress | null }) => {
+  return (
+    <>
+      <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{progress?.bookTitle}</p>
+      <p className={`break-keep ${styleClassName.fontMutedInverted}`}>{progress?.stepTitle}</p>
+
+      <div className="flex justify-between">
+        <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{progress?.questionGroupDescription}</p>
+        <p className={`self-end ${styleClassName.fontMutedInverted}`}>{progress?.inProgressStatus}</p>
+      </div>
+    </>
+  )
+}
+
 const SummaryBox = ({ progress }: { progress: Progress }) => {
   const {
     attributes,
@@ -41,13 +55,7 @@ const SummaryBox = ({ progress }: { progress: Progress }) => {
 
 
       <div className={isDragging ? "opacity-0" : ""}>
-        <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{progress.bookTitle}</p>
-        <p className={`break-keep ${styleClassName.fontMutedInverted}`}>{progress.stepTitle}</p>
-
-        <div className="flex justify-between">
-          <p className={`break-keep ${styleClassName.fontVividInverted} ${styleClassName.fontJustBold}`}>{progress.questionGroupDescription}</p>
-          <p className={`self-end ${styleClassName.fontMutedInverted}`}>{progress.inProgressStatus}</p>
-        </div>
+        <SummaryBoxContent progress={progress}/>
       </div>
 
     </MemoCard>
