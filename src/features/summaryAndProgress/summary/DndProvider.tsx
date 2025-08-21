@@ -103,7 +103,7 @@ const DndProvider = ({ children }: { children: ReactNode }) => {
       {children}
 
       <DragOverlay>
-        <MemoCard className={inProgressStatusToBg[activeItem?.inProgressStatus]}>
+        <MemoCard className={`${inProgressStatusToBg[activeItem?.inProgressStatus]} z-20`}>
             <p className={`break-keep ${styleClassName.fontJustBold}`}>{activeItem?.bookTitle}</p>
             <p className={`break-keep `}>{activeItem?.stepTitle}</p>
 

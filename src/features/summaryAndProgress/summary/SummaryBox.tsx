@@ -25,11 +25,11 @@ const SummaryBox = ({ progress }: { progress: Progress }) => {
   const style = {
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
     transition,
-    zIndex: isDragging ? 1000 : 1,
+    zIndex: isDragging ? 10 : 1,
   }
 
   const baseClassName = `${styleClassName.pTight}`
-  const isDraggingClassName = isDragging ? `border-2 border-white` : `${inProgressStatusToBg[progress.inProgressStatus]}`
+  const isDraggingClassName = isDragging ? `border-2 border-white/60` : `${inProgressStatusToBg[progress.inProgressStatus]}`
   const className = `${baseClassName} ${isDraggingClassName}`
 
   return (
