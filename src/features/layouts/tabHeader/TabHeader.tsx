@@ -17,33 +17,12 @@ const TabHeader = () => {
         // 공통 버튼에 너무 많은 역할을 주면 안 됨
         // 추가로 할 땐
         <>
-            {user.role === "INSTRUCTOR" && (
-                <NeutralButton
-                    isOn={pathname === "/manage"}
-                    onClick={() => navigate("/manage")}
-                    label="학생 관리"
-                    variant="VIVID_PILL"
-                />
-            )}
-
-            <NeutralButton
-                isOn={pathname === "/summary"}
-                onClick={() => navigate("/summary")}
-                label="요약"
-                variant="VIVID_PILL"
-            />
-            <NeutralButton
-                isOn={pathname === "/progress"}
-                onClick={() => navigate("/progress")}
-                label="진도표"
-                variant="VIVID_PILL"
-            />
-            <NeutralButton
-                isOn={pathname === "/review-check"}
-                onClick={() => navigate("/review-check")}
-                label="오답 체크"
-                variant="VIVID_PILL"
-            />
+            {user.role === "INSTRUCTOR" && <NeutralButton isOn={pathname === "/manage"} onClick={() => navigate("/manage")} variant='VIVID_PILL'>학생 관리</NeutralButton>}
+            
+            <NeutralButton isOn={pathname === "/summary"}
+                onClick={() => navigate("/summary")} variant='VIVID_PILL'>요약</NeutralButton>
+            <NeutralButton isOn={pathname === "/progress"} onClick={() => navigate("/progress")} variant='VIVID_PILL'>진도표</NeutralButton>
+            <NeutralButton isOn={pathname === "/review-check"} onClick={() => navigate("/review-check")} variant='VIVID_PILL'>오답 체크</NeutralButton>
         </>
     )
 }

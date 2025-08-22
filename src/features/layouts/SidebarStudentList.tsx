@@ -8,18 +8,13 @@ import { useLoaderData } from "react-router"
 const UserButton = memo(({ user, isOn }: { user: User; isOn: boolean }) => {
     const setSelectedUser = useBoundStore((state) => state.setSelectedUser)
 
-    const handleClick = () => {
-        setSelectedUser(user)
-    }
-    return (
-        // 아이콘은 선택적으로 지정 여부에 따라 표시 정함
-        <NeutralButton
-            isOn={isOn}
-            onClick={handleClick}
-            label={user.name}
-            variant={"NEUTRAL"}
-        />
-    )
+  const handleClick = () => {
+    setSelectedUser(user)
+  }
+  return (
+    // 아이콘은 선택적으로 지정 여부에 따라 표시 정함
+    <NeutralButton isOn={isOn} onClick={handleClick} variant={"NEUTRAL"} >{user.name}</NeutralButton>
+  )
 })
 
 const SidebarStudentList = () => {

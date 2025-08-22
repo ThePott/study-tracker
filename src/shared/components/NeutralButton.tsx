@@ -4,17 +4,17 @@ import { styleClassName } from "../constants/style"
 type ButtonVariant = "NEUTRAL" | "VIVID_PILL"
 
 interface AdditionalProps {
-    label: string
     variant: ButtonVariant
     isOn?: boolean
 }
 
-type NeutralButtonProps = React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-> &
-    AdditionalProps
+type NeutralButtonProps =
+    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+    & AdditionalProps
 
+
+
+    
 const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean) => {
     const classNameArray: string[] = [styleClassName.button]
 
@@ -37,14 +37,12 @@ const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean) => {
 }
 
 const NeutralButton = (props: NeutralButtonProps) => {
-    const { label, variant, isOn, ...defaultProps } = props
+    const { variant, isOn, children, ...defaultProps } = props
 
     const className = makeButtonClassName(variant, isOn)
 
     return (
-        <button {...defaultProps} className={className}>
-            {label}
-        </button>
+        <button {...defaultProps} className={className}>{children}</button>
     )
 }
 
