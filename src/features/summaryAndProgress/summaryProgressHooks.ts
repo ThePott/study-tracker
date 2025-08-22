@@ -5,6 +5,7 @@ import useBoundStore from "@/src/shared/store"
 import { useEffect, useRef } from "react"
 
 export const useGetProgressAfterMount = () => {
+    const user = useBoundStore((state) => state.user)
     const selectedUser = useBoundStore((state) => state.selectedUser)
     const setApiInfo = useBoundStore((state) => state.setApiInfo)
     const setProgressArrayInDict = useBoundStore(
@@ -47,7 +48,7 @@ export const useGetProgressAfterMount = () => {
         }
         console.log({ selectedUser })
         requestThenResponse(apiInfo, setApiInfo)
-        userIdRef.current = selectedUser.id
+        prevSelectedStudentIdRef.current = selectedUser.id
     }, [selectedUser])
 
     useAutoSave("completed", editedCompltedDict, mergeCompletedToInitial)
