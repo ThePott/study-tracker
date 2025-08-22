@@ -64,7 +64,7 @@ export const shapeClassName = {
 
 /** 얘는 위의 것들 사용함. 위에는 아래 것을 사용 못 함 */
 const vividButtonColorBase = `${paddingMarginClassName.pTight} transition rounded-full border-1 font-semibold`
-const vividButtonColorOff = `${vividButtonColorBase} ${colorClassName.fontVivid} 
+const vividButtonColorOff = `${colorClassName.fontVivid} ${vividButtonColorBase} ${colorClassName.fontVivid} 
 border-black/0 hover:border-black/10 active:bg-black/10
 dark:border-white/0 dark:hover:border-white/10 dark:active:bg-white/10`
 const vividButtonColorOn = `${vividButtonColorBase} ${colorClassName.fontVividInverted} ${colorClassName.bgInverted}`
