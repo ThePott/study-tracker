@@ -48,7 +48,7 @@ export const useGetProgressAfterMount = () => {
         }
         console.log({ selectedUser })
         requestThenResponse(apiInfo, setApiInfo)
-        prevSelectedStudentIdRef.current = selectedUser.id
+        // prevSelectedStudentIdRef.current = selectedUser.id
     }, [selectedUser])
 
     useAutoSave("completed", editedCompltedDict, mergeCompletedToInitial)
