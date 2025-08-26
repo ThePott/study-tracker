@@ -1,12 +1,14 @@
-import { ApiInfo } from "../interfaces";
-import axiosNeon from "./neon";
+import { ApiInfo } from "../interfaces"
+import axiosNeon from "./neon"
 
 export const requestThenResponse = async (
     apiInfo: ApiInfo,
-    setApiInfo: (apiInfo: ApiInfo | null) => void,
+    setApiInfo: (apiInfo: ApiInfo | null) => void
 ) => {
     try {
-        if (!apiInfo) { throw new Error("---- CANNOT REQUEST WITHOUT INFO") }
+        if (!apiInfo) {
+            throw new Error("---- CANNOT REQUEST WITHOUT INFO")
+        }
         apiInfo.loadingSetter?.(true)
         apiInfo?.setIsResponseEmpty(false)
 
@@ -17,15 +19,23 @@ export const requestThenResponse = async (
                 result = responseGet.data
                 break
             case "POST":
-                const responsePost = await axiosNeon.post(apiInfo.additionalUrl, apiInfo.body)
+                const responsePost = await axiosNeon.post(
+                    apiInfo.additionalUrl,
+                    apiInfo.body
+                )
                 result = responsePost.data
                 break
             case "PATCH":
-                const responsePut = await axiosNeon.put(apiInfo.additionalUrl, apiInfo.body)
+                const responsePut = await axiosNeon.put(
+                    apiInfo.additionalUrl,
+                    apiInfo.body
+                )
                 result = responsePut.data
                 break
             case "DELETE":
-                const responseDelete = await axiosNeon.delete(apiInfo.additionalUrl)
+                const responseDelete = await axiosNeon.delete(
+                    apiInfo.additionalUrl
+                )
                 result = responseDelete.data
                 break
             default:
@@ -35,8 +45,7 @@ export const requestThenResponse = async (
         apiInfo.responseHandler?.(result)
         if (Object.entries(result).length === 0) {
             apiInfo?.setIsResponseEmpty(true)
-        } 
-
+        }
     } catch (error) {
         console.error({ error })
     } finally {

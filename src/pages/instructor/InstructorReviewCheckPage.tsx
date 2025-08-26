@@ -1,8 +1,5 @@
-
 const InstructorReviewAssignmentPage = () => {
-  return (
-    <div>InstructorReviewAssignmentPage</div>
-  )
+    return <div>InstructorReviewAssignmentPage</div>
 }
 
 export default InstructorReviewAssignmentPage

@@ -1,17 +1,24 @@
-import { styleClassName } from '../constants/style'
+import { styleClassName } from "../constants/style"
 
 interface AdditionalProps {
-  className?: string
+    className?: string
 }
-type MemoCardProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & AdditionalProps
+type MemoCardProps = React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+> &
+    AdditionalProps
 
 const MemoCard = (props: MemoCardProps) => {
-  const { className, children, ...rest } = props
-  return (
-    <div {...rest} className={`${styleClassName.pTight}  ${styleClassName.memoWidth}  ${styleClassName.rounded} ${className}`}>
-      {children}
-    </div>
-  )
+    const { className, children, ...rest } = props
+    return (
+        <div
+            {...rest}
+            className={`${styleClassName.pTight}  ${styleClassName.memoWidth}  ${styleClassName.rounded} ${className}`}
+        >
+            {children}
+        </div>
+    )
 }
 
 export default MemoCard

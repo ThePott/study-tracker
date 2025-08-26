@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react"
 
 const ReviewCheckStudentContent = () => {
-  return (
-    <div>ReviewCheckStudentContent</div>
-  )
+    return <div>ReviewCheckStudentContent</div>
 }
 
 export default ReviewCheckStudentContent

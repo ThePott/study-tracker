@@ -1,7 +1,10 @@
-import useBoundStore from '@/src/shared/store';
-import BookSection from '@/src/features/reviewCheck/BookSection';
-import CheckboxSection from '@/src/features/reviewCheck/CheckboxSection';
-import { useReviewCheckApi, useReviewCheckUpdate } from '../../_hooks/reviewCheckHooks';
+import useBoundStore from "@/src/shared/store"
+import BookSection from "@/src/features/reviewCheck/BookSection"
+import CheckboxSection from "@/src/features/reviewCheck/CheckboxSection"
+import {
+    useReviewCheckApi,
+    useReviewCheckUpdate,
+} from "../../_hooks/reviewCheckHooks"
 
 const studentId = "68494394d9f33f23de4513c5"
 
@@ -14,16 +17,15 @@ const StdReviewCheckPage = () => {
     useReviewCheckApi(studentId)
     useReviewCheckUpdate()
 
-
     if (!selectedBookTitle) {
         return <BookSection bookTitleArray={bookTitleArray} />
     }
 
-    if (!reviewCheckArray) { return null }
+    if (!reviewCheckArray) {
+        return null
+    }
 
-    return (
-        <CheckboxSection studentId={studentId} />
-    )
+    return <CheckboxSection studentId={studentId} />
 }
 
 export default StdReviewCheckPage

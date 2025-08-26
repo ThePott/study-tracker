@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react"
 
 const InstructorManagePage = () => {
-  return (
-    <div>InstructorManagePage</div>
-  )
+    return <div>InstructorManagePage</div>
 }
 
 export default InstructorManagePage

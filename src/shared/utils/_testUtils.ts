@@ -1,1 +1,1 @@
-export const neverResolve = () => new Promise(() => {});
+export const neverResolve = () => new Promise(() => {})

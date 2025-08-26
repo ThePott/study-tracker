@@ -1,12 +1,16 @@
-import NeutralButton from '@/src/shared/components/NeutralButton'
-import useBoundStore from '@/src/shared/store'
+import NeutralButton from "@/src/shared/components/NeutralButton"
+import useBoundStore from "@/src/shared/store"
 
 const LogoutButton = () => {
-  const setUser = useBoundStore((state) => state.setUser)
+    const setUser = useBoundStore((state) => state.setUser)
 
-  return (
-    <NeutralButton onClick={() => setUser(null)} label='로그아웃' variant={'NEUTRAL'} />
-  )
+    return (
+        <NeutralButton
+            onClick={() => setUser(null)}
+            label="로그아웃"
+            variant={"NEUTRAL"}
+        />
+    )
 }
 
 export default LogoutButton

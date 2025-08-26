@@ -1,5 +1,5 @@
-import React from 'react'
-import { styleClassName } from '../constants/style'
+import React from "react"
+import { styleClassName } from "../constants/style"
 
 type ButtonVariant = "NEUTRAL" | "VIVID_PILL"
 
@@ -9,16 +9,22 @@ interface AdditionalProps {
     isOn?: boolean
 }
 
-type NeutralButtonProps =
-    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
-    & AdditionalProps
+type NeutralButtonProps = React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+> &
+    AdditionalProps
 
 const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean) => {
     const classNameArray: string[] = [styleClassName.button]
 
     if (variant === "NEUTRAL") {
         classNameArray.push(styleClassName.buttonNeutral)
-        classNameArray.push(isOn ? styleClassName.buttonNeutralOn : styleClassName.buttonNeutralOff)
+        classNameArray.push(
+            isOn
+                ? styleClassName.buttonNeutralOn
+                : styleClassName.buttonNeutralOff
+        )
         const className = classNameArray.join(" ")
         return className
     }
@@ -36,7 +42,9 @@ const NeutralButton = (props: NeutralButtonProps) => {
     const className = makeButtonClassName(variant, isOn)
 
     return (
-        <button {...defaultProps} className={className}>{label}</button>
+        <button {...defaultProps} className={className}>
+            {label}
+        </button>
     )
 }
 

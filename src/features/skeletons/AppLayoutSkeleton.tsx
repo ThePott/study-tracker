@@ -11,18 +11,25 @@ const AppLayoutSkeleton = () => {
     return (
         <GeneralLayout>
             <GeneralLayout.Header>
-                {doNeedSidebar && <Skeleton isPill heightInPixel={33.6} widthInPixel={84.9} />}
+                {doNeedSidebar && (
+                    <Skeleton isPill heightInPixel={33.6} widthInPixel={84.9} />
+                )}
                 <Skeleton isPill heightInPixel={33.6} widthInPixel={53.29} />
                 <Skeleton isPill heightInPixel={33.6} widthInPixel={67.13} />
                 <Skeleton isPill heightInPixel={33.6} widthInPixel={84.9} />
             </GeneralLayout.Header>
             <GeneralLayout.Body>
-                {doNeedSidebar &&
+                {doNeedSidebar && (
                     <GeneralLayout.Sidebar doFix={true}>
-                        {Object.keys([...Array(100)]).map((el, index) => <Skeleton key={index} skeletonVariant="BOX" heightInPixel={33.6} />)}
+                        {Object.keys([...Array(100)]).map((el, index) => (
+                            <Skeleton
+                                key={index}
+                                skeletonVariant="BOX"
+                                heightInPixel={33.6}
+                            />
+                        ))}
                     </GeneralLayout.Sidebar>
-                }
-
+                )}
 
                 <GeneralLayout.Outlet>
                     <SummarySkeleton />

@@ -3,10 +3,10 @@ import { SkeletonVariant } from "../interfaces"
 export type FontVariant = "base" | "accent" | "title" | "super"
 
 const fontSizeDict: Record<FontVariant, number> = {
-    "base": 16,
-    "accent": 20,
-    "title": 24,
-    "super": 36
+    base: 16,
+    accent: 20,
+    title: 24,
+    super: 36,
 }
 
 /** MUST SYNC WITH fontConstant */
@@ -28,10 +28,10 @@ export const makeSkeletonSizeStyle = (
         return sizeStyle
     }
 
-    if (!heightInPixel && !widthInPixel) { 
+    if (!heightInPixel && !widthInPixel) {
         sizeStyle.flexGrow = 1
         return sizeStyle
-     }
+    }
 
     sizeStyle.width = widthInPixel ? `${widthInPixel}px` : "100%"
     sizeStyle.height = heightInPixel ? `${heightInPixel}px` : "100%"

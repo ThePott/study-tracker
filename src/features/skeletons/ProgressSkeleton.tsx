@@ -1,5 +1,5 @@
-import RowOutletContainer from '@/src/shared/components/outletContainers/RowContainer'
-import ColumnSkeleton from './ColumnSkeleton'
+import RowOutletContainer from "@/src/shared/components/outletContainers/RowContainer"
+import ColumnSkeleton from "./ColumnSkeleton"
 
 const ProgressSkeleton = () => {
     return (

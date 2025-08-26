@@ -1,12 +1,18 @@
-import { StateCreator } from "zustand";
-import { BoundState, ManageSlice } from "../interfaces";
+import { StateCreator } from "zustand"
+import { BoundState, ManageSlice } from "../interfaces"
 
-const createManageSlce: StateCreator<BoundState, [], [], ManageSlice> = (set) => ({
+const createManageSlce: StateCreator<BoundState, [], [], ManageSlice> = (
+    set
+) => ({
     userArray: [],
-    setUserArray(userArray) { set({ userArray }) },
+    setUserArray(userArray) {
+        set({ userArray })
+    },
 
     selectedUser: null,
-    setSelectedUser(selectedUser) { set({ selectedUser }) },
+    setSelectedUser(selectedUser) {
+        set({ selectedUser })
+    },
     // studentArray: [],
     // setStudentArray(studentArray) { set({ studentArray }) },
 

@@ -1,5 +1,5 @@
-import { styleClassName } from "@/src/shared/constants/style";
-import { InProgressStatus } from "@/src/shared/interfaces";
+import { styleClassName } from "@/src/shared/constants/style"
+import { InProgressStatus } from "@/src/shared/interfaces"
 
 export const inProgressStatusToBg: Record<InProgressStatus, string> = {
     PREV_HOMEWORK: styleClassName.bgRed,

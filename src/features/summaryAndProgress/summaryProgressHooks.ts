@@ -7,26 +7,43 @@ import { useEffect, useRef } from "react"
 export const useGetProgressAfterMount = () => {
     const selectedUser = useBoundStore((state) => state.selectedUser)
     const setApiInfo = useBoundStore((state) => state.setApiInfo)
-    const setProgressArrayInDict = useBoundStore((state) => state.setProgressArrayInDict)
-    const progressArrayInDict = useBoundStore((state) => state.progressArrayInDict)
+    const setProgressArrayInDict = useBoundStore(
+        (state) => state.setProgressArrayInDict
+    )
+    const progressArrayInDict = useBoundStore(
+        (state) => state.progressArrayInDict
+    )
     const bookTitleArray = Object.keys(progressArrayInDict)
     const setDoShowSkeleton = useBoundStore((state) => state.setDoShowSkeleton)
-    const setIsResponseEmpty = useBoundStore((state) => state.setIsResponseEmpty)
-    const editedCompltedDict = useBoundStore((state) => state.editedCompletedDict)
-    const mergeCompletedToInitial = useBoundStore((state) => state.mergeCompletedToInitial)
+    const setIsResponseEmpty = useBoundStore(
+        (state) => state.setIsResponseEmpty
+    )
+    const editedCompltedDict = useBoundStore(
+        (state) => state.editedCompletedDict
+    )
+    const mergeCompletedToInitial = useBoundStore(
+        (state) => state.mergeCompletedToInitial
+    )
     const userIdRef = useRef<number>(null)
     bookTitleArray.sort()
 
     useEffect(() => {
-        if (!selectedUser) { return }
-        if (Object.values(progressArrayInDict).length !== 0 && userIdRef.current === selectedUser.id) { return }
+        if (!selectedUser) {
+            return
+        }
+        if (
+            Object.values(progressArrayInDict).length !== 0 &&
+            userIdRef.current === selectedUser.id
+        ) {
+            return
+        }
 
         const apiInfo: ApiInfo = {
             additionalUrl: `/progress/student/${selectedUser.id}`,
             method: "GET",
             responseHandler: setProgressArrayInDict,
             loadingSetter: setDoShowSkeleton,
-            setIsResponseEmpty
+            setIsResponseEmpty,
         }
         console.log({ selectedUser })
         requestThenResponse(apiInfo, setApiInfo)

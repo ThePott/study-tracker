@@ -4,15 +4,18 @@ import DndProvider from "./DndProvider"
 import SummaryColumn from "./SummaryColumn"
 
 const SummaryContent = () => {
-  return (
-    <DndProvider>
-
-      <RowOutletContainer>
-        {inProgressStatusArray.map((inProgressStatus) => <SummaryColumn key={inProgressStatus} inProgressStatus={inProgressStatus} />)}
-      </RowOutletContainer>
-
-    </DndProvider>
-  )
+    return (
+        <DndProvider>
+            <RowOutletContainer>
+                {inProgressStatusArray.map((inProgressStatus) => (
+                    <SummaryColumn
+                        key={inProgressStatus}
+                        inProgressStatus={inProgressStatus}
+                    />
+                ))}
+            </RowOutletContainer>
+        </DndProvider>
+    )
 }
 
 export default SummaryContent

@@ -1,10 +1,7 @@
-import React from 'react'
+import React from "react"
 
 const StdSummary = () => {
-  
-  return (
-    <div>StdSummary</div>
-  )
+    return <div>StdSummary</div>
 }
 
 export default StdSummary
