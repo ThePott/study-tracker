@@ -7,6 +7,11 @@ const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice>
     setReviewCheckGroupedByBook(reviewCheckGroupedByBook) {
         set({ reviewCheckGroupedByBook })
     },
+
+    selectedBookTitle: null,
+    setSelectedBookTitle(selectedBookTitle) {
+        set({selectedBookTitle})
+    },
     
 })
 

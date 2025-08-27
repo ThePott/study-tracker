@@ -21,5 +21,8 @@ export type ReviewCheckStatusDict = Record<number, ReviewCheckStatus>
 export interface ReviewCheckSlice {
     reviewCheckGroupedByBook: ReviewCheckGroupedByBook
     setReviewCheckGroupedByBook: (reviewCheckGroupedByBook: ReviewCheckGroupedByBook) => void
+
+    selectedBookTitle: string | null
+    setSelectedBookTitle: (selectedBookTitle: string | null) => void
     
 }

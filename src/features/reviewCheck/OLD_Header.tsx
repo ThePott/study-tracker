@@ -5,7 +5,7 @@ import CircleIcon from "@mui/icons-material/Circle"
 import GradingIcon from "@mui/icons-material/Grading"
 import { Box, FormControlLabel, IconButton, Switch } from "@mui/material"
 import React from "react"
-import CustomToggleButtonGroup from "./CustomToggleButtonGroup"
+import CustomToggleButtonGroup from "./OLD_CustomToggleButtonGroup"
 
 const COLORS = {
     success: "oklch(0.8378 0.2263 157.76)",

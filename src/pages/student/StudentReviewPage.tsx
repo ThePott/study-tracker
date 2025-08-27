@@ -1,6 +1,6 @@
 import useBoundStore from "@/src/shared/store"
-import BookSection from "@/src/features/reviewCheck/BookSection"
-import CheckboxSection from "@/src/features/reviewCheck/CheckboxSection"
+import BookSection from "@/src/features/reviewCheck/OLD_BookSection"
+import CheckboxSection from "@/src/features/reviewCheck/OLD_CheckboxSection"
 import {
     useReviewCheckApi,
     useReviewCheckUpdate,
