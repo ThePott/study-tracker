@@ -1,5 +1,5 @@
 import useBoundStore from "@/src/shared/store"
-import BookBox from "./OLD_BookBox"
+import BookBox from "./BookBox"
 
 const BookSection = () => {
     const reviewCheckGroupedByBook = useBoundStore((state) => state.reviewCheckGroupedByBook)

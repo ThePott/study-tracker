@@ -37,12 +37,12 @@ const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean) => {
 }
 
 const NeutralButton = (props: NeutralButtonProps) => {
-    const { variant, isOn, children, ...defaultProps } = props
+    const { variant, isOn, children, className, ...defaultProps } = props
 
-    const className = makeButtonClassName(variant, isOn)
+    const baseClassName = makeButtonClassName(variant, isOn)
 
     return (
-        <button {...defaultProps} className={className}>{children}</button>
+        <button {...defaultProps} className={`${className} ${baseClassName}`}>{children}</button>
     )
 }
 

@@ -1,9 +1,13 @@
-import React from 'react'
+import CheckboxBody from "./CheckboxBody"
+import CheckboxHeader from "./CheckboxHeader"
 
 const CheckboxSection = () => {
-  return (
-    <div>CheckboxSection</div>
-  )
+    return (
+        <div className="flex flex-col gap-3">
+            <CheckboxHeader />
+            <CheckboxBody />
+        </div>
+    )
 }
 
 export default CheckboxSection
