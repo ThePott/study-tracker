@@ -5,18 +5,21 @@ export interface ReviewCheck {
     questionPage: number
     questionLabel: string
     status: ReviewCheckStatus
-
     bookTitle: string
     topicTitle: string
     stepTitle: string
 }
 
-export type ReviewCheckStatusDict = Record<number, ReviewCheckStatus>
+/** question page: review check array */
+export type ReviewCheckGroupedByPage = Record<number, ReviewCheck[]>
+
 /** bookId: review check array */
-export type ReviewCheckArrayInDict = Record<string, ReviewCheck[]>
+export type ReviewCheckGroupedByBook = Record<string, ReviewCheckGroupedByPage[]>
+
+export type ReviewCheckStatusDict = Record<number, ReviewCheckStatus>
 
 export interface ReviewCheckSlice {
-    reviewCheckArrayInDict: ReviewCheckArrayInDict
-    setReviewCheckArrayInDict: (reviewCheckArrayInDict: ReviewCheckArrayInDict) => void
+    reviewCheckGroupedByBook: ReviewCheckGroupedByBook
+    setReviewCheckGroupedByBook: (reviewCheckGroupedByBook: ReviewCheckGroupedByBook) => void
     
 }

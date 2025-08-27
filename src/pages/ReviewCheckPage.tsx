@@ -2,7 +2,7 @@ import ReviewCheckContent from "../features/reviewCheck/ReviewCheckContent"
 import { useReviewCheck } from "../features/reviewCheck/reviewCheckHooks"
 
 const ReviewCheckPage = () => {
-//    useReviewCheck()
+   useReviewCheck()
     return (
         <ReviewCheckContent />
     )

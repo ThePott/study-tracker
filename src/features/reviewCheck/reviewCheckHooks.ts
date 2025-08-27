@@ -8,7 +8,7 @@ const useGetReviewCheckAfterMount = () => {
 
     const user = useBoundStore((state) => state.user)
     const selectedUser = useBoundStore((state) => state.selectedUser)
-    const setReviewCheckArray = useBoundStore((state) => state.setReviewCheckArray)
+    const setReviewCheckGroupedByBook = useBoundStore((state) => state.setReviewCheckGroupedByBook)
     const setDoShowSkeleton = useBoundStore((state) => state.setDoShowSkeleton)
     const setIsResponseEmpty = useBoundStore((state) => state.setIsResponseEmpty)
 
@@ -19,13 +19,13 @@ const useGetReviewCheckAfterMount = () => {
 
         const apiInfo = {
             method: "GET",
-            responseHandler: setReviewCheckArray,
+            responseHandler: setReviewCheckGroupedByBook,
             loadingSetter: setDoShowSkeleton,
             setIsResponseEmpty,
         } as ApiInfo
 
         if (user.role === "STUDENT") {
-            apiInfo.additionalUrl = `/progress/student/${user.id}`
+            apiInfo.additionalUrl = `/review-check/student/${user.id}`
             requestThenResponse(apiInfo, setApiInfo)
             return
         }
@@ -33,7 +33,7 @@ const useGetReviewCheckAfterMount = () => {
         if (!selectedUser) {
             return
         }
-        apiInfo.additionalUrl = `/progress/student/${selectedUser.id}`
+        apiInfo.additionalUrl = `/review-check/student/${selectedUser.id}`
         requestThenResponse(apiInfo, setApiInfo)
         return
     }, [user])
