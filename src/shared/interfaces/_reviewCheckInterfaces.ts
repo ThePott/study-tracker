@@ -14,7 +14,7 @@ export interface ReviewCheck {
 export type ReviewCheckGroupedByPage = Record<number, ReviewCheck[]>
 
 /** bookId: review check array */
-export type ReviewCheckGroupedByBook = Record<string, ReviewCheckGroupedByPage[]>
+export type ReviewCheckGroupedByBook = Record<string, ReviewCheckGroupedByPage>
 
 export type ReviewCheckStatusDict = Record<number, ReviewCheckStatus>
 
