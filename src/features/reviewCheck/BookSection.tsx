@@ -1,10 +1,11 @@
 import useBoundStore from "@/src/shared/store"
-import React from "react"
+import BookBox from "./OLD_BookBox"
 
 const BookSection = () => {
     const reviewCheckGroupedByBook = useBoundStore((state) => state.reviewCheckGroupedByBook)
     const bookTitleArray = Object.keys(reviewCheckGroupedByBook)
-    return <div>{JSON.stringify(bookTitleArray)}</div>
+    
+    return <div>{bookTitleArray.map((bookTitle) => <BookBox key={bookTitle} bookTitle={bookTitle} />)}</div>
 }
 
 export default BookSection
