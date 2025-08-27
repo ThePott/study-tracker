@@ -1,5 +1,6 @@
 import useBoundStore from "@/src/shared/store"
 import CheckboxGroupedByPage from "./CheckboxGroupedByPage"
+import { scrollbarStyle } from "@/src/shared/constants/style"
 
 const CheckboxBody = () => {
     const reviewCheckGroupedByBook = useBoundStore((state) => state.reviewCheckGroupedByBook)
@@ -15,7 +16,7 @@ const CheckboxBody = () => {
 
     const entryArray = Object.entries(bookValue)
     return (
-        <div>
+        <div style={scrollbarStyle} className="flex flex-col gap-2 h-full overflow-x-hidden overflow-y-scroll">
             {entryArray.map((entry) => (
                 <CheckboxGroupedByPage page={Number(entry[0])} reviewCheckArray={entry[1]} />
             ))}
