@@ -10,9 +10,21 @@ const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice>
 
     selectedBookTitle: null,
     setSelectedBookTitle(selectedBookTitle) {
-        set({selectedBookTitle})
+        set({ selectedBookTitle })
     },
-    
+
+    recentTwo: [],
+    addToRecentTwo(reviewCheckId) {
+        set((state) => {
+            const length = state.recentTwo.length
+            if (length === 0) {
+                return { recentTwo: [reviewCheckId] }
+            }
+
+            const last = state.recentTwo[length - 1]
+            return { recentTwo: [last, reviewCheckId] }
+        })
+    },
 })
 
 export default createReviewCheckSlice

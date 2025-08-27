@@ -25,4 +25,6 @@ export interface ReviewCheckSlice {
     selectedBookTitle: string | null
     setSelectedBookTitle: (selectedBookTitle: string | null) => void
     
+    recentTwo: number[]
+    addToRecentTwo: (reviewCheckId: number) => void
 }
