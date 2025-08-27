@@ -2,16 +2,21 @@ export type ReviewCheckStatus = "DONE" | "PASS" | "WORONG" | "CORRECT" | "NOT_SO
 
 export interface ReviewCheck {
     id: number
-    questionId: number
+    questionPage: number
+    questionLabel: string
     status: ReviewCheckStatus
+
+    bookTitle: string
+    topicTitle: string
+    stepTitle: string
 }
 
 export type ReviewCheckStatusDict = Record<number, ReviewCheckStatus>
+/** bookId: review check array */
+export type ReviewCheckArrayInDict = Record<string, ReviewCheck[]>
 
 export interface ReviewCheckSlice {
-    reviewCheckArray: ReviewCheck[]
-    setReviewCheckArray: (reviewCheckArray: ReviewCheck[]) => void
-
-    getReviewCheckArray: (studentId: number) => void
+    reviewCheckArrayInDict: ReviewCheckArrayInDict
+    setReviewCheckArrayInDict: (reviewCheckArrayInDict: ReviewCheckArrayInDict) => void
     
 }
