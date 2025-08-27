@@ -54,48 +54,48 @@ export interface CheckboxSectionProps {
 // 여러 화면에서 사용하는 인터페이스는 관련된 훅 파일에
 //
 export interface ReviewCheckSlice {
-    // ---- fetch releated -----
-    groupedBookObject: any
-    bookTitleArray: string[] | null
-    selectedBookTitle: string | null
-    setGroupedBookObject: (groupedBookObject: any) => void
-    setBookTitleArray: (bookTitleArray: string[] | null) => void
-    setSelectedBookTitle: (selectedBookTitle: string) => void
+    // // ---- fetch releated -----
+    // groupedBookObject: any
+    // bookTitleArray: string[] | null
+    // selectedBookTitle: string | null
+    // setGroupedBookObject: (groupedBookObject: any) => void
+    // setBookTitleArray: (bookTitleArray: string[] | null) => void
+    // setSelectedBookTitle: (selectedBookTitle: string) => void
 
-    reviewCheckArray: ReviewCheckData[]
-    setReviewCheckArray: (newArray: ReviewCheckData[]) => void
-    updateReviewCheckArray: (
-        editedIdStatusDictArray: EditedIdStatusDict[]
-    ) => void
+    // reviewCheckArray: ReviewCheckData[]
+    // setReviewCheckArray: (newArray: ReviewCheckData[]) => void
+    // updateReviewCheckArray: (
+    //     editedIdStatusDictArray: EditedIdStatusDict[]
+    // ) => void
 
-    editedIdStatusDictArray: EditedIdStatusDict[]
-    /** 얘보단 아래 걸 더 많이 쓸 거 같은데 맞네 비울 때만 쓴다 */
-    setEditedIdStatusDictArray: (
-        editedIdStatusDictArray: EditedIdStatusDict[]
-    ) => void
-    /** 내 status 바뀜 -> 에디티드에 있는지 확인 후 갱신  */
-    updateOneEditedIdStatusDictArray: (
-        status: CheckboxStatus,
-        reviewCheck: ReviewCheckData
-    ) => void
+    // editedIdStatusDictArray: EditedIdStatusDict[]
+    // /** 얘보단 아래 걸 더 많이 쓸 거 같은데 맞네 비울 때만 쓴다 */
+    // setEditedIdStatusDictArray: (
+    //     editedIdStatusDictArray: EditedIdStatusDict[]
+    // ) => void
+    // /** 내 status 바뀜 -> 에디티드에 있는지 확인 후 갱신  */
+    // updateOneEditedIdStatusDictArray: (
+    //     status: CheckboxStatus,
+    //     reviewCheck: ReviewCheckData
+    // ) => void
 
-    response: ApiResponse | null
-    setResponse: (response: ApiResponse | null) => void
-    hideResponseSnackbar: () => void
-    startResponseLoading: () => void
+    // response: ApiResponse | null
+    // setResponse: (response: ApiResponse | null) => void
+    // hideResponseSnackbar: () => void
+    // startResponseLoading: () => void
 
-    changeTo: CheckboxStatus
-    setChangeTo: (changeTo: CheckboxStatus) => void
+    // changeTo: CheckboxStatus
+    // setChangeTo: (changeTo: CheckboxStatus) => void
 
-    isMultiSelecting: boolean
-    setIsMultiSelecting: (isMultiSelecting: boolean) => void
+    // isMultiSelecting: boolean
+    // setIsMultiSelecting: (isMultiSelecting: boolean) => void
 
-    recentTwoIndexes: number[]
-    appendToRecentTwoIndexes: (index: number) => void
-    clearRecentTwoIndexes: () => void
+    // recentTwoIndexes: number[]
+    // appendToRecentTwoIndexes: (index: number) => void
+    // clearRecentTwoIndexes: () => void
 
-    statusArray: CheckboxStatus[]
-    updateStatusArray: () => void
-    updateOneOfStatusArray: (index: number) => void
-    clearStatusArray: () => void
+    // statusArray: CheckboxStatus[]
+    // updateStatusArray: () => void
+    // updateOneOfStatusArray: (index: number) => void
+    // clearStatusArray: () => void
 }

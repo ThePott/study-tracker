@@ -5,16 +5,12 @@ import useBoundStore from "../shared/store"
 
 const ProgressPage = () => {
     const doShowSkeleton = useBoundStore((state) => state.doShowSkeleton)
-    const progressArrayInDict = useBoundStore(
-        (state) => state.progressArrayInDict
-    )
+    const progressArrayInDict = useBoundStore((state) => state.progressArrayInDict)
     const isResponseEmpty = useBoundStore((state) => state.isResponseEmpty)
 
     useGetProgressAfterMount()
 
-    const skeletonCondition =
-        doShowSkeleton ||
-        (Object.entries(progressArrayInDict).length === 0 && !isResponseEmpty)
+    const skeletonCondition = doShowSkeleton || (Object.entries(progressArrayInDict).length === 0 && !isResponseEmpty)
     if (skeletonCondition) {
         return <ProgressSkeleton />
     }
