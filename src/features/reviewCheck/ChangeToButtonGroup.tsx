@@ -1,4 +1,4 @@
-import { CheckboxStatus } from "@/src/shared/interfaces/_reviewCheckInterfaces"
+import { CheckboxStatus } from "@/src/shared/interfaces/OLD_reviewCheckInterfaces"
 import useBoundStore from "@/src/shared/store"
 import { ToggleButton, ToggleButtonGroup, useTheme } from "@mui/material"
 
@@ -58,10 +58,7 @@ const ChangeToButtonGroup = () => {
     const changeTo = useBoundStore((state) => state.changeTo)
     const setChangeTo = useBoundStore((state) => state.setChangeTo)
 
-    const handleChange = (
-        _event: React.MouseEvent<HTMLElement>,
-        value: CheckboxStatus
-    ) => {
+    const handleChange = (_event: React.MouseEvent<HTMLElement>, value: CheckboxStatus) => {
         if (value === null) {
             return
         }
@@ -69,31 +66,14 @@ const ChangeToButtonGroup = () => {
     }
 
     return (
-        <ToggleButtonGroup
-            value={changeTo}
-            exclusive
-            onChange={handleChange}
-            fullWidth
-        >
-            <ToggleButton
-                sx={{ fontWeight: 600, ...getSx("NOT_SOLVED") }}
-                value={"NOT_SOLVED"}
-                aria-label="NOT_SOLVED"
-            >
+        <ToggleButtonGroup value={changeTo} exclusive onChange={handleChange} fullWidth>
+            <ToggleButton sx={{ fontWeight: 600, ...getSx("NOT_SOLVED") }} value={"NOT_SOLVED"} aria-label="NOT_SOLVED">
                 NOT_SOLVED
             </ToggleButton>
-            <ToggleButton
-                sx={{ fontWeight: 600, ...getSx("WRONG") }}
-                value={"WRONG"}
-                aria-label="WRONG"
-            >
+            <ToggleButton sx={{ fontWeight: 600, ...getSx("WRONG") }} value={"WRONG"} aria-label="WRONG">
                 WRONG
             </ToggleButton>
-            <ToggleButton
-                sx={{ fontWeight: 600, ...getSx("CORRECT") }}
-                value={"CORRECT"}
-                aria-label="CORRECT"
-            >
+            <ToggleButton sx={{ fontWeight: 600, ...getSx("CORRECT") }} value={"CORRECT"} aria-label="CORRECT">
                 CORRECT
             </ToggleButton>
         </ToggleButtonGroup>

@@ -1,13 +1,9 @@
-import { CheckboxSectionProps } from "@/src/shared/interfaces/_reviewCheckInterfaces"
+import { CheckboxSectionProps } from "@/src/shared/interfaces/OLD_reviewCheckInterfaces"
 import useBoundStore from "@/src/shared/store"
 import CloseIcon from "@mui/icons-material/Close"
 import { Box, IconButton, Snackbar } from "@mui/material"
 import { useCallback } from "react"
-import {
-    useAutoSave,
-    useManualPatchWhenUnmount,
-    useUpdateStatusArray,
-} from "@/src/_hooks/reviewCheckHooks"
+import { useAutoSave, useManualPatchWhenUnmount, useUpdateStatusArray } from "@/src/_hooks/reviewCheckHooks"
 import ChangeToButtonGroup from "./ChangeToButtonGroup"
 import Checkbox from "./Checkbox"
 import Header from "./Header"
@@ -47,21 +43,8 @@ const CheckboxSection = ({ studentId }: CheckboxSectionProps) => {
             <Box className="flex flex-col h-full">
                 <Header />
 
-                <Box
-                    sx={{ scrollbarWidth: "none" }}
-                    className="grow overflow-y-scroll"
-                >
-                    <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3 px-3">
-                        {statusArray.length !== 0 &&
-                            reviewCheckArray.map((reviewCheckData, index) => (
-                                <Checkbox
-                                    key={reviewCheckData._id}
-                                    reviewCheckData={reviewCheckData}
-                                    index={index}
-                                    status={statusArray[index]}
-                                />
-                            ))}
-                    </Box>
+                <Box sx={{ scrollbarWidth: "none" }} className="grow overflow-y-scroll">
+                    <Box className="grid grid-cols-[repeat(auto-fit,minmax(60px,1fr))] gap-3 px-3">{statusArray.length !== 0 && reviewCheckArray.map((reviewCheckData, index) => <Checkbox key={reviewCheckData._id} reviewCheckData={reviewCheckData} index={index} status={statusArray[index]} />)}</Box>
                 </Box>
 
                 <ChangeToButtonGroup />

@@ -1,16 +1,11 @@
 import { ApiResponse } from "@/src/shared/interfaces/_apiInterfaces"
-import { EditedIdStatusDict } from "@/src/shared/interfaces/_reviewCheckInterfaces"
+import { EditedIdStatusDict } from "@/src/shared/interfaces/OLD_reviewCheckInterfaces"
 import useBoundStore from "../shared/store"
 import axios from "axios"
 import { MouseEventHandler, useCallback, useEffect } from "react"
 
 /** SUB FUNCTION of useReviewCheckApi GET */
-const getReviewCheckArray = async (
-    setResponse: (response: ApiResponse | null) => void,
-    studentId: string,
-    setGroupedBookObject: (groupedBookObject: any) => void,
-    setBookTitleArray: (bookTitleArray: string[] | null) => void
-) => {
+const getReviewCheckArray = async (setResponse: (response: ApiResponse | null) => void, studentId: string, setGroupedBookObject: (groupedBookObject: any) => void, setBookTitleArray: (bookTitleArray: string[] | null) => void) => {
     try {
         const response: ApiResponse = {
             status: "IS_LOADING",
@@ -42,36 +37,19 @@ const getReviewCheckArray = async (
 /** API GET */
 const useReviewCheckApi = (studentId: string) => {
     const setResponse = useBoundStore((state) => state.setResponse)
-    const setGroupedBookObject = useBoundStore(
-        (state) => state.setGroupedBookObject
-    )
+    const setGroupedBookObject = useBoundStore((state) => state.setGroupedBookObject)
     const setBookTitleArray = useBoundStore((state) => state.setBookTitleArray)
 
     /** GET */
     useEffect(() => {
-        getReviewCheckArray(
-            setResponse,
-            studentId,
-            setGroupedBookObject,
-            setBookTitleArray
-        )
+        getReviewCheckArray(setResponse, studentId, setGroupedBookObject, setBookTitleArray)
     }, [studentId])
 }
 // api관련된 건 별도 폴더로 구분
 // backend기준으로 세부 폴더 구분
 
 /** ACUTAL PATCH  */
-const patchReviewCheckArray2 = async (
-    studentId: string,
-    editedIdStatusDictArray: EditedIdStatusDict[],
-    updateReviewCheckArray: (
-        editedIdStatusDictArray: EditedIdStatusDict[]
-    ) => void,
-    setEditedIdStatusDictArray: (
-        editedIdStatusDictArray: EditedIdStatusDict[]
-    ) => void,
-    setResponse: (response: ApiResponse) => void
-) => {
+const patchReviewCheckArray2 = async (studentId: string, editedIdStatusDictArray: EditedIdStatusDict[], updateReviewCheckArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void, setEditedIdStatusDictArray: (editedIdStatusDictArray: EditedIdStatusDict[]) => void, setResponse: (response: ApiResponse) => void) => {
     try {
         console.log("...patch stage 1")
         if (editedIdStatusDictArray.length === 0) {
@@ -119,9 +97,7 @@ const patchReviewCheckArray2 = async (
 const useReviewCheckUpdate = () => {
     const selectedBookTitle = useBoundStore((state) => state.selectedBookTitle)
     const groupedBookObject = useBoundStore((state) => state.groupedBookObject)
-    const setReviewCheckArray = useBoundStore(
-        (state) => state.setReviewCheckArray
-    )
+    const setReviewCheckArray = useBoundStore((state) => state.setReviewCheckArray)
 
     useEffect(() => {
         // 1. 텅 비었으면 아무것도 안 함
@@ -145,12 +121,8 @@ const useReviewCheckUpdate = () => {
 
 /** click event -> recent two indexes || single update on status array */
 const useCheckboxClickHandler = () => {
-    const appendToRecentTwoIndexes = useBoundStore(
-        (state) => state.appendToRecentTwoIndexes
-    )
-    const updateOneOfStatusArray = useBoundStore(
-        (state) => state.updateOneOfStatusArray
-    )
+    const appendToRecentTwoIndexes = useBoundStore((state) => state.appendToRecentTwoIndexes)
+    const updateOneOfStatusArray = useBoundStore((state) => state.updateOneOfStatusArray)
 
     return useCallback<MouseEventHandler<HTMLButtonElement>>((event) => {
         const optionalIndex = event.currentTarget.dataset.index
@@ -188,27 +160,15 @@ const useUpdateStatusArray = () => {
 
 /** edited array -> time out -> patch request */
 const useAutoSave = (studentId: string) => {
-    const updateReviewCheckArray = useBoundStore(
-        (state) => state.updateReviewCheckArray
-    )
-    const setEditedIdStatusDictArray = useBoundStore(
-        (state) => state.setEditedIdStatusDictArray
-    )
+    const updateReviewCheckArray = useBoundStore((state) => state.updateReviewCheckArray)
+    const setEditedIdStatusDictArray = useBoundStore((state) => state.setEditedIdStatusDictArray)
     const setResponse = useBoundStore((state) => state.setResponse)
 
-    const editedIdStatusDictArray = useBoundStore(
-        (state) => state.editedIdStatusDictArray
-    )
+    const editedIdStatusDictArray = useBoundStore((state) => state.editedIdStatusDictArray)
 
     useEffect(() => {
         const waitingPatch = () => {
-            patchReviewCheckArray2(
-                studentId,
-                editedIdStatusDictArray,
-                updateReviewCheckArray,
-                setEditedIdStatusDictArray,
-                setResponse
-            )
+            patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
         }
         const timeoutId = setTimeout(waitingPatch, 2000)
 
@@ -217,36 +177,17 @@ const useAutoSave = (studentId: string) => {
 }
 
 const useManualPatchWhenUnmount = (studentId: string) => {
-    const updateReviewCheckArray = useBoundStore(
-        (state) => state.updateReviewCheckArray
-    )
-    const setEditedIdStatusDictArray = useBoundStore(
-        (state) => state.setEditedIdStatusDictArray
-    )
+    const updateReviewCheckArray = useBoundStore((state) => state.updateReviewCheckArray)
+    const setEditedIdStatusDictArray = useBoundStore((state) => state.setEditedIdStatusDictArray)
     const setResponse = useBoundStore((state) => state.setResponse)
 
     useEffect(() => {
         return () => {
-            const editedIdStatusDictArray =
-                useBoundStore.getState().editedIdStatusDictArray
-            patchReviewCheckArray2(
-                studentId,
-                editedIdStatusDictArray,
-                updateReviewCheckArray,
-                setEditedIdStatusDictArray,
-                setResponse
-            )
+            const editedIdStatusDictArray = useBoundStore.getState().editedIdStatusDictArray
+            patchReviewCheckArray2(studentId, editedIdStatusDictArray, updateReviewCheckArray, setEditedIdStatusDictArray, setResponse)
             console.log("---- manual patch when unmount")
         }
     }, [])
 }
 
-export {
-    patchReviewCheckArray2,
-    useAutoSave,
-    useCheckboxClickHandler,
-    useManualPatchWhenUnmount,
-    useReviewCheckApi,
-    useReviewCheckUpdate,
-    useUpdateStatusArray,
-}
+export { patchReviewCheckArray2, useAutoSave, useCheckboxClickHandler, useManualPatchWhenUnmount, useReviewCheckApi, useReviewCheckUpdate, useUpdateStatusArray }

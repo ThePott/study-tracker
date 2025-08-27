@@ -1,8 +1,5 @@
 import { useCheckboxClickHandler } from "@/src/_hooks/reviewCheckHooks"
-import {
-    CheckboxProps,
-    CheckboxStatus,
-} from "@/src/shared/interfaces/_reviewCheckInterfaces"
+import { CheckboxProps, CheckboxStatus } from "@/src/shared/interfaces/OLD_reviewCheckInterfaces"
 import useBoundStore from "@/src/shared/store"
 import { Button } from "@mui/material"
 import React, { useEffect, useRef } from "react"
@@ -31,51 +28,36 @@ const variantObject = {
     },
 } as const
 
-const Checkbox = React.memo(
-    ({ index, reviewCheckData, status }: CheckboxProps) => {
-        const buttonProps = status
-            ? variantObject[status]
-            : variantObject["NOT_SOLVED"]
+const Checkbox = React.memo(({ index, reviewCheckData, status }: CheckboxProps) => {
+    const buttonProps = status ? variantObject[status] : variantObject["NOT_SOLVED"]
 
-        const handleClick = useCheckboxClickHandler()
+    const handleClick = useCheckboxClickHandler()
 
-        const updateOneEditedIdStatusDictArray = useBoundStore(
-            (state) => state.updateOneEditedIdStatusDictArray
-        )
-        const startResponseLoading = useBoundStore(
-            (state) => state.startResponseLoading
-        )
+    const updateOneEditedIdStatusDictArray = useBoundStore((state) => state.updateOneEditedIdStatusDictArray)
+    const startResponseLoading = useBoundStore((state) => state.startResponseLoading)
 
-        /** status 바뀔 때마다 실행되는 함수 --> edited array를  업데이트 하기만 함 */
-        const prevStausRef = useRef<CheckboxStatus>(status)
+    /** status 바뀔 때마다 실행되는 함수 --> edited array를  업데이트 하기만 함 */
+    const prevStausRef = useRef<CheckboxStatus>(status)
 
-        useEffect(() => {
-            if (!status) {
-                return
-            }
-            if (prevStausRef.current === status) {
-                return
-            }
+    useEffect(() => {
+        if (!status) {
+            return
+        }
+        if (prevStausRef.current === status) {
+            return
+        }
 
-            updateOneEditedIdStatusDictArray(status, reviewCheckData)
-            console.log("---- status change -> start loading:", index, status)
-            startResponseLoading()
-            prevStausRef.current = status
-        }, [status])
+        updateOneEditedIdStatusDictArray(status, reviewCheckData)
+        console.log("---- status change -> start loading:", index, status)
+        startResponseLoading()
+        prevStausRef.current = status
+    }, [status])
 
-        return (
-            <Button
-                className={`w-[60px] h-[60px] grow-1`}
-                onClick={handleClick}
-                data-index={index}
-                variant={buttonProps.variant}
-                color={buttonProps.color}
-                sx={buttonProps.sx}
-            >
-                {reviewCheckData.questionNumber}
-            </Button>
-        )
-    }
-)
+    return (
+        <Button className={`w-[60px] h-[60px] grow-1`} onClick={handleClick} data-index={index} variant={buttonProps.variant} color={buttonProps.color} sx={buttonProps.sx}>
+            {reviewCheckData.questionNumber}
+        </Button>
+    )
+})
 
 export default Checkbox

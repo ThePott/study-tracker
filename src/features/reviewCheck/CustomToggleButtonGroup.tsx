@@ -6,7 +6,7 @@
 // 여기 코드 엉망이다
 // ---------------시간 날 때 할 것: 여기를 mui 없이 구현해보자. 그럼 훨씬 깔끔해질 거다. TODO
 
-import { CheckboxStatus } from "@/src/shared/interfaces/_reviewCheckInterfaces"
+import { CheckboxStatus } from "@/src/shared/interfaces/OLD_reviewCheckInterfaces"
 import useBoundStore from "@/src/shared/store"
 import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
@@ -59,24 +59,17 @@ const getButtonProps = (status: CheckboxStatus, isSelected: boolean) => {
     return variantObject[status] || variantObject["NOT_SOLVED"]
 }
 
-const CustomButton = React.memo(
-    ({ label, status, isSelected }: CustomButtonProps) => {
-        const setChangeTo = useBoundStore((state) => state.setChangeTo)
-        const variant = isSelected ? "contained" : "outlined"
-        const additionalButtonProps = getButtonProps(status, isSelected)
+const CustomButton = React.memo(({ label, status, isSelected }: CustomButtonProps) => {
+    const setChangeTo = useBoundStore((state) => state.setChangeTo)
+    const variant = isSelected ? "contained" : "outlined"
+    const additionalButtonProps = getButtonProps(status, isSelected)
 
-        return (
-            <Button
-                variant={variant}
-                color={additionalButtonProps.color}
-                sx={additionalButtonProps.sx}
-                onClick={() => setChangeTo(status)}
-            >
-                {label}
-            </Button>
-        )
-    }
-)
+    return (
+        <Button variant={variant} color={additionalButtonProps.color} sx={additionalButtonProps.sx} onClick={() => setChangeTo(status)}>
+            {label}
+        </Button>
+    )
+})
 
 const CustomToggleButtonGroup = () => {
     const changeTo = useBoundStore((state) => state.changeTo)
@@ -84,12 +77,7 @@ const CustomToggleButtonGroup = () => {
     return (
         <ButtonGroup>
             {BUTTON_CONFIG.map(({ label, status }) => (
-                <CustomButton
-                    key={status}
-                    label={label}
-                    status={status}
-                    isSelected={changeTo === status}
-                />
+                <CustomButton key={status} label={label} status={status} isSelected={changeTo === status} />
             ))}
         </ButtonGroup>
     )
