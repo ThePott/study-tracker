@@ -8,6 +8,13 @@ type PatchingReviewCheckPropertyName = "status"
 type PatchTo = "progress" | "review-check"
 type PatchingPropertyName<T extends PatchTo> = T extends "progress" ? PatchingProgressPropertyName : PatchingReviewCheckPropertyName
 
+const getUrl = () => {
+    if ((import.meta as any).PROD) {
+        return "https://prod-study-tracker-api-sql-f600c502d1e4.herokuapp.com"
+    }
+    return "http://localhost:3456"
+}
+
 export const useAutoSave = <T extends PatchTo>(patchTo: T, patchingPropertyName: PatchingPropertyName<T>, editedDict: Record<number, any>, mergeToInitial: () => void) => {
     useEffect(() => {
         if (Object.values(editedDict).length === 0) {
@@ -16,7 +23,8 @@ export const useAutoSave = <T extends PatchTo>(patchTo: T, patchingPropertyName:
 
         const timeoutId = setTimeout(async () => {
             const body = { patchingPropertyName, editedDict }
-            const response = await axios.patch(`http://localhost:3456/${patchTo}`, body)
+            const url = getUrl()
+            const response = await axios.patch(`url/${patchTo}`, body)
             const result = response.data
             console.log({ result })
             mergeToInitial()
