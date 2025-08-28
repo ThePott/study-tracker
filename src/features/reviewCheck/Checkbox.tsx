@@ -8,7 +8,7 @@ const Checkbox = memo(({ reviewCheck, status }: { reviewCheck: ReviewCheck, stat
     const recentTwo = useBoundStore((state) => state.recentTwo)
     const editedReviewCheckStatus = useBoundStore((state) => state.editedReviewCheckStatusDict)
     const handleClick = () => {
-        addToRecentTwo(reviewCheck.id)
+        addToRecentTwo(reviewCheck)
         console.log({ recentTwo, editedReviewCheckStatus })
     }
 

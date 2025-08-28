@@ -32,7 +32,7 @@ export interface ReviewCheckSlice {
     setSelectedBookTitle: (selectedBookTitle: string | null) => void
     
     recentTwo: number[]
-    addToRecentTwo: (reviewCheckId: number) => void
+    addToRecentTwo: (reviewCheck: ReviewCheck) => void
 
     changeTo: ReviewCheckStatus
     setChangeTo: (changeTo: ReviewCheckStatus) => void
