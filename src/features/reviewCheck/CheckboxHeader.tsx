@@ -3,7 +3,7 @@ import useBoundStore from "@/src/shared/store"
 import React from "react"
 
 const CheckboxHeader = () => {
-    const isMultiSelecting = useBoundStore((state) => state.isMultiSeleting)
+    const isMultiSelecting = useBoundStore((state) => state.isMultiSelecting)
     const toggleIsMultiSelecting = useBoundStore((state) => state.toggleIsMultiSelecting)
 
     const initial = useBoundStore((state) => state.initialReviewCheckStatusDict)

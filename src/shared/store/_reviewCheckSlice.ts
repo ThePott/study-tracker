@@ -72,14 +72,26 @@ const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice>
     editedReviewCheckStatusDict: {},
     multiSelectedReviewCheckStatusDict: {},
 
-    isMultiSeleting: true,
+    isMultiSelecting: true,
     toggleIsMultiSelecting() {
-        set((state) => ({ isMultiSeleting: !state.isMultiSeleting }))
+        const state = get()
+
+        const prevIsMultiSelecting = state.isMultiSelecting
+        const isMultiSelecting = !prevIsMultiSelecting
+
+        if (!prevIsMultiSelecting) {
+            set({ isMultiSelecting })
+            return
+        }
+
+        const editedReviewCheckStatusDict = { ...state.editedReviewCheckStatusDict, ...state.multiSelectedReviewCheckStatusDict }
+        const multiSelectedReviewCheckStatusDict = {}
+        set({ isMultiSelecting, editedReviewCheckStatusDict, multiSelectedReviewCheckStatusDict})
     },
 
     recentTwo: [],
     handleCheckboxClick(reviewCheck) {
-        const resultState = get().isMultiSeleting ? handleMultiSelection(get, reviewCheck) : handleSingleSelection(get, reviewCheck)
+        const resultState = get().isMultiSelecting ? handleMultiSelection(get, reviewCheck) : handleSingleSelection(get, reviewCheck)
         set(resultState)
     },
 })

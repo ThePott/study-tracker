@@ -38,7 +38,7 @@ export interface ReviewCheckSlice {
     editedReviewCheckStatusDict: ReviewCheckStatusDict
     multiSelectedReviewCheckStatusDict: ReviewCheckStatusDict
 
-    isMultiSeleting: boolean
+    isMultiSelecting: boolean
     toggleIsMultiSelecting: () => void
 
     recentTwo: number[]
