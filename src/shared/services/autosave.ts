@@ -15,7 +15,6 @@ export const useAutoSave = <T extends PatchTo>(patchTo: T, patchingPropertyName:
         }
 
         const timeoutId = setTimeout(async () => {
-            debugger
             const body = { patchingPropertyName, editedDict }
             const response = await axios.patch(`http://localhost:3456/${patchTo}`, body)
             const result = response.data

@@ -6,11 +6,7 @@ import { ReviewCheckStatusDict } from "@/src/shared/interfaces/_reviewCheckInter
 const filterStatusDictByPage = (statusDict: ReviewCheckStatusDict, page: number): ReviewCheckStatusDict => {
     const filteredEntryArray = Object.entries(statusDict).filter((entry) => entry[1].page === page)
     const filteredDict = Object.fromEntries(filteredEntryArray)
-    if (Object.values(filteredDict).length === 0) {
-        debugger
-    } else {
-        // debugger
-    }
+    
     return filteredDict
 }
 

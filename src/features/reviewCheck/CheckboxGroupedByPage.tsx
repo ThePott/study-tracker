@@ -9,8 +9,8 @@ const CheckboxGroupedByPage = ({ page, reviewCheckArray, statusDict }: { page: n
             <div className="flex flex-wrap gap-2">
                 {reviewCheckArray.map((reviewCheck) => {
                     if (!statusDict[reviewCheck.id]) {
-                        console.log({statusDict})
                         debugger
+                        throw new Error("WHY NO STATUS????")
                     }
                     return <Checkbox key={reviewCheck.id} reviewCheck={reviewCheck} status={statusDict[reviewCheck.id].status} />
                 })}
