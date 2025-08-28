@@ -10,9 +10,9 @@ type PatchingPropertyName<T extends PatchTo> = T extends "progress" ? PatchingPr
 
 const getUrl = () => {
     if ((import.meta as any).PROD) {
-        return "https://prod-study-tracker-api-sql-f600c502d1e4.herokuapp.com"
+        return "http://localhost:3456"
     }
-    return "http://localhost:3456"
+    return "https://prod-study-tracker-api-sql-f600c502d1e4.herokuapp.com"
 }
 
 export const useAutoSave = <T extends PatchTo>(patchTo: T, patchingPropertyName: PatchingPropertyName<T>, editedDict: Record<number, any>, mergeToInitial: () => void) => {
