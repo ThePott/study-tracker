@@ -51,5 +51,5 @@ export const useGetProgressAfterMount = () => {
         // prevSelectedStudentIdRef.current = selectedUser.id
     }, [selectedUser])
 
-    useAutoSave("completed", editedCompltedDict, mergeCompletedToInitial)
+    useAutoSave("progress", "completed", editedCompltedDict, mergeCompletedToInitial)
 }

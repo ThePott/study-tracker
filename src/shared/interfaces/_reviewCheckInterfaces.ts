@@ -37,6 +37,7 @@ export interface ReviewCheckSlice {
     initialReviewCheckStatusDict: ReviewCheckStatusDict
     editedReviewCheckStatusDict: ReviewCheckStatusDict
     multiSelectedReviewCheckStatusDict: ReviewCheckStatusDict
+    mergeReviewCheckStatusToInitial: () => void
 
     isMultiSelecting: boolean
     toggleIsMultiSelecting: () => void

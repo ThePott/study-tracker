@@ -12,7 +12,7 @@ const SummaryPage = () => {
     const progressArrayInDict = useBoundStore((state) => state.progressArrayInDict)
 
     useGetProgressAfterMount()
-    useAutoSave("in_progress_status", editedStatusDict, mergeStatusToInitial)
+    useAutoSave("progress", "in_progress_status", editedStatusDict, mergeStatusToInitial)
 
     const skeletonCondition = doShowSkeleton || (Object.entries(progressArrayInDict).length === 0 && !isResponseEmpty)
     if (skeletonCondition) {

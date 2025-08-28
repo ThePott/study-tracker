@@ -71,6 +71,12 @@ const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice>
     initialReviewCheckStatusDict: {},
     editedReviewCheckStatusDict: {},
     multiSelectedReviewCheckStatusDict: {},
+    mergeReviewCheckStatusToInitial() {
+        const state = get()
+        const initialReviewCheckStatusDict: ReviewCheckStatusDict = { ...state.initialReviewCheckStatusDict, ...state.editedReviewCheckStatusDict }
+        const editedReviewCheckStatusDict = {}
+        set({ initialReviewCheckStatusDict, editedReviewCheckStatusDict })
+    },
 
     isMultiSelecting: true,
     toggleIsMultiSelecting() {
@@ -86,7 +92,7 @@ const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice>
 
         const editedReviewCheckStatusDict = { ...state.editedReviewCheckStatusDict, ...state.multiSelectedReviewCheckStatusDict }
         const multiSelectedReviewCheckStatusDict = {}
-        set({ isMultiSelecting, editedReviewCheckStatusDict, multiSelectedReviewCheckStatusDict})
+        set({ isMultiSelecting, editedReviewCheckStatusDict, multiSelectedReviewCheckStatusDict })
     },
 
     recentTwo: [],

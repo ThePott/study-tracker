@@ -1,4 +1,5 @@
 import { ApiInfo } from "@/src/shared/interfaces"
+import { useAutoSave } from "@/src/shared/services/autosave"
 import { requestThenResponse } from "@/src/shared/services/services"
 import useBoundStore from "@/src/shared/store"
 import { useEffect } from "react"
@@ -39,9 +40,13 @@ const useGetReviewCheckAfterMount = () => {
     }, [user])
 }
 
-const useOtheHooks = () => {}
+const useAutoSaveReviewCheck = () => {
+    const editedReviewCheckStatusDict = useBoundStore((state) => state.editedReviewCheckStatusDict)
+    const mergeReviewCheckStatusToInitial = useBoundStore((state) => state.mergeReviewCheckStatusToInitial)
+    useAutoSave("review-check", "status", editedReviewCheckStatusDict, mergeReviewCheckStatusToInitial)
+}
 
 export const useReviewCheck = () => {
     useGetReviewCheckAfterMount()
-    useOtheHooks()
+    useAutoSaveReviewCheck()
 }
