@@ -1,7 +1,6 @@
 import { StateCreator } from "zustand/vanilla"
 import { BoundState } from "../interfaces"
 import { ReviewCheck, ReviewCheckSlice, ReviewCheckStatusDict, ReviewCheckStatusInfoDict } from "../interfaces/_reviewCheckInterfaces"
-import { isBetween } from "../utils/_mathUtils"
 
 const handleSingleSelection = (get: () => BoundState, reviewCheck: ReviewCheck): Partial<BoundState> => {
     const initial = get().initialReviewCheckStatusDict
@@ -35,6 +34,11 @@ const handleMultiSelection = (get: () => BoundState, reviewCheck: ReviewCheck): 
         multiSelectedReviewCheckStatusDict[reviewCheckId] = { ...newInfo, status: state.changeTo } as ReviewCheckStatusInfoDict
     }
     return { recentTwo, multiSelectedReviewCheckStatusDict }
+}
+
+const mergeMultiSelectionAndReset = (get: () => BoundState) => {
+    const state = get()
+    
 }
 
 const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice> = (set, get) => ({

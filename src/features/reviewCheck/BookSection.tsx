@@ -5,7 +5,7 @@ const BookSection = () => {
     const reviewCheckGroupedByBook = useBoundStore((state) => state.reviewCheckGroupedByBook)
     const bookTitleArray = Object.keys(reviewCheckGroupedByBook)
     
-    return <div>{bookTitleArray.map((bookTitle) => <BookBox key={bookTitle} bookTitle={bookTitle} />)}</div>
+    return <div className="w-[604px] mx-auto">{bookTitleArray.map((bookTitle) => <BookBox key={bookTitle} bookTitle={bookTitle} />)}</div>
 }
 
 export default BookSection
