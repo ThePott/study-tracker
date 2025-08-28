@@ -8,7 +8,7 @@ interface AdditionalProps {
     isOn?: boolean
 }
 
-type NeutralButtonProps =
+export type NeutralButtonProps =
     React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
     & AdditionalProps
 

@@ -1,6 +1,17 @@
 import NeutralButton from "@/src/shared/components/NeutralButton"
 import useBoundStore from "@/src/shared/store"
-import React from "react"
+
+const ButtonGroup = () => {
+    return (
+        <div className="flex grow">
+            <NeutralButton variant="NEUTRAL">완료</NeutralButton>
+            <NeutralButton variant="NEUTRAL">패스</NeutralButton>
+            <NeutralButton variant="NEUTRAL">복습</NeutralButton>
+            <NeutralButton variant="NEUTRAL">정답</NeutralButton>
+            <NeutralButton variant="NEUTRAL">아직</NeutralButton>
+        </div>
+    )
+}
 
 const CheckboxHeader = () => {
     const isMultiSelecting = useBoundStore((state) => state.isMultiSelecting)
@@ -15,6 +26,7 @@ const CheckboxHeader = () => {
     }
     return (
         <div className="flex">
+            <ButtonGroup />
             <NeutralButton variant="NEUTRAL" isOn={isMultiSelecting} onClick={toggleIsMultiSelecting}>
                 다중 선택
             </NeutralButton>
