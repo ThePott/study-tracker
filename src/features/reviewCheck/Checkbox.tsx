@@ -4,12 +4,10 @@ import useBoundStore from "@/src/shared/store"
 import { memo } from "react"
 
 const Checkbox = memo(({ reviewCheck, status }: { reviewCheck: ReviewCheck, status: ReviewCheckStatus }) => {
-    const addToRecentTwo = useBoundStore((state) => state.addToRecentTwo)
-    const recentTwo = useBoundStore((state) => state.recentTwo)
-    const editedReviewCheckStatus = useBoundStore((state) => state.editedReviewCheckStatusDict)
+    const handleCheckboxClick = useBoundStore((state) => state.handleCheckboxClick)
+    
     const handleClick = () => {
-        addToRecentTwo(reviewCheck)
-        console.log({ recentTwo, editedReviewCheckStatus })
+        handleCheckboxClick(reviewCheck)
     }
 
     return (

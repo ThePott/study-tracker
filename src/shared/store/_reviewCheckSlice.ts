@@ -1,8 +1,43 @@
 import { StateCreator } from "zustand/vanilla"
 import { BoundState } from "../interfaces"
 import { ReviewCheck, ReviewCheckSlice, ReviewCheckStatusDict, ReviewCheckStatusInfoDict } from "../interfaces/_reviewCheckInterfaces"
+import { isBetween } from "../utils/_mathUtils"
 
-const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice> = (set) => ({
+const handleSingleSelection = (get: () => BoundState, reviewCheck: ReviewCheck): Partial<BoundState> => {
+    const initial = get().initialReviewCheckStatusDict
+
+    const editedReviewCheckStatusDict = { ...get().editedReviewCheckStatusDict }
+
+    if (initial[reviewCheck.id].status === get().changeTo) {
+        if (editedReviewCheckStatusDict[reviewCheck.id]) {
+            delete editedReviewCheckStatusDict[reviewCheck.id]
+            return { editedReviewCheckStatusDict }
+        }
+        return get()
+    }
+    const newInfo = get().initialReviewCheckStatusDict[reviewCheck.id]
+    editedReviewCheckStatusDict[reviewCheck.id] = { ...newInfo, status: get().changeTo } as ReviewCheckStatusInfoDict
+    return { editedReviewCheckStatusDict }
+}
+
+const handleMultiSelection = (get: () => BoundState, reviewCheck: ReviewCheck): Partial<BoundState> => {
+    const state = get()
+
+    const multiSelectedReviewCheckStatusDict: ReviewCheckStatusDict = {}
+    const length = state.recentTwo.length
+    const recentTwo: number[] = length === 0 ? [reviewCheck.id] : [get().recentTwo[length - 1], reviewCheck.id]
+
+    const minId = Math.min(...recentTwo)
+    const maxId = Math.max(...recentTwo)
+
+    for (let reviewCheckId = minId; reviewCheckId <= maxId; reviewCheckId++) {
+        const newInfo = get().initialReviewCheckStatusDict[reviewCheckId]
+        multiSelectedReviewCheckStatusDict[reviewCheckId] = { ...newInfo, status: state.changeTo } as ReviewCheckStatusInfoDict
+    }
+    return { recentTwo, multiSelectedReviewCheckStatusDict }
+}
+
+const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice> = (set, get) => ({
     reviewCheckGroupedByBook: {},
     setReviewCheckGroupedByBook(reviewCheckGroupedByBook) {
         const bookValueArray = Object.values(reviewCheckGroupedByBook)
@@ -28,30 +63,6 @@ const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice>
         set({ selectedBookTitle })
     },
 
-    recentTwo: [],
-    addToRecentTwo(reviewCheck) {
-        set((state) => {
-            const initial = state.initialReviewCheckStatusDict
-            const multiSelectedReviewCheckStatusDict = { ...state.multiSelectedReviewCheckStatusDict }
-
-            const length = state.recentTwo.length
-            const recentTwo: number[] = length === 0 ? [reviewCheck.id] : [state.recentTwo[length - 1], reviewCheck.id]
-
-            const minId = Math.min(...recentTwo)
-            const maxId = Math.max(...recentTwo)
-
-            for (let reviewCheckId = minId; reviewCheckId <= maxId; reviewCheckId++) {
-                if (initial[reviewCheckId].status === state.changeTo) {
-                    delete multiSelectedReviewCheckStatusDict[reviewCheckId]
-                } else {
-                    const newInfo = state.initialReviewCheckStatusDict[reviewCheckId]
-                    multiSelectedReviewCheckStatusDict[reviewCheckId] = { ...newInfo, status: state.changeTo } as ReviewCheckStatusInfoDict
-                }
-            }
-            return { recentTwo, multiSelectedReviewCheckStatusDict }
-        })
-    },
-
     changeTo: "CORRECT",
     setChangeTo(changeTo) {
         set({ changeTo })
@@ -63,7 +74,13 @@ const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice>
 
     isMultiSeleting: true,
     toggleIsMultiSelecting() {
-        set((state) => ({isMultiSeleting: !state.isMultiSeleting}))
+        set((state) => ({ isMultiSeleting: !state.isMultiSeleting }))
+    },
+
+    recentTwo: [],
+    handleCheckboxClick(reviewCheck) {
+        const resultState = get().isMultiSeleting ? handleMultiSelection(get, reviewCheck) : handleSingleSelection(get, reviewCheck)
+        set(resultState)
     },
 })
 

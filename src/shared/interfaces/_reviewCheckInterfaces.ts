@@ -30,9 +30,6 @@ export interface ReviewCheckSlice {
 
     selectedBookTitle: string | null
     setSelectedBookTitle: (selectedBookTitle: string | null) => void
-    
-    recentTwo: number[]
-    addToRecentTwo: (reviewCheck: ReviewCheck) => void
 
     changeTo: ReviewCheckStatus
     setChangeTo: (changeTo: ReviewCheckStatus) => void
@@ -43,4 +40,7 @@ export interface ReviewCheckSlice {
 
     isMultiSeleting: boolean
     toggleIsMultiSelecting: () => void
+
+    recentTwo: number[]
+    handleCheckboxClick: (reviewCheck: ReviewCheck) => void
 }
