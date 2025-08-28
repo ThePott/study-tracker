@@ -5,14 +5,14 @@ import useBoundStore from "@/src/shared/store"
 const statusToLabel: Record<ReviewCheckStatus, string> = {
     DONE: "완료",
     PASS: "패스",
-    WORONG: "복습",
+    WRONG: "복습",
     CORRECT: "정답",
     NOT_SOLVED: "아직",
 }
 
 const statusToColor: Partial<Record<ReviewCheckStatus, ButtonColor>> = {
     PASS: "YELLOW",
-    WORONG: "RED",
+    WRONG: "RED",
     CORRECT: "BLUE",
 }
 

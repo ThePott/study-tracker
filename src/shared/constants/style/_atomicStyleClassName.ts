@@ -17,9 +17,9 @@ export const colorClassName = {
     bgNeutral:
         `${transition} bg-black/100 hover:bg-black/90 active:bg-black/80 dark:bg-white/100 dark:hover:bg-white/90 dark:active:bg-white/80`,
 
-    bgYellow: "bg-yellow-in-light dark:bg-yellow-in-dark",
-    bgBlue: "bg-blue-in-light dark:bg-blue-in-dark",
-    bgRed: "bg-red-in-light dark:bg-red-in-dark",
+    bgYellow: "bg-yellow-in-light hover:bg-yellow-in-light-accent dark:bg-yellow-in-dark dark:hover:bg-yellow-in-dark-accent",
+    bgBlue: "bg-blue-in-light hover:bg-blue-in-light-accent dark:bg-blue-in-dark dark:hover:bg-blue-in-dark-accent",
+    bgRed: "bg-red-in-light hover:bg-red-in-light-accent dark:bg-red-in-dark dark:hover:bg-red-in-dark-accent",
     bgGray: "bg-zinc-300 dark:bg-zinc-900",
 }
 

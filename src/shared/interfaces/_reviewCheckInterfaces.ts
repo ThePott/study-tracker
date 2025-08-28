@@ -1,4 +1,4 @@
-export const reviewCheckStatusArray = [ "DONE", "PASS", "WORONG", "CORRECT", "NOT_SOLVED"] as const
+export const reviewCheckStatusArray = [ "DONE", "PASS", "WRONG", "CORRECT", "NOT_SOLVED"] as const
 export type ReviewCheckStatus = typeof reviewCheckStatusArray[number]
 
 export interface ReviewCheck {

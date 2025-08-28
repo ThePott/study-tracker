@@ -3,7 +3,7 @@ import { styleClassName } from "../constants/style"
 
 type ButtonVariant = "NEUTRAL" | "VIVID_PILL"
 
-export type ButtonColor = "RED" | "BLUE" | "YELLOW"
+export type ButtonColor = "RED" | "BLUE" | "YELLOW" | "DIM"
 
 interface AdditionalProps {
     variant: ButtonVariant
@@ -17,6 +17,7 @@ export type NeutralButtonProps =
 
 
 const colorToBg: Record<ButtonColor, string> = {
+    DIM: `${styleClassName.borderMuted} ${styleClassName.fontMuted}  opacity-60`,
     RED: styleClassName.bgRed,
     YELLOW: styleClassName.bgYellow,
     BLUE: styleClassName.bgBlue,
