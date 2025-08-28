@@ -12,8 +12,11 @@ const useGetReviewCheckAfterMount = () => {
     const setReviewCheckGroupedByBook = useBoundStore((state) => state.setReviewCheckGroupedByBook)
     const setDoShowSkeleton = useBoundStore((state) => state.setDoShowSkeleton)
     const setIsResponseEmpty = useBoundStore((state) => state.setIsResponseEmpty)
-
+    const setSelectedBookTitle = useBoundStore((state) => state.setSelectedBookTitle)
+    
     useEffect(() => {
+        setSelectedBookTitle(null)
+
         if (!user) {
             return
         }
@@ -37,7 +40,7 @@ const useGetReviewCheckAfterMount = () => {
         apiInfo.additionalUrl = `/review-check/student/${selectedUser.id}`
         requestThenResponse(apiInfo, setApiInfo)
         return
-    }, [user])
+    }, [user, selectedUser])
 }
 
 const useAutoSaveReviewCheck = () => {
