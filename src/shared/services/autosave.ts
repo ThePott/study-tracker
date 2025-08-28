@@ -9,9 +9,9 @@ type PatchTo = "progress" | "review-check"
 type PatchingPropertyName<T extends PatchTo> = T extends "progress" ? PatchingProgressPropertyName : PatchingReviewCheckPropertyName
 
 const getUrl = () => {
-    if ((import.meta as any).PROD) {
-        return "http://localhost:3456"
-    }
+    // if ((import.meta as any).PROD) {
+    //     return "http://localhost:3456"
+    // }
     return "https://prod-study-tracker-api-sql-f600c502d1e4.herokuapp.com"
 }
 
