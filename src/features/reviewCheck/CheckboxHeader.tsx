@@ -39,12 +39,15 @@ const CheckboxHeader = () => {
     const isMultiSelecting = useBoundStore((state) => state.isMultiSelecting)
     const toggleIsMultiSelecting = useBoundStore((state) => state.toggleIsMultiSelecting)
 
-    const initial = useBoundStore((state) => state.initialReviewCheckStatusDict)
-    const edited = useBoundStore((state) => state.editedReviewCheckStatusDict)
-    const multi = useBoundStore((state) => state.multiSelectedReviewCheckStatusDict)
+    // const initial = useBoundStore((state) => state.initialReviewCheckStatusDict)
+    // const edited = useBoundStore((state) => state.editedReviewCheckStatusDict)
+    // const multi = useBoundStore((state) => state.multiSelectedReviewCheckStatusDict)
+    const recentTwo = useBoundStore((state) => state.recentTwo)
+
     const handleDebugClick = () => {
-        console.log({ initial, edited, multi })
-        debugger
+        console.log({recentTwo})
+        // console.log({ initial, edited, multi })
+        // debugger
     }
     return (
         <div className="flex">

@@ -3,11 +3,12 @@ import Checkbox from "./Checkbox"
 import { styleClassName } from "@/src/shared/constants/style"
 
 const CheckboxGroupedByPage = ({ page, reviewCheckArray, statusDict }: { page: number; reviewCheckArray: ReviewCheck[]; statusDict: ReviewCheckStatusDict }) => {
+    const sortedReviewCheckArray = reviewCheckArray.sort((a, b) => a.id - b.id)
     return (
         <div className="flex gap-2 items-center">
             <p className={`min-w-[60px] text-center ${styleClassName.fontJustBold} ${styleClassName.fontMuted} font-semibold`}>p.{page}</p>
             <div className="flex flex-wrap gap-2">
-                {reviewCheckArray.map((reviewCheck) => {
+                {sortedReviewCheckArray.map((reviewCheck) => {
                     if (!statusDict[reviewCheck.id]) {
                         debugger
                         throw new Error("WHY NO STATUS????")

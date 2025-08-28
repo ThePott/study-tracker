@@ -22,7 +22,7 @@ const Checkbox = memo(({ reviewCheck, status }: { reviewCheck: ReviewCheck, stat
     return (
         <NeutralButton onClick={handleClick} className="w-[60px] h-[60px]" variant="NEUTRAL" isOn={isOn}
         color={statusToColor[status]}>
-            {reviewCheck.questionLabel}{status}
+            {reviewCheck.questionLabel}
         </NeutralButton>
     )
 })
