@@ -16,23 +16,23 @@ export type NeutralButtonProps =
     & AdditionalProps
 
 
-const colorToBg: Record<ButtonColor, string> = {
+const colorToClassName: Record<ButtonColor, string> = {
     DIM: `${styleClassName.borderMuted} ${styleClassName.fontMuted}  opacity-60`,
-    RED: styleClassName.bgRed,
-    YELLOW: styleClassName.bgYellow,
-    BLUE: styleClassName.bgBlue,
+    RED: `${styleClassName.fontVividInverted} ${styleClassName.bgRed}`,
+    YELLOW: `${styleClassName.fontVividInverted} ${styleClassName.bgYellow}`,
+    BLUE: `${styleClassName.fontVividInverted} ${styleClassName.bgBlue}`,
 }
     
 const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean, color?: ButtonColor) => {
     const classNameArray: string[] = [styleClassName.button]
 
-    const bg = colorToBg[color] ?? styleClassName.bgNeutral
+    const fontAndBg = colorToClassName[color] ?? `${styleClassName.fontVividInverted} ${styleClassName.bgNeutral}`
 
     if (variant === "NEUTRAL") {
         classNameArray.push(styleClassName.buttonNeutral)
         classNameArray.push(
             isOn
-                ? `${styleClassName.fontVividInverted} ${bg}`
+                ? fontAndBg
                 : styleClassName.buttonNeutralOff
         )
         const className = classNameArray.join(" ")
