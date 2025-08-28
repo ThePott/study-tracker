@@ -1,4 +1,5 @@
-export type ReviewCheckStatus = "DONE" | "PASS" | "WORONG" | "CORRECT" | "NOT_SOLVED"
+export const reviewCheckStatusArray = [ "DONE", "PASS", "WORONG", "CORRECT", "NOT_SOLVED"] as const
+export type ReviewCheckStatus = typeof reviewCheckStatusArray[number]
 
 export interface ReviewCheck {
     id: number

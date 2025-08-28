@@ -92,7 +92,8 @@ const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice>
 
         const editedReviewCheckStatusDict = { ...state.editedReviewCheckStatusDict, ...state.multiSelectedReviewCheckStatusDict }
         const multiSelectedReviewCheckStatusDict = {}
-        set({ isMultiSelecting, editedReviewCheckStatusDict, multiSelectedReviewCheckStatusDict })
+        const recentTwo = []
+        set({ isMultiSelecting, editedReviewCheckStatusDict, multiSelectedReviewCheckStatusDict, recentTwo })
     },
 
     recentTwo: [],
