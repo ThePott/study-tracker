@@ -1,13 +1,19 @@
-import NeutralButton from "@/src/shared/components/NeutralButton"
+import NeutralButton, { ButtonColor } from "@/src/shared/components/NeutralButton"
 import { ReviewCheckStatus, reviewCheckStatusArray } from "@/src/shared/interfaces/_reviewCheckInterfaces"
 import useBoundStore from "@/src/shared/store"
 
-const statusToLabel = {
+const statusToLabel: Record<ReviewCheckStatus, string> = {
     DONE: "완료",
     PASS: "패스",
     WORONG: "복습",
     CORRECT: "정답",
     NOT_SOLVED: "아직",
+}
+
+const statusToColor: Partial<Record<ReviewCheckStatus, ButtonColor>> = {
+    PASS: "YELLOW",
+    WORONG: "RED",
+    CORRECT: "BLUE",
 }
 
 const ButtonGroup = () => {
@@ -17,18 +23,15 @@ const ButtonGroup = () => {
     const handleGeneralClick = (status: ReviewCheckStatus) => {
         setChangeTo(status)
     }
-    
+
     return (
         <div className="flex grow">
             {reviewCheckStatusArray.map((status, index) => (
-                <NeutralButton 
-                    key={status} // Added key prop
-                    variant="NEUTRAL" 
-                    isOn={isOnArray[index]} 
-                    className="w-[100px]"
-                    onClick={() => handleGeneralClick(status)}>{statusToLabel[status]}</NeutralButton>
+                <NeutralButton key={status} variant="NEUTRAL" isOn={isOnArray[index]} className="max-w-[100px] w-full" color={statusToColor[status]} onClick={() => handleGeneralClick(status)}>
+                    {statusToLabel[status]}
+                </NeutralButton>
             ))}
-        </div> // Added missing closing tag
+        </div>
     )
 }
 
@@ -46,7 +49,7 @@ const CheckboxHeader = () => {
     return (
         <div className="flex">
             <ButtonGroup />
-            <NeutralButton variant="NEUTRAL" isOn={isMultiSelecting} onClick={toggleIsMultiSelecting}>
+            <NeutralButton variant="NEUTRAL" isOn={isMultiSelecting} onClick={toggleIsMultiSelecting} className="w-[100px]">
                 다중 선택
             </NeutralButton>
             <NeutralButton variant="NEUTRAL" onClick={handleDebugClick}>

@@ -75,7 +75,7 @@ export const boxClassName = {
     button: `${paddingMarginClassName.pTight} ${transition} border-1 ease-[]`,
 
     buttonNeutral: `${shapeClassName.rounded} ${fontClassName.fontJustBold}`,
-    buttonNeutralOn: `${colorClassName.fontVividInverted}  ${colorClassName.bgNeutral}`,
+    // buttonNeutralOn: `${colorClassName.fontVividInverted}  ${colorClassName.bgNeutral}`,
     buttonNeutralOff: `${colorClassName.borderMuted} ${colorClassName.borderMutedHover}`,
 
     buttonRounded: ``,

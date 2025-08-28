@@ -3,9 +3,12 @@ import { styleClassName } from "../constants/style"
 
 type ButtonVariant = "NEUTRAL" | "VIVID_PILL"
 
+export type ButtonColor = "RED" | "BLUE" | "YELLOW"
+
 interface AdditionalProps {
     variant: ButtonVariant
     isOn?: boolean
+    color?: ButtonColor
 }
 
 export type NeutralButtonProps =
@@ -13,16 +16,22 @@ export type NeutralButtonProps =
     & AdditionalProps
 
 
-
+const colorToBg: Record<ButtonColor, string> = {
+    RED: styleClassName.bgRed,
+    YELLOW: styleClassName.bgYellow,
+    BLUE: styleClassName.bgBlue,
+}
     
-const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean) => {
+const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean, color?: ButtonColor) => {
     const classNameArray: string[] = [styleClassName.button]
+
+    const bg = colorToBg[color] ?? styleClassName.bgNeutral
 
     if (variant === "NEUTRAL") {
         classNameArray.push(styleClassName.buttonNeutral)
         classNameArray.push(
             isOn
-                ? styleClassName.buttonNeutralOn
+                ? `${styleClassName.fontVividInverted} ${bg}`
                 : styleClassName.buttonNeutralOff
         )
         const className = classNameArray.join(" ")
@@ -37,9 +46,9 @@ const makeButtonClassName = (variant: ButtonVariant, isOn?: boolean) => {
 }
 
 const NeutralButton = (props: NeutralButtonProps) => {
-    const { variant, isOn, children, className, ...defaultProps } = props
+    const { variant, isOn, color, children, className, ...defaultProps } = props
 
-    const baseClassName = makeButtonClassName(variant, isOn)
+    const baseClassName = makeButtonClassName(variant, isOn, color)
 
     return (
         <button {...defaultProps} className={`${className} ${baseClassName}`}>{children}</button>
