@@ -16,7 +16,13 @@ export type ReviewCheckGroupedByPage = Record<number, ReviewCheck[]>
 /** bookId: review check array */
 export type ReviewCheckGroupedByBook = Record<string, ReviewCheckGroupedByPage>
 
-export type ReviewCheckStatusDict = Record<number, ReviewCheckStatus>
+export interface ReviewCheckStatusInfoDict {
+    status: ReviewCheckStatus
+    page: number
+}
+
+/** review check id: {review check status, page} */
+export type ReviewCheckStatusDict = Record<number, ReviewCheckStatusInfoDict>
 
 export interface ReviewCheckSlice {
     reviewCheckGroupedByBook: ReviewCheckGroupedByBook
@@ -27,4 +33,11 @@ export interface ReviewCheckSlice {
     
     recentTwo: number[]
     addToRecentTwo: (reviewCheckId: number) => void
+
+    changeTo: ReviewCheckStatus
+    setChangeTo: (changeTo: ReviewCheckStatus) => void
+
+    initialReviewCheckStatusDict: ReviewCheckStatusDict
+    editedReviewCheckStatusDict: ReviewCheckStatusDict
+    multiSelectedReviewCheckStatusDict: ReviewCheckStatusDict
 }
