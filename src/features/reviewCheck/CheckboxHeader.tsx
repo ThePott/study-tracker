@@ -25,9 +25,9 @@ const ButtonGroup = () => {
     }
 
     return (
-        <div className="flex grow">
+        <div className="flex gap-2">
             {reviewCheckStatusArray.map((status, index) => (
-                <NeutralButton key={status} variant="NEUTRAL" isOn={isOnArray[index]} className="max-w-[100px] w-full" color={statusToColor[status]} onClick={() => handleGeneralClick(status)}>
+                <NeutralButton key={status} variant="NEUTRAL" isOn={isOnArray[index]} className="min-w-[60px]" color={statusToColor[status]} onClick={() => handleGeneralClick(status)}>
                     {statusToLabel[status]}
                 </NeutralButton>
             ))}
@@ -50,14 +50,15 @@ const CheckboxHeader = () => {
         // debugger
     }
     return (
-        <div className="flex">
+        <div className="flex relative justify-center pr-3">
             <ButtonGroup />
-            <NeutralButton variant="NEUTRAL" isOn={isMultiSelecting} onClick={toggleIsMultiSelecting} className="w-[100px]">
+            <NeutralButton variant="NEUTRAL" isOn={isMultiSelecting} onClick={toggleIsMultiSelecting} 
+            className="w-[100px] absolute right-3">
                 다중 선택
             </NeutralButton>
-            <NeutralButton variant="NEUTRAL" onClick={handleDebugClick}>
+            {/* <NeutralButton variant="NEUTRAL" onClick={handleDebugClick}>
                 DEBUG
-            </NeutralButton>
+            </NeutralButton> */}
         </div>
     )
 }

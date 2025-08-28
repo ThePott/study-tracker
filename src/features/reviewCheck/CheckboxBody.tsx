@@ -31,10 +31,12 @@ const CheckboxBody = () => {
     const entryArray = Object.entries(bookValue)
     
     return (
-        <div style={scrollbarStyle} className="flex flex-col gap-2 h-full overflow-x-hidden overflow-y-scroll">
+        <div style={scrollbarStyle} className="h-full overflow-x-hidden overflow-y-scroll">
+            <div className="flex flex-col gap-2 w-[604px] mx-auto">
             {entryArray.map((entry) => (
                 <CheckboxGroupedByPage key={entry[0]} page={Number(entry[0])} reviewCheckArray={entry[1]} statusDict={filterStatusDictByPage(statusDict, Number(entry[0]))} />
             ))}
+            </div>
         </div>
     )
 }
