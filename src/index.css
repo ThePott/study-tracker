@@ -3,6 +3,8 @@
 
 * {
     box-sizing: border-box;
+    /* transition-timing-function: "cubic-bezier(0,1.58,0,1.54)"; */
+    /* transition-timing-function: "cubic-bezier(.01,.81,.09,1.13)"; */
 }
 
 :root {

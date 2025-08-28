@@ -60,6 +60,11 @@ const createReviewCheckSlice: StateCreator<BoundState, [], [], ReviewCheckSlice>
     initialReviewCheckStatusDict: {},
     editedReviewCheckStatusDict: {},
     multiSelectedReviewCheckStatusDict: {},
+
+    isMultiSeleting: true,
+    toggleIsMultiSelecting() {
+        set((state) => ({isMultiSeleting: !state.isMultiSeleting}))
+    },
 })
 
 export default createReviewCheckSlice
