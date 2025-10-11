@@ -14,7 +14,7 @@ const getReviewCheckArray = async (setResponse: (response: ApiResponse | null) =
         }
         setResponse(response)
 
-        const url = `http://localhost:3030/review-check/${studentId}`
+        const url = `http://localhost:3456/review-check/${studentId}`
         const json = await axios.get(url)
 
         const data = json.data
@@ -74,7 +74,7 @@ const patchReviewCheckArray2 = async (studentId: string, editedIdStatusDictArray
         }
         setResponse(response)
         console.log("...patch stage 3")
-        const url = `http://localhost:3030/review-check/${studentId}`
+        const url = `http://localhost:3456/review-check/${studentId}`
         // const url = `http://localhost:3030/review-checkxxxxxxxxxx/${studentId}` // <---- 오류 일으키는 용
         const _ = await axios.patch(url, copiedEditedArray)
         console.log("...patch stage 4")

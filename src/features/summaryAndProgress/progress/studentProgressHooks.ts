@@ -14,7 +14,7 @@ const useOneBook = (bookId: string) => {
         const fetchDataArray = async () => {
             try {
                 setLoading(true)
-                const url = `http://localhost:3030/book/${bookId}`
+                const url = `http://localhost:3456/book/${bookId}`
                 const response = await axios.get(url)
                 setBook(response.data)
             } catch (err) {
@@ -39,7 +39,7 @@ const useUpdateProgressCompleted = (progressId: string) => {
         try {
             setLoading(true)
             setError(null)
-            const url = `http://localhost:3030/progress/${progressId}`
+            const url = `http://localhost:3456/progress/${progressId}`
             const _ = await axios.patch(url, { completed })
         } catch (error) {
             setError(error.message)

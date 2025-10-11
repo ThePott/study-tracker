@@ -3,10 +3,9 @@ import { handleFailure, handleSuccess } from "./axiosUtils"
 
 const getBaseURL = () => {
     // if ((import.meta as any).PROD) {
-    //     return "https://prod-study-tracker-api-sql-f600c502d1e4.herokuapp.com/"
     // }
-    // return "http://localhost:3456"
-    return "https://prod-study-tracker-api-sql-f600c502d1e4.herokuapp.com"
+    // return "https://prod-study-tracker-api-sql-f600c502d1e4.herokuapp.com/"
+    return "http://localhost:3456"
 }
 
 const axiosNeon = axios.create({

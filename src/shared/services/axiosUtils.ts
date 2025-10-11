@@ -5,7 +5,7 @@ import { Student } from "@/src/shared/interfaces/_instructorInterfaces"
 
 // 로그인 관련 --- 토큰 만료되면 아예 로그아웃시킴
 // 리프레시 토큰 있으면 -> 만료 상태 코드 오면 -> 리프레시 토큰으로 재발급 받음
-axios.defaults.baseURL = "http://localhost:3030"
+axios.defaults.baseURL = "http://localhost:3456"
 
 /** do nothing */
 export const handleSuccess = (response: AxiosResponse<any, any>) => {

@@ -13,7 +13,7 @@ const useStudentProgress = (studentId: string) => {
         const fetchDataArray = async () => {
             try {
                 setLoading(true)
-                const url = `http://localhost:3030/student/${studentId}/progress`
+                const url = `http://localhost:3456/student/${studentId}/progress`
                 const response = await axios.get(url)
                 setDataArray(response.data)
             } catch (err) {
